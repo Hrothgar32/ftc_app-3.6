@@ -69,9 +69,11 @@ public class AutonomOP_Ball extends LinearOpMode {
     private NormalizedColorSensor armSensor = null;
     private Servo armServo = null;
 
+    public boolean armSensorRead(){}
+    public boolean bottomSensorRead(){}
 
-    @Override
-    public void runOpMode() {
+    public void init(){
+        super.init();
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -93,7 +95,11 @@ public class AutonomOP_Ball extends LinearOpMode {
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+    }
 
+    @Override
+    public void runOpMode() {
+        init();
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
@@ -103,9 +109,31 @@ public class AutonomOP_Ball extends LinearOpMode {
 
             // Setup a variable for each drive wheel to save power level for telemetry
             double motorPower  = 0;
-
+            boolean onward = false;
+            armServo.setPosition(0.5);
+            /*TODO: Implement armSensor reading and bottomSensor reading
+             onward = bottomSensorRead(armSensorRead());
+             */
+            if(onward) {
+                motorPower = 0.6;
+                frontRightDrive.setPower(motorPower);
+                frontLeftDrive.setPower(motorPower);
+                backRightDrive.setPower(motorPower);
+                backLeftDrive.setPower(motorPower;
+                try {
+                    sleep(2000);
+                }catch (InterruptedException ex){
+                    telemetry.addData("Well ","shit");
+                }
+                onward = false;
+                motorPower = 0;
+                frontLeftDrive.setPower(motorPower);
+                frontRightDrive.setPower(motorPower);
+                backLeftDrive.setPower(motorPower);
+                backRightDrive.setPower(motorPower);
+                armServo.setPosition(0);
+            }
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
             telemetry.update();
         }
     }
