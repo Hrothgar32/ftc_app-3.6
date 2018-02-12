@@ -65,8 +65,8 @@ public class AutonomOP_Ball extends LinearOpMode {
     private DcMotor frontRightDrive = null;
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
-    private NormalizedColorSensor bottomSensor = null;
-    private NormalizedColorSensor armSensor = null;
+    private ColorSensor bottomSensor = null;
+    private ColorSensor armSensor = null;
     private Servo armServo = null;
 
     public boolean armSensorRead(){}
@@ -85,8 +85,8 @@ public class AutonomOP_Ball extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
         backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
         armServo = hardwareMap.get(Servo.class,"armServo");
-        armSensor = hardwareMap.get(NormalizedColorSensor.class, "armSensor");
-        bottomSensor = hardwareMap.get(NormalizedColorSensor.class,"bottomSensor");
+        bottomSensor = hardwareMap.colorSensor.get("bottomSensor");
+        armSensor = hardwareMap.colorSensor.get("armSensor");
 
 
         // Most robots need the motor on one side to be reversed to drive forward
