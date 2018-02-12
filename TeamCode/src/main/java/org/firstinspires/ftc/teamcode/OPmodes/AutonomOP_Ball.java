@@ -30,16 +30,11 @@
 package org.firstinspires.ftc.teamcode.OPmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -65,14 +60,27 @@ public class AutonomOP_Ball extends LinearOpMode {
     private DcMotor frontRightDrive = null;
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
-    private NormalizedColorSensor bottomSensor = null;
-    private NormalizedColorSensor armSensor = null;
+    private ColorSensor bottomSensor = null;
+    private ColorSensor armSensor = null;
     private Servo armServo = null;
 
-    public boolean armSensorRead(){}
-    public boolean bottomSensorRead(){}
+    private String sensorRead(ColorSensor a){
+        int redVal = a.red();
+        int blueVal = a.blue();
+        if(redVal < blueVal)
+            return "blue";
+        else
+            return  "red";
+    }
+    private boolean sensorEval(){
+        String bottomSensorRead = sensorRead(bottomSensor);
+        String armSensorRead = sensorRead(armSensor);
+        if(bottomSensorRead == armSensorRead)
+            return true;
+        return false;
+    }
 
-    public void init(){
+    public void ourInit(){
         super.init();
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -85,8 +93,8 @@ public class AutonomOP_Ball extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
         backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
         armServo = hardwareMap.get(Servo.class,"armServo");
-        armSensor = hardwareMap.get(NormalizedColorSensor.class, "armSensor");
-        bottomSensor = hardwareMap.get(NormalizedColorSensor.class,"bottomSensor");
+        bottomSensor = hardwareMap.colorSensor.get("bottomSensor");
+        armSensor = hardwareMap.colorSensor.get("armSensor");
 
 
         // Most robots need the motor on one side to be reversed to drive forward
@@ -99,7 +107,7 @@ public class AutonomOP_Ball extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        init();
+        ourInit();
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
@@ -108,23 +116,17 @@ public class AutonomOP_Ball extends LinearOpMode {
         while (opModeIsActive()) {
 
             // Setup a variable for each drive wheel to save power level for telemetry
-            double motorPower  = 0;
-            boolean onward = false;
+            double motorPower;
+            boolean onward;
             armServo.setPosition(0.5);
-            /*TODO: Implement armSensor reading and bottomSensor reading
-             onward = bottomSensorRead(armSensorRead());
-             */
+            onward = sensorEval();
             if(onward) {
                 motorPower = 0.6;
                 frontRightDrive.setPower(motorPower);
                 frontLeftDrive.setPower(motorPower);
                 backRightDrive.setPower(motorPower);
-                backLeftDrive.setPower(motorPower;
-                try {
-                    sleep(2000);
-                }catch (InterruptedException ex){
-                    telemetry.addData("Well ","shit");
-                }
+                backLeftDrive.setPower(motorPower);
+                sleep(2000);
                 onward = false;
                 motorPower = 0;
                 frontLeftDrive.setPower(motorPower);
