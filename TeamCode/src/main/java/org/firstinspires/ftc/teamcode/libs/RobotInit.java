@@ -1,5 +1,11 @@
 package org.firstinspires.ftc.teamcode.libs;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 /**
  * Created by Vsbi on 2/12/2018. (RoboCorp RO084)
  *
@@ -22,3 +28,39 @@ package org.firstinspires.ftc.teamcode.libs;
         * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         * SOFTWARE.
         */
+
+public class RobotInit{
+    public ElapsedTime runtime = new ElapsedTime();
+    public DcMotor frontLeftDrive = null;
+    public DcMotor frontRightDrive = null;
+    public DcMotor backLeftDrive = null;
+    public DcMotor backRightDrive = null;
+    public ColorSensor bottomSensor = null;
+    public ColorSensor armSensor = null;
+    public Servo armServo = null;
+
+    HardwareMap hwMap = null;
+
+    public RobotInit(){}
+    public void init(HardwareMap ahwMap){
+        hwMap = ahwMap;
+        frontLeftDrive = hwMap.dcMotor.get("frontLeftDrive");
+        frontRightDrive = hwMap.dcMotor.get("frontRightDrive");
+        backLeftDrive = hwMap.dcMotor.get("backLeftDrive");
+        backRightDrive = hwMap.dcMotor.get("backRightDrive");
+        bottomSensor = hwMap.colorSensor.get("bottomSensor");
+        armSensor = hwMap.colorSensor.get("armSensor");
+        armServo = hwMap.servo.get("armServo");
+
+        frontRightDrive.setPower(0);
+        frontLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+    }
+}

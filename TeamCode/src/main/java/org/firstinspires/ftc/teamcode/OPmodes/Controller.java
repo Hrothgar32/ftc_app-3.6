@@ -28,6 +28,7 @@ public class Controller extends LinearOpMode {
     private DcMotor backRightDrive = null;
     private DcMotor frontLeftDrive = null;
     private DcMotor frontRightDrive = null;
+    private DcMotor armMotor = null;
 
     @Override
     public void runOpMode() {
@@ -41,6 +42,7 @@ public class Controller extends LinearOpMode {
         backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
         frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
+        armMotor = hardwareMap.get(DcMotor.class,"armMotor");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
