@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode.OPmodes;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -74,7 +76,10 @@ public class AutonomOP_Ball extends LinearOpMode {
     }
     private boolean sensorEval(){
         String bottomSensorRead = sensorRead(bottomSensor);
+        telemetry.addData("Platform color:",bottomSensorRead);
         String armSensorRead = sensorRead(armSensor);
+        telemetry.addData("Ball color:",armSensorRead);
+        boolean update = telemetry.update();
         if(bottomSensorRead == armSensorRead)
             return true;
         return false;
@@ -93,9 +98,10 @@ public class AutonomOP_Ball extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
         backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
         armServo = hardwareMap.get(Servo.class,"armServo");
-        bottomSensor = hardwareMap.colorSensor.get("bottomSensor");
-        armSensor = hardwareMap.colorSensor.get("armSensor");
+        bottomSensor = hardwareMap.get(ColorSensor.class,"bottomSensor");
+        armSensor = hardwareMap.get(ColorSensor.class, "armSensor");
 
+        armServo.setDirection(Servo.Direction.REVERSE);
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -120,6 +126,7 @@ public class AutonomOP_Ball extends LinearOpMode {
             boolean onward;
             armServo.setPosition(0.5);
             onward = sensorEval();
+            /*
             if(onward) {
                 motorPower = 0.6;
                 frontRightDrive.setPower(motorPower);
@@ -134,7 +141,7 @@ public class AutonomOP_Ball extends LinearOpMode {
                 backLeftDrive.setPower(motorPower);
                 backRightDrive.setPower(motorPower);
                 armServo.setPosition(0);
-            }
+            }*/
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
         }
