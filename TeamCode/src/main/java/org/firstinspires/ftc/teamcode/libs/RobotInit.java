@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.libs;
 
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -35,21 +35,18 @@ public class RobotInit{
     public DcMotor frontRightDrive = null;
     public DcMotor backLeftDrive = null;
     public DcMotor backRightDrive = null;
-    public ColorSensor bottomSensor = null;
-    public ColorSensor armSensor = null;
+    public NormalizedColorSensor armSensor = null;
     public Servo armServo = null;
 
     HardwareMap hwMap = null;
 
-    public RobotInit(){}
     public void init(HardwareMap ahwMap){
         hwMap = ahwMap;
         frontLeftDrive = hwMap.dcMotor.get("frontLeftDrive");
         frontRightDrive = hwMap.dcMotor.get("frontRightDrive");
         backLeftDrive = hwMap.dcMotor.get("backLeftDrive");
         backRightDrive = hwMap.dcMotor.get("backRightDrive");
-        bottomSensor = hwMap.colorSensor.get("bottomSensor");
-        armSensor = hwMap.colorSensor.get("armSensor");
+        armSensor = hwMap.get(NormalizedColorSensor.class, "armSensor");
         armServo = hwMap.servo.get("armServo");
 
         frontRightDrive.setPower(0);
@@ -57,10 +54,17 @@ public class RobotInit{
         backRightDrive.setPower(0);
         backLeftDrive.setPower(0);
 
+        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+        frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
+
         backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
 
     }
 }

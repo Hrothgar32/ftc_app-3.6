@@ -29,14 +29,16 @@
 
 package org.firstinspires.ftc.teamcode.OPmodes;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 
 /**
@@ -56,64 +58,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //@Disabled
 public class AutonomOP_Ball extends LinearOpMode {
 
-    // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontLeftDrive = null;
-    private DcMotor frontRightDrive = null;
-    private DcMotor backLeftDrive = null;
-    private DcMotor backRightDrive = null;
-    private ColorSensor bottomSensor = null;
-    private ColorSensor armSensor = null;
-    private Servo armServo = null;
-
-    private String sensorRead(ColorSensor a){
-        int redVal = a.red();
-        int blueVal = a.blue();
-        if(redVal < blueVal)
-            return "blue";
-        else
-            return  "red";
-    }
-    private boolean sensorEval(){
-        String bottomSensorRead = sensorRead(bottomSensor);
-        telemetry.addData("Platform color:",bottomSensorRead);
-        String armSensorRead = sensorRead(armSensor);
-        telemetry.addData("Ball color:",armSensorRead);
-        boolean update = telemetry.update();
-        if(bottomSensorRead == armSensorRead)
-            return true;
-        return false;
-    }
-
-    public void ourInit(){
-        super.init();
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-        frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
-        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
-        backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
-        backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
-        armServo = hardwareMap.get(Servo.class,"armServo");
-        bottomSensor = hardwareMap.get(ColorSensor.class,"bottomSensor");
-        armSensor = hardwareMap.get(ColorSensor.class, "armSensor");
-
-        armServo.setDirection(Servo.Direction.REVERSE);
-
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
-        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
-    }
+    private RobotInit robot;
+    HardwareMap hwMap;
 
     @Override
     public void runOpMode() {
-        ourInit();
+        robot = new RobotInit();
+        robot.init(hwMap);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
@@ -125,7 +76,6 @@ public class AutonomOP_Ball extends LinearOpMode {
             double motorPower;
             boolean onward;
             armServo.setPosition(0.5);
-            onward = sensorEval();
             /*
             if(onward) {
                 motorPower = 0.6;
