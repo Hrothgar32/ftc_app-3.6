@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
+import com.qualcomm.hardware.lynx.LynxI2cColorRangeSensor;
 
 /**
  * Created by Vsbi on 2/12/2018.
@@ -30,10 +31,11 @@ public class ColorSensorTest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "Test");
+
         waitForStart();
 
         while (opModeIsActive()) {
+
             NormalizedRGBA colors = colorSensor.getNormalizedColors();
             Color.colorToHSV(colors.toColor(), hsvValues);
             telemetry.addLine()
