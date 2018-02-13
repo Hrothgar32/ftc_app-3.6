@@ -97,12 +97,10 @@ public class AutonomOP_Ball extends LinearOpMode {
             robot.setMotorPower(1);
             try {
                 Thread.sleep(1000);
-            }catch (InterruptedException ex){
-                telemetry.addData("Error","Nono");
+            } catch (InterruptedException ex) {
+                telemetry.addData("Error", "Nono");
             }
-        }
-        else {
-
+            robot.setMotorPower(0);
         }
         // run until the end of the match (driver presses STOP)
         while(opModeIsActive()) {
