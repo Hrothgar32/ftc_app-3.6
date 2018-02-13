@@ -37,8 +37,16 @@ public class RobotInit{
     public DcMotor backRightDrive = null;
     public NormalizedColorSensor armSensor = null;
     public Servo armServo = null;
-
+    private double motorPower;
     HardwareMap hwMap = null;
+
+    public void setMotorPower(int power){
+        motorPower = power;
+        frontRightDrive.setPower(power);
+        frontLeftDrive.setPower(power);
+        backRightDrive.setPower(power);
+        backLeftDrive.setPower(power);
+    }
 
     public void init(HardwareMap ahwMap){
         hwMap = ahwMap;
@@ -63,8 +71,5 @@ public class RobotInit{
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-
     }
 }
