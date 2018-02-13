@@ -29,14 +29,14 @@
 
 package org.firstinspires.ftc.teamcode.OPmodes;
 
+
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
@@ -61,39 +61,52 @@ public class AutonomOP_Ball extends LinearOpMode {
     private RobotInit robot;
     HardwareMap hwMap;
 
+    private boolean readJewelColor(){
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
+        float[] hsvValues = new float[3];
+        final float values[] = hsvValues;
+        NormalizedRGBA colors = robot.armSensor.getNormalizedColors();
+        Color.colorToHSV(colors.toColor(), hsvValues);
+        float max = Math.max(Math.max(Math.max(colors.red, colors.green), colors.blue), colors.alpha);
+        colors.red /= max;
+        colors.green /= max;
+        colors.blue /= max;
+        int color = colors.toColor();
+        if(Color.red(color) > Color.blue(color))
+            return true;
+        else
+            return false;
+    }
+
     @Override
     public void runOpMode() {
         robot = new RobotInit();
         robot.init(hwMap);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        runtime.reset();
+        robot.armServo.setPosition(0.5);
+        boolean forward = readJewelColor();
+        if(forward) {
+            robot.frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
+            robot.backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+            robot.frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+            robot.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
+            robot.setMotorPower(1);
+            try {
+                Thread.sleep(1000);
+            }catch (InterruptedException ex){
+                telemetry.addData("Error","Nono");
+            }
+        }
+        else {
 
+        }
         // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
+        while(opModeIsActive()) {
 
-            // Setup a variable for each drive wheel to save power level for telemetry
-            double motorPower;
-            boolean onward;
-            armServo.setPosition(0.5);
-            /*
-            if(onward) {
-                motorPower = 0.6;
-                frontRightDrive.setPower(motorPower);
-                frontLeftDrive.setPower(motorPower);
-                backRightDrive.setPower(motorPower);
-                backLeftDrive.setPower(motorPower);
-                sleep(2000);
-                onward = false;
-                motorPower = 0;
-                frontLeftDrive.setPower(motorPower);
-                frontRightDrive.setPower(motorPower);
-                backLeftDrive.setPower(motorPower);
-                backRightDrive.setPower(motorPower);
-                armServo.setPosition(0);
-            }*/
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.update();
         }
     }
 }
