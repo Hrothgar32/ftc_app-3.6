@@ -67,7 +67,6 @@ public class AutonomOP_Ball extends LinearOpMode {
         }catch (InterruptedException ex){
         }
         float[] hsvValues = new float[3];
-        final float values[] = hsvValues;
         NormalizedRGBA colors = robot.armSensor.getNormalizedColors();
         Color.colorToHSV(colors.toColor(), hsvValues);
         float max = Math.max(Math.max(Math.max(colors.red, colors.green), colors.blue), colors.alpha);
