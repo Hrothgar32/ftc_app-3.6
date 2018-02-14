@@ -1,5 +1,6 @@
 This GitHub repository contains the source code that is used to build an Android app to control a First Tech Challenge competition.
-For further information refer to the original FTC repository: https://github.com/ftctechnh/ftc_app
+For further information refer to the original FTC repository since no changes were made in the application other than adding our own TeamCode:
+https://github.com/ftctechnh/ftc_app
 
 
 This repository contains the code used by RoboCorp (RO084) FTC team in the 2017-2018 season.
