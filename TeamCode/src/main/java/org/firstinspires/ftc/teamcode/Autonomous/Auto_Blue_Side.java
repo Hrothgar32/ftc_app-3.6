@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.OPmodes;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 
 import android.graphics.Color;
@@ -35,7 +35,6 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
@@ -56,10 +55,9 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 @Autonomous(name="AutonomOP_Ball", group="Linear Opmode")
 //@Disabled
-public class AutonomOP_Ball extends LinearOpMode {
+public class Auto_Blue_Side extends LinearOpMode {
 
     private RobotInit robot;
-    HardwareMap hwMap;
 
     private boolean readJewelColor(){
         try{
@@ -83,7 +81,7 @@ public class AutonomOP_Ball extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot = new RobotInit();
-        robot.init(hwMap);
+        robot.init(hardwareMap, true);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         robot.armServo.setPosition(0.5);
@@ -101,6 +99,21 @@ public class AutonomOP_Ball extends LinearOpMode {
             }
             robot.setMotorPower(0);
         }
+        else{
+            robot.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
+            robot.frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+            robot.backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+            robot.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+            robot.setMotorPower(1);
+            try {
+                Thread.sleep(1000);
+            }catch (InterruptedException ex){
+                telemetry.addData("Error","Nono");
+            }
+            robot.setMotorPower(0);
+        }
+        robot.vufModul.identifyVuMark();
+
         // run until the end of the match (driver presses STOP)
         while(opModeIsActive()) {
 

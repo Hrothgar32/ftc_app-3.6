@@ -6,6 +6,13 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+
 /**
  * Created by Vsbi on 2/12/2018. (RoboCorp RO084)
  *
@@ -37,6 +44,8 @@ public class RobotInit{
     public DcMotor backRightDrive = null;
     public NormalizedColorSensor armSensor = null;
     public Servo armServo = null;
+    public RoboVuforia vufModul = null;
+    public DcMotor armMotor = null;
     private double motorPower;
     HardwareMap hwMap = null;
 
@@ -48,7 +57,7 @@ public class RobotInit{
         backLeftDrive.setPower(power);
     }
 
-    public void init(HardwareMap ahwMap){
+    public void init(HardwareMap ahwMap, boolean isAuto){
         hwMap = ahwMap;
         frontLeftDrive = hwMap.dcMotor.get("frontLeftDrive");
         frontRightDrive = hwMap.dcMotor.get("frontRightDrive");
@@ -71,5 +80,35 @@ public class RobotInit{
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if(isAuto)
+            vufModul = new RoboVuforia();
     }
+
+    public class RoboVuforia {
+        public static final String TAG = "Vuforia VuMark Sample";
+        private OpenGLMatrix lastLocation = null;
+        private VuforiaLocalizer vuforia = null;
+        private VuforiaTrackables relicTrackables = null;
+        private VuforiaTrackable relicTemplate = null;
+        public RoboVuforia() {
+            int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
+            VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+            String vufo = "AX6TvX3/////AAAAme1lQHFynkbdlSTlhf4eut5N0mWxBDe/ufwa7KQerU+hD7vx8RPtAsWGmx3pBM3cJkLf3qQedXpj2j9nYGnDx6hA1mpKJlzIxAN1jkC4hmMkNZEHrnai5jf0cIWLmCPMUuxF6QCgCgUwZAVYTfkrZa7k/ocgcM1P4CfMfFbzI/qxsNqc2xhd1sGWlH9bKQoacSLKzzE0mrlxwKMYAimju4Pez73i68R2tFXh4GQnnHfMjJk+8qWeDNn03y0obTD2S0IeaYPsNf8TUASkTyCVLYbzI0WyRWvy0Tq5TMN3GE6wrnGt9PnsXji3HuhX6pBKikOXYjMzgrVIyO/L8+UAexRZfzbq/T83GI5LjEMx/ro3";
+            parameters.vuforiaLicenseKey = vufo;
+            parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+            this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+            relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+            relicTemplate = relicTrackables.get(0);
+            relicTemplate.setName("relicVuMarkTemplate");
+            relicTrackables.activate();
+        }
+        public void identifyVuMark(){
+            while(true) {
+                RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+                if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+                }
+            }
+        }
+    }
+
 }
