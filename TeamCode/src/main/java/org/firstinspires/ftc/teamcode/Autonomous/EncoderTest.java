@@ -31,12 +31,11 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
         robot = new RobotInit();
         robot.init(hardwareMap, true);
 
-        //getting position for testing porpusies
         telemetry.addLine()
                 .addData("backLeft position", robot.backLeftDrive.getCurrentPosition())
                 .addData("backRight position", robot.backRightDrive.getCurrentPosition())
                 .addData("frontLeft position", robot.frontLeftDrive.getCurrentPosition())
-                .addData("frontRight position", robot.frontRightDrive.getCurrentPosition());.
+                .addData("frontRight position", robot.frontRightDrive.getCurrentPosition());
         telemetry.update();
 
         //reseting encoders
