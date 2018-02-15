@@ -1,9 +1,10 @@
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+package org.firstinspires.ftc.teamcode.OPmodes;
+
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 
 /**
@@ -23,12 +24,7 @@ import com.qualcomm.robotcore.util.Range;
 public class Controller extends LinearOpMode {
 
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor backLeftDrive = null;
-    private DcMotor backRightDrive = null;
-    private DcMotor frontLeftDrive = null;
-    private DcMotor frontRightDrive = null;
-    private DcMotor armMotor = null;
+    private RobotInit robot = null;
 
     @Override
     public void runOpMode() {
@@ -38,10 +34,8 @@ public class Controller extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        backLeftDrive  = hardwareMap.get(DcMotor.class, "backLeftDrive");
-        backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
-        frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
-        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
+        robot = new RobotInit();
+        robot.init(hardwareMap,false);
      //   armMotor = hardwareMap.get(DcMotor.class,"armMotor");
 
         // Most robots need the motor on one side to be reversed to drive forward
@@ -49,33 +43,30 @@ public class Controller extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        runtime.reset();
 
         // run until the end of the match (driver presses Sfront)
         while (opModeIsActive()) {
-            backLeftDrive.setPower(gamepad1.right_stick_y);
-            backRightDrive.setPower(gamepad1.right_stick_y);
-            frontLeftDrive.setPower(gamepad1.right_stick_y);
-            frontRightDrive.setPower(gamepad1.right_stick_y);
+            robot.backLeftDrive.setPower(gamepad1.right_stick_y);
+            robot.backRightDrive.setPower(gamepad1.right_stick_y);
+            robot.frontLeftDrive.setPower(gamepad1.right_stick_y);
+            robot.frontRightDrive.setPower(gamepad1.right_stick_y);
 
             //telemetry.addData("Power",gamepad1.right_stick_y );
             //telemetry.update();
             if(gamepad1.right_stick_x > 0){
-                backRightDrive.setPower(gamepad1.right_stick_x);
-                backLeftDrive.setPower(gamepad1.right_stick_x);
-                frontLeftDrive.setPower(gamepad1.right_stick_x);
-                frontRightDrive.setPower(gamepad1.right_stick_x);
+                robot.backRightDrive.setPower(gamepad1.right_stick_x);
+                robot.backLeftDrive.setPower(gamepad1.right_stick_x);
+                robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
+                robot.frontRightDrive.setPower(gamepad1.right_stick_x);
 
             }
             if(gamepad1.right_stick_x < 0){
-                backRightDrive.setPower(gamepad1.right_stick_x);
-                backLeftDrive.setPower(gamepad1.right_stick_x);
-                frontLeftDrive.setPower(gamepad1.right_stick_x);
-                frontRightDrive.setPower(gamepad1.right_stick_x);
+                robot.backRightDrive.setPower(gamepad1.right_stick_x);
+                robot.backLeftDrive.setPower(gamepad1.right_stick_x);
+                robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
+                robot.frontRightDrive.setPower(gamepad1.right_stick_x);
 
             }
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.update();
         }
     }
 }

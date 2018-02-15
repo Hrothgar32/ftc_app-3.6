@@ -34,7 +34,6 @@ import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
@@ -106,8 +105,8 @@ public class Auto_Blue_Side extends LinearOpMode {
         colors.green /= max;
         colors.blue /= max;
         int color = colors.toColor();
-            telemetry.addData("Blue color: ", Color.blue(color));
-            telemetry.addData("Red color: ", Color.red(color));
+        telemetry.addData("Blue color: ", Color.blue(color));
+        telemetry.addData("Red color: ", Color.red(color));
 
         /*
         if(Color.red(color) > Color.blue(color))
@@ -132,7 +131,8 @@ public class Auto_Blue_Side extends LinearOpMode {
         }
         */
         robot.armServo.setPosition(0.8);
-        sleep(1000);
+        sleep(5000);
+        telemetry.addData("So"," it begins.");
         readJewelColor();
         /*boolean forward = readJewelColor();
         if(forward) {
