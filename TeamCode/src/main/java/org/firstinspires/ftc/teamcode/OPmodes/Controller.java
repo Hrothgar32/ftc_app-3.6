@@ -42,7 +42,7 @@ public class Controller extends LinearOpMode {
         backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
         frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
-        armMotor = hardwareMap.get(DcMotor.class,"armMotor");
+     //   armMotor = hardwareMap.get(DcMotor.class,"armMotor");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -53,24 +53,25 @@ public class Controller extends LinearOpMode {
 
         // run until the end of the match (driver presses Sfront)
         while (opModeIsActive()) {
-            frontLeftDrive.setPower(gamepad1.right_stick_y);
-            frontRightDrive.setPower(gamepad1.right_stick_y);
             backLeftDrive.setPower(gamepad1.right_stick_y);
             backRightDrive.setPower(gamepad1.right_stick_y);
+            frontLeftDrive.setPower(gamepad1.right_stick_y);
+            frontRightDrive.setPower(gamepad1.right_stick_y);
+
             //telemetry.addData("Power",gamepad1.right_stick_y );
             //telemetry.update();
             if(gamepad1.right_stick_x > 0){
-                frontLeftDrive.setPower(-gamepad1.right_stick_x);
-                backLeftDrive.setPower(-gamepad1.right_stick_x);
-                frontRightDrive.setPower(gamepad1.right_stick_x);
                 backRightDrive.setPower(gamepad1.right_stick_x);
+                backLeftDrive.setPower(gamepad1.right_stick_x);
+                frontLeftDrive.setPower(gamepad1.right_stick_x);
+                frontRightDrive.setPower(gamepad1.right_stick_x);
 
             }
             if(gamepad1.right_stick_x < 0){
-                frontLeftDrive.setPower(-gamepad1.right_stick_x);
-                backLeftDrive.setPower(-gamepad1.right_stick_x);
-                frontRightDrive.setPower(gamepad1.right_stick_x);
                 backRightDrive.setPower(gamepad1.right_stick_x);
+                backLeftDrive.setPower(gamepad1.right_stick_x);
+                frontLeftDrive.setPower(gamepad1.right_stick_x);
+                frontRightDrive.setPower(gamepad1.right_stick_x);
 
             }
             telemetry.addData("Status", "Run Time: " + runtime.toString());
