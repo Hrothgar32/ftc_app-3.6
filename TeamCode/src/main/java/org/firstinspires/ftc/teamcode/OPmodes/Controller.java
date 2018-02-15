@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.libs.DriveMode;
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 
@@ -24,6 +25,47 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 public class Controller extends LinearOpMode {
 
     private RobotInit robot = null;
+    private void tankDrive(){
+      forwardDrive();
+      turnDrive();
+    }
+
+    private void forwardDrive(){
+        robot.backLeftDrive.setPower(gamepad1.right_stick_y);
+        robot.backRightDrive.setPower(gamepad1.right_stick_y);
+        robot.frontLeftDrive.setPower(gamepad1.right_stick_y);
+        robot.frontRightDrive.setPower(gamepad1.right_stick_y);
+    }
+
+    private void turnDrive(){
+        if(gamepad1.right_stick_x > 0){
+            robot.backRightDrive.setPower(gamepad1.right_stick_x);
+            robot.backLeftDrive.setPower(gamepad1.right_stick_x);
+            robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
+            robot.frontRightDrive.setPower(gamepad1.right_stick_x);
+        }
+        if(gamepad1.right_stick_x < 0){
+            robot.backRightDrive.setPower(gamepad1.right_stick_x);
+            robot.backLeftDrive.setPower(gamepad1.right_stick_x);
+            robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
+            robot.frontRightDrive.setPower(gamepad1.right_stick_x);
+
+        }
+    }
+
+    private void driveSelectedMode(){
+        switch (robot.driveMode){
+            case TANKDRIVE:
+                tankDrive();
+                break;
+            case TURN_ONLY:
+                turnDrive();
+                break;
+            case FORWARD_ONLY:
+                forwardDrive();
+                break;
+        }
+    }
 
     @Override
     public void runOpMode() {
@@ -35,24 +77,22 @@ public class Controller extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            robot.backLeftDrive.setPower(gamepad1.right_stick_y);
-            robot.backRightDrive.setPower(gamepad1.right_stick_y);
-            robot.frontLeftDrive.setPower(gamepad1.right_stick_y);
-            robot.frontRightDrive.setPower(gamepad1.right_stick_y);
-
-            if(gamepad1.right_stick_x > 0){
-                robot.backRightDrive.setPower(gamepad1.right_stick_x);
-                robot.backLeftDrive.setPower(gamepad1.right_stick_x);
-                robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
-                robot.frontRightDrive.setPower(gamepad1.right_stick_x);
+            if(gamepad1.x){
+                robot.driveMode = DriveMode.TANKDRIVE;
+                telemetry.addData("Drivemode changed:", " TANKDRIVE");
+                telemetry.update();
             }
-            if(gamepad1.right_stick_x < 0){
-                robot.backRightDrive.setPower(gamepad1.right_stick_x);
-                robot.backLeftDrive.setPower(gamepad1.right_stick_x);
-                robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
-                robot.frontRightDrive.setPower(gamepad1.right_stick_x);
-
+            if(gamepad1.a){
+                robot.driveMode = DriveMode.FORWARD_ONLY;
+                telemetry.addData("Drivemode changed:", " FORWARD_ONLY");
+                telemetry.update();
             }
+            if(gamepad1.b){
+                robot.driveMode = DriveMode.TURN_ONLY;
+                telemetry.addData("Drivemode changed: ", " TURN_ONLY");
+                telemetry.update();
+            }
+            driveSelectedMode();
         }
     }
 }

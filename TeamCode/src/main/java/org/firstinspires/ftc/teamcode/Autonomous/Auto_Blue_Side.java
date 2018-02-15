@@ -107,6 +107,7 @@ public class Auto_Blue_Side extends LinearOpMode {
         int color = colors.toColor();
         telemetry.addData("Blue color: ", Color.blue(color));
         telemetry.addData("Red color: ", Color.red(color));
+        telemetry.update();
 
         /*
         if(Color.red(color) > Color.blue(color))
@@ -131,8 +132,9 @@ public class Auto_Blue_Side extends LinearOpMode {
         }
         */
         robot.armServo.setPosition(0.8);
-        sleep(5000);
         telemetry.addData("So"," it begins.");
+        telemetry.update();
+        sleep(5000);
         readJewelColor();
         /*boolean forward = readJewelColor();
         if(forward) {

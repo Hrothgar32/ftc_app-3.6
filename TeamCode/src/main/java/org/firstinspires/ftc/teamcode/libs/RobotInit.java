@@ -48,7 +48,9 @@ public class RobotInit{
     public RoboVuforia vufModul = null;
     public DcMotor armMotor = null;
     private double motorPower;
+    public DriveMode driveMode = null;
     HardwareMap hwMap = null;
+
 
     public void setMotorPower(double power){
         motorPower = power;
