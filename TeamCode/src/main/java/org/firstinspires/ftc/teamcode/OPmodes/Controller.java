@@ -25,6 +25,58 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 public class Controller extends LinearOpMode {
 
     private RobotInit robot = null;
+
+
+
+
+    @Override
+    public void runOpMode() {
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        robot = new RobotInit();
+        robot.init(hardwareMap, false);
+
+        waitForStart();
+        while (opModeIsActive()) {
+            if(gamepad1.right_stick_y <=0.5&&gamepad1.right_stick_y >=-0.5)
+
+            {
+                robot.backLeftDrive.setPower(gamepad1.right_stick_y / 2);
+                robot.backRightDrive.setPower(gamepad1.right_stick_y / 2);
+                robot.frontLeftDrive.setPower(gamepad1.right_stick_y / 2);
+                robot.frontRightDrive.setPower(gamepad1.right_stick_y / 2);
+            }
+            else
+
+            {
+                robot.backLeftDrive.setPower(gamepad1.right_stick_y);
+                robot.backRightDrive.setPower(gamepad1.right_stick_y);
+                robot.frontLeftDrive.setPower(gamepad1.right_stick_y);
+                robot.frontRightDrive.setPower(gamepad1.right_stick_y);
+            }
+
+            if(gamepad1.right_stick_x <=0.5&&gamepad1.right_stick_x >=-0.5)
+
+            {
+                robot.backLeftDrive.setPower(gamepad1.right_stick_x / 2);
+                robot.backRightDrive.setPower(-gamepad1.right_stick_x / 2);
+                robot.frontLeftDrive.setPower(-gamepad1.right_stick_x / 2);
+                robot.frontRightDrive.setPower(gamepad1.right_stick_x / 2);
+            }
+            else
+
+            {
+                robot.backLeftDrive.setPower(gamepad1.right_stick_x);
+                robot.backRightDrive.setPower(-gamepad1.right_stick_x);
+                robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
+                robot.frontRightDrive.setPower(-gamepad1.right_stick_x);
+            }
+        }
+    }
+
+}
+    /*/
     private void tankDriveMode(){
       forwardDriveMode();
       turnDriveMode();
@@ -48,7 +100,7 @@ public class Controller extends LinearOpMode {
     }
 
     private void turnDriveMode(){
-        if (gamepad1.right_stick_y <= 0.5 && gamepad1.right_stick_y >= -0.5){
+        if (gamepad1.right_stick_x <= 0.5 && gamepad1.right_stick_x >= -0.5){
             robot.backLeftDrive.setPower(gamepad1.right_stick_x/2);
             robot.backRightDrive.setPower(-gamepad1.right_stick_x/2);
             robot.frontLeftDrive.setPower(-gamepad1.right_stick_x/2);
@@ -104,4 +156,5 @@ public class Controller extends LinearOpMode {
             driveSelectedMode();
         }
     }
-}
+    /*/
+
