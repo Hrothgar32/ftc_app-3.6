@@ -31,7 +31,8 @@ public class Controller extends LinearOpMode {
     }
 
     private void forwardDriveMode(){
-        if (gamepad1.right_stick_y<=0.5 && gamepad1.right_stick_y>=-0.5){
+
+        if (gamepad1.right_stick_y <= 0.5 && gamepad1.right_stick_y >= -0.5){
             robot.backLeftDrive.setPower(gamepad1.right_stick_y/2);
             robot.backRightDrive.setPower(gamepad1.right_stick_y/2);
             robot.frontLeftDrive.setPower(gamepad1.right_stick_y/2);
@@ -47,17 +48,17 @@ public class Controller extends LinearOpMode {
     }
 
     private void turnDriveMode(){
-        if (gamepad1.right_stick_y<=0.5 && gamepad1.right_stick_y>=-0.5){
-            robot.backLeftDrive.setPower(gamepad1.right_stick_y/2);
-            robot.backRightDrive.setPower(gamepad1.right_stick_y/2);
-            robot.frontLeftDrive.setPower(gamepad1.right_stick_y/2);
-            robot.frontRightDrive.setPower(gamepad1.right_stick_y/2);
+        if (gamepad1.right_stick_y <= 0.5 && gamepad1.right_stick_y >= -0.5){
+            robot.backLeftDrive.setPower(gamepad1.right_stick_x/2);
+            robot.backRightDrive.setPower(-gamepad1.right_stick_x/2);
+            robot.frontLeftDrive.setPower(-gamepad1.right_stick_x/2);
+            robot.frontRightDrive.setPower(gamepad1.right_stick_x/2);
         }
         else{
-            robot.backLeftDrive.setPower(gamepad1.right_stick_y);
-            robot.backRightDrive.setPower(gamepad1.right_stick_y);
-            robot.frontLeftDrive.setPower(gamepad1.right_stick_y);
-            robot.frontRightDrive.setPower(gamepad1.right_stick_y);
+            robot.backLeftDrive.setPower(gamepad1.right_stick_x);
+            robot.backRightDrive.setPower(-gamepad1.right_stick_x);
+            robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
+            robot.frontRightDrive.setPower(-gamepad1.right_stick_x);
         }
     }
 
