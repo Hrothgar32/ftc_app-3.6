@@ -49,7 +49,7 @@ public class RobotInit{
     private double motorPower;
     HardwareMap hwMap = null;
 
-    public void setMotorPower(int power){
+    public void setMotorPower(double power){
         motorPower = power;
         frontRightDrive.setPower(power);
         frontLeftDrive.setPower(power);

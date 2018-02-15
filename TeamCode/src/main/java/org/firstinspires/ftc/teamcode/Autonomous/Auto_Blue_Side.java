@@ -53,13 +53,49 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="AutonomOP_Ball", group="Linear Opmode")
+abstract class FTCUtiliy{
+    public static  double average(int[] array){
+        double val = 0;
+        for(int i : array)
+            val += (double) i;
+        return val/array.length;
+    }
+}
+
+
+@Autonomous(name="Auto_Blue_Side", group="Linear Opmode")
 //@Disabled
 public class Auto_Blue_Side extends LinearOpMode {
 
     private RobotInit robot;
 
-    private boolean readJewelColor(){
+    private void readJewelWithAverage(){
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
+        float[] hsvValues = new float[3];
+        int[] red = new int[5];
+        int[] blue = new int[5];
+        for(int i = 0; i < 5; i++){
+            NormalizedRGBA colors = robot.armSensor.getNormalizedColors();
+            Color.colorToHSV(colors.toColor(), hsvValues);
+            float max = Math.max(Math.max(Math.max(colors.red, colors.green), colors.blue), colors.alpha);
+            colors.red /= max;
+            colors.green /= max;
+            colors.blue /= max;
+            int color = colors.toColor();
+            red[i] = Color.red(color);
+            blue[i] = Color.blue(color);
+        }
+        double redAv = FTCUtiliy.average(red);
+        double blueAv = FTCUtiliy.average(blue);
+        while(true) {
+            telemetry.addData("Blue color: ", blueAv);
+            telemetry.addData("Red color: ", redAv);
+        }
+    }
+    private void readJewelColor(){
         try{
             Thread.sleep(1000);
         }catch (InterruptedException ex){
@@ -72,10 +108,16 @@ public class Auto_Blue_Side extends LinearOpMode {
         colors.green /= max;
         colors.blue /= max;
         int color = colors.toColor();
+        while(true) {
+            telemetry.addData("Blue color: ", Color.blue(color));
+            telemetry.addData("Red color: ", Color.red(color));
+        }
+        /*
         if(Color.red(color) > Color.blue(color))
             return true;
         else
             return false;
+           */
     }
 
     @Override
@@ -84,13 +126,23 @@ public class Auto_Blue_Side extends LinearOpMode {
         robot.init(hardwareMap, true);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        robot.armServo.setPosition(0.5);
-        boolean forward = readJewelColor();
+        /*
+        boolean vufWaiterBool = true;
+        while(vufWaiterBool == true){
+            robot.vufModul.identifyVuMark();
+            sleep(2000);
+            vufWaiterBool = false;
+        }
+        */
+        robot.armServo.setPosition(0.8);
+        sleep(1000);
+        readJewelColor();
+        /*boolean forward = readJewelColor();
         if(forward) {
             robot.frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
             robot.backRightDrive.setDirection(DcMotor.Direction.REVERSE);
             robot.frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-            robot.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
+            robot.backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
             robot.setMotorPower(1);
             try {
                 Thread.sleep(1000);
@@ -111,8 +163,8 @@ public class Auto_Blue_Side extends LinearOpMode {
                 telemetry.addData("Error","Nono");
             }
             robot.setMotorPower(0);
-        }
-        robot.vufModul.identifyVuMark();
+        }*/
+
 
         // run until the end of the match (driver presses STOP)
         while(opModeIsActive()) {
