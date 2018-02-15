@@ -30,6 +30,13 @@ public class Controller extends LinearOpMode {
       turnDriveMode();
     }
 
+    private void driveTelemetry(){
+        telemetry.addData("frontLeftDrive pos:", robot.frontLeftDrive.getCurrentPosition());
+        telemetry.addData("frontRightDrive pos: ", robot.frontLeftDrive.getCurrentPosition());
+        telemetry.addData("backLeftDrive pos: ",robot.backLeftDrive.getCurrentPosition());
+        telemetry.addData("backRightDrive pos: ", robot.backRightDrive.getCurrentPosition());
+    }
+
     private void forwardDriveMode(){
 
         if (gamepad1.right_stick_y <= 0.5 && gamepad1.right_stick_y >= -0.5){
@@ -89,19 +96,18 @@ public class Controller extends LinearOpMode {
             if(gamepad1.x){
                 robot.driveMode = DriveMode.TANKDRIVE;
                 telemetry.addData("Drivemode changed:", " TANKDRIVE");
-                telemetry.update();
             }
             if(gamepad1.a){
                 robot.driveMode = DriveMode.FORWARD_ONLY;
                 telemetry.addData("Drivemode changed:", " FORWARD_ONLY");
-                telemetry.update();
             }
             if(gamepad1.b){
                 robot.driveMode = DriveMode.TURN_ONLY;
                 telemetry.addData("Drivemode changed: ", " TURN_ONLY");
-                telemetry.update();
             }
             driveSelectedMode();
+            driveTelemetry();
+            telemetry.update();
         }
     }
 }
