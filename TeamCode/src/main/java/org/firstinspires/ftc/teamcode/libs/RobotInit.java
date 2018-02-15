@@ -107,10 +107,17 @@ public class RobotInit{
             relicTemplate.setName("relicVuMarkTemplate");
             relicTrackables.activate();
         }
-        public void identifyVuMark(){
+        public String identifyVuMark(){
             while(true) {
                 RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-                if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+                if (vuMark == RelicRecoveryVuMark.CENTER) {
+                    return "center";
+                }
+                else if(vuMark == RelicRecoveryVuMark.LEFT){
+                    return "left";
+                }
+                else if(vuMark == RelicRecoveryVuMark.RIGHT){
+                    return "right";
                 }
             }
         }
