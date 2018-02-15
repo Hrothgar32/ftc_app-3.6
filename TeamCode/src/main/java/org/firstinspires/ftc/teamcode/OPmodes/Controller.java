@@ -26,94 +26,41 @@ public class Controller extends LinearOpMode {
 
     private RobotInit robot = null;
 
-
-
-
-    @Override
-    public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
-        robot = new RobotInit();
-        robot.init(hardwareMap, false);
-
-        waitForStart();
-        while (opModeIsActive()) {
-            if(gamepad1.right_stick_y <=0.5&&gamepad1.right_stick_y >=-0.5)
-
-            {
-                robot.backLeftDrive.setPower(gamepad1.right_stick_y / 2);
-                robot.backRightDrive.setPower(gamepad1.right_stick_y / 2);
-                robot.frontLeftDrive.setPower(gamepad1.right_stick_y / -2);
-                robot.frontRightDrive.setPower(gamepad1.right_stick_y / -2);
-            }
-            else
-
-            {
-                robot.backLeftDrive.setPower(gamepad1.right_stick_y);
-                robot.backRightDrive.setPower(gamepad1.right_stick_y);
-                robot.frontLeftDrive.setPower(gamepad1.right_stick_y);
-                robot.frontRightDrive.setPower(gamepad1.right_stick_y);
-            }
-
-            if(gamepad1.right_stick_x <=0.5&&gamepad1.right_stick_x >=-0.5)
-
-            {
-                robot.backLeftDrive.setPower(gamepad1.right_stick_x / 2);
-                robot.backRightDrive.setPower(-gamepad1.right_stick_x / 2);
-                robot.frontLeftDrive.setPower(-gamepad1.right_stick_x / 2);
-                robot.frontRightDrive.setPower(gamepad1.right_stick_x / 2);
-            }
-            else
-
-            {
-                robot.backLeftDrive.setPower(gamepad1.right_stick_x);
-                robot.backRightDrive.setPower(-gamepad1.right_stick_x);
-                robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
-                robot.frontRightDrive.setPower(-gamepad1.right_stick_x);
-            }
-        }
+    private void tankDriveMode() {
+        forwardDriveMode();
+        turnDriveMode();
     }
 
-}
-    /*/
-    private void tankDriveMode(){
-      forwardDriveMode();
-      turnDriveMode();
-    }
-
-    private void driveTelemetry(){
+    private void driveTelemetry() {
         telemetry.addData("frontLeftDrive pos:", robot.frontLeftDrive.getCurrentPosition());
         telemetry.addData("frontRightDrive pos: ", robot.frontLeftDrive.getCurrentPosition());
-        telemetry.addData("backLeftDrive pos: ",robot.backLeftDrive.getCurrentPosition());
+        telemetry.addData("backLeftDrive pos: ", robot.backLeftDrive.getCurrentPosition());
         telemetry.addData("backRightDrive pos: ", robot.backRightDrive.getCurrentPosition());
     }
 
-    private void forwardDriveMode(){
+    private void forwardDriveMode() {
 
-        if (gamepad1.right_stick_y <= 0.5 && gamepad1.right_stick_y >= -0.5){
-            robot.backLeftDrive.setPower(gamepad1.right_stick_y/2);
-            robot.backRightDrive.setPower(gamepad1.right_stick_y/2);
-            robot.frontLeftDrive.setPower(gamepad1.right_stick_y/2);
-            robot.frontRightDrive.setPower(gamepad1.right_stick_y/2);
-        }
-        else{
+        if (gamepad1.right_stick_y <= 0.5 && gamepad1.right_stick_y >= -0.5) {
+            robot.backLeftDrive.setPower(gamepad1.right_stick_y / 2);
+            robot.backRightDrive.setPower(gamepad1.right_stick_y / 2);
+            robot.frontLeftDrive.setPower(gamepad1.right_stick_y / -2);
+            robot.frontRightDrive.setPower(gamepad1.right_stick_y / -2);
+        } else {
             robot.backLeftDrive.setPower(gamepad1.right_stick_y);
             robot.backRightDrive.setPower(gamepad1.right_stick_y);
-            robot.frontLeftDrive.setPower(gamepad1.right_stick_y);
-            robot.frontRightDrive.setPower(gamepad1.right_stick_y);
+            robot.frontLeftDrive.setPower(gamepad1.right_stick_y * -1);
+            robot.frontRightDrive.setPower(gamepad1.right_stick_y * -1);
         }
 
     }
 
-    private void turnDriveMode(){
-        if (gamepad1.right_stick_x <= 0.5 && gamepad1.right_stick_x >= -0.5){
-            robot.backLeftDrive.setPower(gamepad1.right_stick_x/2);
-            robot.backRightDrive.setPower(-gamepad1.right_stick_x/2);
-            robot.frontLeftDrive.setPower(-gamepad1.right_stick_x/2);
-            robot.frontRightDrive.setPower(gamepad1.right_stick_x/2);
-        }
-        else{
+    private void turnDriveMode() {
+        if (gamepad1.right_stick_x <= 0.5 && gamepad1.right_stick_x >= -0.5) {
+            robot.backLeftDrive.setPower(gamepad1.right_stick_x / 2);
+            robot.backRightDrive.setPower(-gamepad1.right_stick_x / 2);
+            robot.frontLeftDrive.setPower(-gamepad1.right_stick_x / 2);
+            robot.frontRightDrive.setPower(gamepad1.right_stick_x / 2);
+        } else {
             robot.backLeftDrive.setPower(gamepad1.right_stick_x);
             robot.backRightDrive.setPower(-gamepad1.right_stick_x);
             robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
@@ -121,8 +68,8 @@ public class Controller extends LinearOpMode {
         }
     }
 
-    private void driveSelectedMode(){
-        switch (robot.driveMode){
+    private void driveSelectedMode() {
+        switch (robot.driveMode) {
             case TANKDRIVE:
                 tankDriveMode();
                 break;
@@ -141,19 +88,19 @@ public class Controller extends LinearOpMode {
         telemetry.update();
 
         robot = new RobotInit();
-        robot.init(hardwareMap,false);
+        robot.init(hardwareMap, false);
 
         waitForStart();
         while (opModeIsActive()) {
-            if(gamepad1.x){
+            if (gamepad1.x) {
                 robot.driveMode = DriveMode.TANKDRIVE;
                 telemetry.addData("Drivemode changed:", " TANKDRIVE");
             }
-            if(gamepad1.a){
+            if (gamepad1.a) {
                 robot.driveMode = DriveMode.FORWARD_ONLY;
                 telemetry.addData("Drivemode changed:", " FORWARD_ONLY");
             }
-            if(gamepad1.b){
+            if (gamepad1.b) {
                 robot.driveMode = DriveMode.TURN_ONLY;
                 telemetry.addData("Drivemode changed: ", " TURN_ONLY");
             }
@@ -162,5 +109,6 @@ public class Controller extends LinearOpMode {
             telemetry.update();
         }
     }
-    /*/
+}
+
 
