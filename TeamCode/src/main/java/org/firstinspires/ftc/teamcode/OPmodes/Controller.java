@@ -44,8 +44,8 @@ public class Controller extends LinearOpMode {
             {
                 robot.backLeftDrive.setPower(gamepad1.right_stick_y / 2);
                 robot.backRightDrive.setPower(gamepad1.right_stick_y / 2);
-                robot.frontLeftDrive.setPower(gamepad1.right_stick_y / 2);
-                robot.frontRightDrive.setPower(gamepad1.right_stick_y / 2);
+                robot.frontLeftDrive.setPower(gamepad1.right_stick_y / -2);
+                robot.frontRightDrive.setPower(gamepad1.right_stick_y / -2);
             }
             else
 

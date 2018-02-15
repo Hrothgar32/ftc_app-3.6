@@ -34,6 +34,7 @@ import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
@@ -67,6 +68,7 @@ abstract class FTCUtiliy{
 public class Auto_Blue_Side extends LinearOpMode {
 
     private RobotInit robot;
+    String niceVuMark;
 
     private void readJewelWithAverage(){
         try{
@@ -123,25 +125,20 @@ public class Auto_Blue_Side extends LinearOpMode {
         robot.init(hardwareMap, true);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        /*
         boolean vufWaiterBool = true;
         while(vufWaiterBool == true){
-            robot.vufModul.identifyVuMark();
+            niceVuMark = robot.vufModul.identifyVuMark();
             sleep(2000);
             vufWaiterBool = false;
         }
-        */
         robot.armServo.setPosition(0.8);
         telemetry.addData("So"," it begins.");
+        telemetry.addData("niceVuMark: ",niceVuMark);
         telemetry.update();
         sleep(5000);
         readJewelColor();
-        /*boolean forward = readJewelColor();
-        if(forward) {
-            robot.frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
-            robot.backRightDrive.setDirection(DcMotor.Direction.REVERSE);
-            robot.frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-            robot.backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+        //boolean forward = readJewelColor();
+        /*if(forward) {
             robot.setMotorPower(1);
             try {
                 Thread.sleep(1000);
