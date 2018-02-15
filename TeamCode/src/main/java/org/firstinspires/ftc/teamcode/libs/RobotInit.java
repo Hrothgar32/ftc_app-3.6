@@ -38,7 +38,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
         */
 
 public class RobotInit{
-    public ElapsedTime runtime = new ElapsedTime();
     public DcMotor frontLeftDrive = null;
     public DcMotor frontRightDrive = null;
     public DcMotor backLeftDrive = null;
@@ -47,6 +46,7 @@ public class RobotInit{
     public Servo armServo = null;
     public RoboVuforia vufModul = null;
     public DcMotor armMotor = null;
+    public DcMotor lift = null;
     private double motorPower;
     public DriveMode driveMode = null;
     HardwareMap hwMap = null;
@@ -67,8 +67,10 @@ public class RobotInit{
         frontRightDrive = hwMap.dcMotor.get("frontRightDrive");
         backLeftDrive = hwMap.dcMotor.get("backLeftDrive");
         backRightDrive = hwMap.dcMotor.get("backRightDrive");
+        armMotor = hwMap.dcMotor.get("armMotor");
         armSensor = hwMap.get(NormalizedColorSensor.class, "armSensor");
         armServo = hwMap.servo.get("armServo");
+        lift = hwMap.dcMotor.get("lift");
 
         frontRightDrive.setPower(0);
         frontLeftDrive.setPower(0);
@@ -90,7 +92,6 @@ public class RobotInit{
 
     public class RoboVuforia {
         public static final String TAG = "Vuforia VuMark Sample";
-        private OpenGLMatrix lastLocation = null;
         private VuforiaLocalizer vuforia = null;
         private VuforiaTrackables relicTrackables = null;
         private VuforiaTrackable relicTemplate = null;
