@@ -25,19 +25,19 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 public class Controller extends LinearOpMode {
 
     private RobotInit robot = null;
-    private void tankDrive(){
-      forwardDrive();
-      turnDrive();
+    private void tankDriveMode(){
+      forwardDriveMode();
+      turnDriveMode();
     }
 
-    private void forwardDrive(){
+    private void forwardDriveMode(){
         robot.backLeftDrive.setPower(gamepad1.right_stick_y);
         robot.backRightDrive.setPower(gamepad1.right_stick_y);
         robot.frontLeftDrive.setPower(gamepad1.right_stick_y);
         robot.frontRightDrive.setPower(gamepad1.right_stick_y);
     }
 
-    private void turnDrive(){
+    private void turnDriveMode(){
         if(gamepad1.right_stick_x > 0){
             robot.backRightDrive.setPower(gamepad1.right_stick_x);
             robot.backLeftDrive.setPower(gamepad1.right_stick_x);
@@ -56,13 +56,13 @@ public class Controller extends LinearOpMode {
     private void driveSelectedMode(){
         switch (robot.driveMode){
             case TANKDRIVE:
-                tankDrive();
+                tankDriveMode();
                 break;
             case TURN_ONLY:
-                turnDrive();
+                turnDriveMode();
                 break;
             case FORWARD_ONLY:
-                forwardDrive();
+                forwardDriveMode();
                 break;
         }
     }
