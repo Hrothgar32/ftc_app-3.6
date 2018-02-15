@@ -62,6 +62,7 @@ public class RobotInit{
 
     public void init(HardwareMap ahwMap, boolean isAuto){
         hwMap = ahwMap;
+        driveMode = DriveMode.TANKDRIVE;
         frontLeftDrive = hwMap.dcMotor.get("frontLeftDrive");
         frontRightDrive = hwMap.dcMotor.get("frontRightDrive");
         backLeftDrive = hwMap.dcMotor.get("backLeftDrive");
@@ -76,8 +77,8 @@ public class RobotInit{
 
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
 
         backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
