@@ -23,7 +23,6 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 @TeleOp(name="Controller", group="Linear Opmode")
 public class Controller extends LinearOpMode {
 
-    // Declare OpMode members.
     private RobotInit robot = null;
 
     @Override
@@ -31,34 +30,21 @@ public class Controller extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
         robot = new RobotInit();
         robot.init(hardwareMap,false);
-     //   armMotor = hardwareMap.get(DcMotor.class,"armMotor");
 
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-
-        // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
-        // run until the end of the match (driver presses Sfront)
         while (opModeIsActive()) {
             robot.backLeftDrive.setPower(gamepad1.right_stick_y);
             robot.backRightDrive.setPower(gamepad1.right_stick_y);
             robot.frontLeftDrive.setPower(gamepad1.right_stick_y);
             robot.frontRightDrive.setPower(gamepad1.right_stick_y);
 
-            //telemetry.addData("Power",gamepad1.right_stick_y );
-            //telemetry.update();
             if(gamepad1.right_stick_x > 0){
                 robot.backRightDrive.setPower(gamepad1.right_stick_x);
                 robot.backLeftDrive.setPower(gamepad1.right_stick_x);
                 robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
                 robot.frontRightDrive.setPower(gamepad1.right_stick_x);
-
             }
             if(gamepad1.right_stick_x < 0){
                 robot.backRightDrive.setPower(gamepad1.right_stick_x);
