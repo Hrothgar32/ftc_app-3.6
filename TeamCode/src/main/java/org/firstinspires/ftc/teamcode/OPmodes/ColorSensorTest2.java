@@ -22,22 +22,22 @@ public class ColorSensorTest2 extends LinearOpMode{
     @Override
     public void runOpMode(){
         color_sensor = hardwareMap.colorSensor.get("test");
-        color_sensor.enableLed(ison);
+        color_sensor.enableLed(false);
 
 
         waitForStart();
-        while(opModeIsActive()){
-            if(gamepad1.x) {
+        while(opModeIsActive()) {
+            if (gamepad1.x) {
                 ison = !ison;
                 color_sensor.enableLed(ison);
             }
+            telemetry.addLine()
+                    .addData("red:", color_sensor.red())
+                    .addData("green: ", color_sensor.green())
+                    .addData("blue: ", color_sensor.blue())
+                    .addData("alpha: ", color_sensor.alpha());
+            telemetry.update();
         }
-        telemetry.addLine()
-                .addData("red:", color_sensor.red())
-                .addData("green: ", color_sensor.green())
-                .addData("blue: ", color_sensor.blue())
-                .addData("alpha: ", color_sensor.alpha());
-        telemetry.update();
     }
 
 }

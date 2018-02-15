@@ -90,10 +90,8 @@ public class Auto_Blue_Side extends LinearOpMode {
         }
         double redAv = FTCUtiliy.average(red);
         double blueAv = FTCUtiliy.average(blue);
-        while(true) {
             telemetry.addData("Blue color: ", blueAv);
             telemetry.addData("Red color: ", redAv);
-        }
     }
     private void readJewelColor(){
         try{
@@ -108,10 +106,9 @@ public class Auto_Blue_Side extends LinearOpMode {
         colors.green /= max;
         colors.blue /= max;
         int color = colors.toColor();
-        while(true) {
             telemetry.addData("Blue color: ", Color.blue(color));
             telemetry.addData("Red color: ", Color.red(color));
-        }
+
         /*
         if(Color.red(color) > Color.blue(color))
             return true;
