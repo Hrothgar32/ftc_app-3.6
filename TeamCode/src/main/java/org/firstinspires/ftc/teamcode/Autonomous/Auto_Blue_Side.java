@@ -35,6 +35,7 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
@@ -94,7 +95,7 @@ public class Auto_Blue_Side extends LinearOpMode {
             telemetry.addData("Blue color: ", blueAv);
             telemetry.addData("Red color: ", redAv);
     }
-    private void readJewelColor(){
+    private boolean readJewelColor(){
         try{
             Thread.sleep(1000);
         }catch (InterruptedException ex){
@@ -110,13 +111,10 @@ public class Auto_Blue_Side extends LinearOpMode {
         telemetry.addData("Blue color: ", Color.blue(color));
         telemetry.addData("Red color: ", Color.red(color));
         telemetry.update();
-
-        /*
         if(Color.red(color) > Color.blue(color))
             return true;
         else
             return false;
-           */
     }
 
     @Override
@@ -135,10 +133,9 @@ public class Auto_Blue_Side extends LinearOpMode {
         telemetry.addData("So"," it begins.");
         telemetry.addData("niceVuMark: ",niceVuMark);
         telemetry.update();
-        sleep(5000);
-        readJewelColor();
-        //boolean forward = readJewelColor();
-        /*if(forward) {
+        sleep(3000);
+        boolean forward = readJewelColor();
+        if(forward) {
             robot.setMotorPower(1);
             try {
                 Thread.sleep(1000);
@@ -148,18 +145,14 @@ public class Auto_Blue_Side extends LinearOpMode {
             robot.setMotorPower(0);
         }
         else{
-            robot.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-            robot.frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-            robot.backRightDrive.setDirection(DcMotor.Direction.FORWARD);
-            robot.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-            robot.setMotorPower(1);
+            robot.setMotorPower(-1);
             try {
                 Thread.sleep(1000);
             }catch (InterruptedException ex){
                 telemetry.addData("Error","Nono");
             }
             robot.setMotorPower(0);
-        }*/
+        }
 
 
         // run until the end of the match (driver presses STOP)
