@@ -129,7 +129,7 @@ public class Auto_Blue_Side extends LinearOpMode {
             sleep(2000);
             vufWaiterBool = false;
         }
-        robot.armServo.setPosition(0.9);
+        robot.armServo.setPosition(0.95);
         telemetry.addData("So"," it begins.");
         telemetry.addData("niceVuMark: ",niceVuMark);
         telemetry.update();
@@ -152,6 +152,7 @@ public class Auto_Blue_Side extends LinearOpMode {
                 telemetry.addData("Error","Nono");
             }
             robot.setMotorPower(0);
+            robot.backLeftDrive.setTargetPosition(1440);
         }
 
 

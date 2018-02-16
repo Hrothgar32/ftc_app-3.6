@@ -93,10 +93,6 @@ public class Auto_RedSide extends LinearOpMode {
         robot.armServo.setPosition(0.5);
         boolean forward = readJewelColor();
         if(forward) {
-            robot.frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
-            robot.backRightDrive.setDirection(DcMotor.Direction.REVERSE);
-            robot.frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-            robot.backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
             robot.setMotorPower(1);
             try {
                 Thread.sleep(1000);
@@ -106,11 +102,7 @@ public class Auto_RedSide extends LinearOpMode {
             robot.setMotorPower(0);
         }
         else{
-            robot.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-            robot.backRightDrive.setDirection(DcMotor.Direction.FORWARD);
-            robot.frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-            robot.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-            robot.setMotorPower(1);
+            robot.setMotorPower(-1);
             try {
                 Thread.sleep(1000);
             }catch (InterruptedException ex){

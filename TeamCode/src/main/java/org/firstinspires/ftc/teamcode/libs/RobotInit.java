@@ -53,8 +53,8 @@ public class RobotInit{
 
     public void setMotorPower(double power){
         motorPower = power;
-        frontRightDrive.setPower(power);
-        frontLeftDrive.setPower(power);
+        frontRightDrive.setPower(-power);
+        frontLeftDrive.setPower(-power);
         backRightDrive.setPower(power);
         backLeftDrive.setPower(power);
     }
