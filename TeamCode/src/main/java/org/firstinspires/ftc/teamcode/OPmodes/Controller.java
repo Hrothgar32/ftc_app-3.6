@@ -52,7 +52,7 @@ public class Controller extends LinearOpMode {
             /**     Drive control    */
 
 
-            if (gamepad1.left_stick_y >= 0.5 || gamepad1.left_stick_y <= -0.5) {
+            if (gamepad1.left_stick_y >= 0.51 || gamepad1.left_stick_y <= -0.51) {
                 robot.backLeftDrive.setPower(gamepad1.left_stick_y);
                 robot.backRightDrive.setPower(gamepad1.left_stick_y);
                 robot.frontLeftDrive.setPower(-gamepad1.left_stick_y);
@@ -60,7 +60,7 @@ public class Controller extends LinearOpMode {
             }
 
             else {
-                if (gamepad1.left_stick_x >= 0.5 || gamepad1.left_stick_x <= -0.5) {
+                if (gamepad1.left_stick_x >= 0.52 || gamepad1.left_stick_x <= -0.52) {
                     robot.backLeftDrive.setPower(gamepad1.left_stick_x);
                     robot.backRightDrive.setPower(-gamepad1.left_stick_x);
                     robot.frontLeftDrive.setPower(gamepad1.left_stick_x);
