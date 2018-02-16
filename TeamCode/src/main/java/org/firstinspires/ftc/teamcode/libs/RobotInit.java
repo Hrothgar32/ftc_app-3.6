@@ -61,24 +61,28 @@ public class RobotInit{
                 frontRightDrive.setTargetPosition(tetrix*numOfBlocks);
                 backLeftDrive.setTargetPosition(-newrest*numOfBlocks);
                 backRightDrive.setTargetPosition(-newrest*numOfBlocks);
+                setMotorPower(0.5);
                 break;
             case "Backward":
                 frontLeftDrive.setTargetPosition(-tetrix*numOfBlocks);
                 frontRightDrive.setTargetPosition(-tetrix*numOfBlocks);
                 backRightDrive.setTargetPosition(newrest*numOfBlocks);
                 backLeftDrive.setTargetPosition(newrest*numOfBlocks);
+                setMotorPower(0.5);
                 break;
             case "Right":
                 frontRightDrive.setTargetPosition(tetrix*numOfBlocks);
                 frontLeftDrive.setTargetPosition(-tetrix*numOfBlocks);
                 backLeftDrive.setTargetPosition(-newrest*numOfBlocks);
                 backRightDrive.setTargetPosition(newrest*numOfBlocks);
+                setMotorPower(0.5);
                 break;
             case"Left":
                 frontRightDrive.setTargetPosition(-tetrix*numOfBlocks);
                 frontLeftDrive.setTargetPosition(tetrix*numOfBlocks);
                 backLeftDrive.setTargetPosition(newrest*numOfBlocks);
                 backRightDrive.setTargetPosition(-newrest*numOfBlocks);
+                setMotorPower(0.5);
                 break;
         }
 

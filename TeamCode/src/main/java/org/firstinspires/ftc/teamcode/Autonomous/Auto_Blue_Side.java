@@ -95,11 +95,14 @@ public class Auto_Blue_Side extends LinearOpMode {
             vufWaiterBool = false;
         }
         robot.armServo.setPosition(0.95);
+        telemetry.addData("armServo pos: ", robot.armServo.getPosition());
+        telemetry.update();
         telemetry.addData("So"," it begins.");
         telemetry.addData("niceVuMark: ",niceVuMark);
         telemetry.update();
         sleep(3000);
         boolean forward = readJewelColor();
+        /*
         if(forward) {
             robot.setMotorPower(1);
             robot.armServo.setPosition(0.4);
@@ -119,7 +122,11 @@ public class Auto_Blue_Side extends LinearOpMode {
                 telemetry.addData("Error","Nono");
             }
             robot.setMotorPower(0);
-        }
+        }*/
+        if(forward)
+            robot.setEncoderBlocks(1,"Forward");
+        else
+            robot.setEncoderBlocks(1,"Backward");
 
 
         // run until the end of the match (driver presses STOP)
