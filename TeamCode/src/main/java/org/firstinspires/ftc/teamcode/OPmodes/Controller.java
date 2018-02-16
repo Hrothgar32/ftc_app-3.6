@@ -73,11 +73,6 @@ public class Controller extends LinearOpMode {
                     robot.frontRightDrive.setPower(0);
                 }
             }
-            telemetry.addLine()
-                     .addData("y:",gamepad1.left_stick_y)
-                     .addData("Status", "Initialized")
-                     .addData("x:",gamepad1.left_stick_x);
-            telemetry.update();
 
 
             /**     Front arm control   */
@@ -113,6 +108,7 @@ public class Controller extends LinearOpMode {
             }
 
             telemetry.addLine()
+                     .addData("Status", "Initialized")
                      .addData("armMotor power:", armMotor.getPower())
                      .addData("lift power", lift.getPower());
             telemetry.update();
