@@ -50,10 +50,10 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
         robot.frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
-        robot.backLeftDrive.setTargetPosition(1440);
-        robot.backRightDrive.setTargetPosition(1440);
-        robot.frontLeftDrive.setTargetPosition(-1440);
-        robot.frontRightDrive.setTargetPosition(-1440);
+        robot.backLeftDrive.setTargetPosition(-2136);
+        robot.backRightDrive.setTargetPosition(-2136);
+        robot.frontLeftDrive.setTargetPosition(2750);
+        robot.frontRightDrive.setTargetPosition(2750);
 
         robot.setMotorPower(power);
 

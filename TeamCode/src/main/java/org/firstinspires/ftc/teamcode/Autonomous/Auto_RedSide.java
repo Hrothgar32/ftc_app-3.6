@@ -26,7 +26,6 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 
@@ -35,6 +34,7 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
@@ -53,11 +53,15 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="AutonomOP_Ball", group="Linear Opmode")
+
+
+
+@Autonomous(name="Auto_Red_Side", group="Linear Opmode")
 //@Disabled
 public class Auto_RedSide extends LinearOpMode {
 
     private RobotInit robot;
+    String niceVuMark;
 
     private boolean readJewelColor(){
         try{
@@ -72,33 +76,36 @@ public class Auto_RedSide extends LinearOpMode {
         colors.green /= max;
         colors.blue /= max;
         int color = colors.toColor();
+        telemetry.addData("Blue color: ", Color.blue(color));
+        telemetry.addData("Red color: ", Color.red(color));
+        telemetry.update();
         if(Color.red(color) < Color.blue(color))
             return true;
         else
             return false;
     }
 
+
     @Override
     public void runOpMode() {
         robot = new RobotInit();
-        robot.init(hardwareMap, true);
-        // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        robot.init(hardwareMap, true);
+
+
         boolean vufWaiterBool = true;
         while(vufWaiterBool == true){
-            robot.vufModul.identifyVuMark();
+            niceVuMark = robot.vufModul.identifyVuMark();
             sleep(2000);
             vufWaiterBool = false;
         }
-        robot.armServo.setPosition(0.5);
+        robot.armServo.setPosition(0.95);
+        telemetry.addData("niceVuMark: ",niceVuMark);
+        telemetry.update();
+        sleep(300);
         boolean forward = readJewelColor();
         if(forward) {
             robot.setMotorPower(1);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                telemetry.addData("Error", "Nono");
-            }
             robot.setMotorPower(0);
         }
         else{
@@ -109,7 +116,9 @@ public class Auto_RedSide extends LinearOpMode {
                 telemetry.addData("Error","Nono");
             }
             robot.setMotorPower(0);
+            robot.backLeftDrive.setTargetPosition(1440);
         }
+
 
         // run until the end of the match (driver presses STOP)
         while(opModeIsActive()) {
