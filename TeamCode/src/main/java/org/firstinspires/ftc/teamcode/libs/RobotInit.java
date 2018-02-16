@@ -48,7 +48,6 @@ public class RobotInit{
     public DcMotor armMotor = null;
     public DcMotor lift = null;
     private double motorPower;
-    public DriveMode driveMode = null;
     HardwareMap hwMap = null;
 
 
@@ -62,7 +61,6 @@ public class RobotInit{
 
     public void init(HardwareMap ahwMap, boolean isAuto){
         hwMap = ahwMap;
-        driveMode = DriveMode.TANKDRIVE;
         frontLeftDrive = hwMap.dcMotor.get("frontLeftDrive");
         frontRightDrive = hwMap.dcMotor.get("frontRightDrive");
         backLeftDrive = hwMap.dcMotor.get("backLeftDrive");
