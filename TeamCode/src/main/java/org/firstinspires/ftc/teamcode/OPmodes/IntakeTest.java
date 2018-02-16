@@ -43,7 +43,7 @@ public class IntakeTest extends LinearOpMode {
             }
             if(gamepad2.x){
                 liftPower = 0;
-                lift.setPower(0);
+                    lift.setPower(0);
             }
             telemetry.addLine()
                     .addData("armMotor power:", armMotor.getPower())

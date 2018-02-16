@@ -51,20 +51,19 @@ public class Controller extends LinearOpMode {
 
             /**     Drive control    */
 
-
             if (gamepad1.left_stick_y >= 0.51 || gamepad1.left_stick_y <= -0.51) {
-                robot.backLeftDrive.setPower(gamepad1.left_stick_y);
-                robot.backRightDrive.setPower(gamepad1.left_stick_y);
-                robot.frontLeftDrive.setPower(-gamepad1.left_stick_y);
-                robot.frontRightDrive.setPower(-gamepad1.left_stick_y);
+                robot.backLeftDrive.setPower(gamepad1.left_stick_y/2);
+                robot.backRightDrive.setPower(gamepad1.left_stick_y/2);
+                robot.frontLeftDrive.setPower(-gamepad1.left_stick_y/2);
+                robot.frontRightDrive.setPower(-gamepad1.left_stick_y/2);
             }
 
             else {
                 if (gamepad1.left_stick_x >= 0.52 || gamepad1.left_stick_x <= -0.52) {
-                    robot.backLeftDrive.setPower(gamepad1.left_stick_x);
-                    robot.backRightDrive.setPower(-gamepad1.left_stick_x);
-                    robot.frontLeftDrive.setPower(gamepad1.left_stick_x);
-                    robot.frontRightDrive.setPower(-gamepad1.left_stick_x);
+                    robot.backLeftDrive.setPower(gamepad1.left_stick_x/2);
+                    robot.backRightDrive.setPower(-gamepad1.left_stick_x/2);
+                    robot.frontLeftDrive.setPower(gamepad1.left_stick_x/2);
+                    robot.frontRightDrive.setPower(-gamepad1.left_stick_x/2);
                 }
                 else{
                     robot.backLeftDrive.setPower(0);
@@ -79,7 +78,7 @@ public class Controller extends LinearOpMode {
 
 
             if (gamepad1.left_bumper) {
-                armMotor.setPower(-0.25);
+                armMotor.setPower(-0.3);
             } else
                 armMotor.setPower(0);
 
@@ -110,7 +109,13 @@ public class Controller extends LinearOpMode {
             telemetry.addLine()
                      .addData("Status", "Initialized")
                      .addData("armMotor power:", armMotor.getPower())
-                     .addData("lift power", lift.getPower());
+                     .addData("lift power", lift.getPower())
+                     .addData("frontLeftDrive position: ", robot.frontLeftDrive.getCurrentPosition())
+                     .addData("frontRightDrive position: ", robot.frontRightDrive
+                             .getCurrentPosition())
+                     .addData("backLeftDrive position: ", robot.backLeftDrive.getCurrentPosition())
+                     .addData("backRightDrive position: ", robot.backRightDrive
+                             .getCurrentPosition());
             telemetry.update();
         }
     }

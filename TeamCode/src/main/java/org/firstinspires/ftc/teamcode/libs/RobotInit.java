@@ -92,6 +92,8 @@ public class RobotInit{
         backLeftDrive.setPower(power);
     }
 
+
+
     public void init(HardwareMap ahwMap, boolean isAuto){
         hwMap = ahwMap;
         frontLeftDrive = hwMap.dcMotor.get("frontLeftDrive");
