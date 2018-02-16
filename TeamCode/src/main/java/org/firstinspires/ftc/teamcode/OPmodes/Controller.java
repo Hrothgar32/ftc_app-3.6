@@ -49,69 +49,64 @@ public class Controller extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            if (gamepad1.right_stick_y <= 0.5 && gamepad1.right_stick_y >= -0.5) {
-                robot.backLeftDrive.setPower(gamepad1.right_stick_y/2);
-                robot.backRightDrive.setPower(gamepad1.right_stick_y/2);
-                robot.frontLeftDrive.setPower(-gamepad1.right_stick_y/2);
-                robot.frontRightDrive.setPower(-gamepad1.right_stick_y/2);
-            } else {
+
+            /**     Drive control    */
+
+
+            if (gamepad1.right_stick_y >= 0.5 && gamepad1.right_stick_y <= -0.5) {
                 robot.backLeftDrive.setPower(gamepad1.right_stick_y);
                 robot.backRightDrive.setPower(gamepad1.right_stick_y);
                 robot.frontLeftDrive.setPower(-gamepad1.right_stick_y);
                 robot.frontRightDrive.setPower(-gamepad1.right_stick_y);
             }
-
-
             if (gamepad1.right_stick_x >= 0.5 || gamepad1.right_stick_x <= -0.5) {
-                robot.backLeftDrive.setPower(gamepad1.right_stick_x);
-                robot.backRightDrive.setPower(-gamepad1.right_stick_x);
-                robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
-                robot.frontRightDrive.setPower(-gamepad1.right_stick_x);
+                    robot.backLeftDrive.setPower(gamepad1.right_stick_x);
+                    robot.backRightDrive.setPower(-gamepad1.right_stick_x);
+                    robot.frontLeftDrive.setPower(gamepad1.right_stick_x);
+                    robot.frontRightDrive.setPower(-gamepad1.right_stick_x);
             }
 
 
-            /** Front arm control */
+            /**     Front arm control   */
 
 
             if (gamepad1.left_bumper) {
-                    armMotor.setPower(-0.1);
-            }
-            else
+                armMotor.setPower(-0.15);
+            } else
                 armMotor.setPower(0);
 
             if (gamepad1.right_bumper) {
-                    armMotor.setPower(0.15);
+                armMotor.setPower(0.25);
 
-            }
-            else
+            } else
                 armMotor.setPower(0);
 
-            if (gamepad1.right_trigger != 0) {
-                liftPower = 0.35;
-                lift.setPower(liftPower);
-            }
+               if (gamepad1.right_trigger != 0) {
+                   liftPower = 0.35;
+                   lift.setPower(liftPower);
+               }
 
-            if(gamepad1.left_trigger!=0){
+            if (gamepad1.left_trigger != 0) {
                 liftPower = -0.1;
                 lift.setPower(liftPower);
             }
 
-            if(gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0)
+            if (gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0)
                 lift.setPower(0);
 
             if (gamepad1.x) {
                 liftPower = 0;
                 lift.setPower(0);
             }
+
             telemetry.addLine()
-                    .addData("armMotor power:", armMotor.getPower())
-                    .addData("lift power", lift.getPower());
+                     .addData("armMotor power:", armMotor.getPower())
+                     .addData("lift power", lift.getPower());
             telemetry.update();
         }
-
     }
-
 }
+
 
 
 
