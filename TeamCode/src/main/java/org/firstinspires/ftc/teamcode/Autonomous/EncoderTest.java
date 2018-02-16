@@ -27,7 +27,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
     @Override
     public void runOpMode() {
-        telemetry.addLine("1");
+        telemetry.addLine(  "1");
         robot = new RobotInit();
         robot.init(hardwareMap, true);
 
@@ -52,8 +52,8 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
         robot.backLeftDrive.setTargetPosition(1440);
         robot.backRightDrive.setTargetPosition(1440);
-        robot.frontLeftDrive.setTargetPosition(1440);
-        robot.frontRightDrive.setTargetPosition(1440);
+        robot.frontLeftDrive.setTargetPosition(-1440);
+        robot.frontRightDrive.setTargetPosition(-1440);
 
         robot.setMotorPower(power);
 
