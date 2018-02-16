@@ -34,13 +34,12 @@ public class Controller extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        telemetry.addData("Status", "Initialized");
+
         lift = hardwareMap.get(DcMotor.class, "lift");
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
 
         robot = new RobotInit();
         robot.init(hardwareMap, false);
-        telemetry.update();
 
         waitForStart();
 
@@ -53,37 +52,27 @@ public class Controller extends LinearOpMode {
             /**     Drive control    */
 
 
-            if (gamepad1.left_stick_y >= 0.4 || gamepad1.left_stick_y <= -0.4) {
-                robot.backLeftDrive.setPower(gamepad1.left_stick_y*100);
-                robot.backRightDrive.setPower(gamepad1.left_stick_y*100);
-                robot.frontLeftDrive.setPower(-gamepad1.left_stick_y*100);
-                robot.frontRightDrive.setPower(-gamepad1.left_stick_y*100);
+            if (gamepad1.left_stick_y >= 0.5 || gamepad1.left_stick_y <= -0.5) {
+                robot.backLeftDrive.setPower(gamepad1.left_stick_y);
+                robot.backRightDrive.setPower(gamepad1.left_stick_y);
+                robot.frontLeftDrive.setPower(-gamepad1.left_stick_y);
+                robot.frontRightDrive.setPower(-gamepad1.left_stick_y);
             }
 
             else {
-                robot.backLeftDrive.setPower(0);
-                robot.backRightDrive.setPower(0);
-                robot.frontLeftDrive.setPower(0);
-                robot.frontRightDrive.setPower(0);
+                if (gamepad1.left_stick_x >= 0.5 || gamepad1.left_stick_x <= -0.5) {
+                    robot.backLeftDrive.setPower(gamepad1.left_stick_x);
+                    robot.backRightDrive.setPower(-gamepad1.left_stick_x);
+                    robot.frontLeftDrive.setPower(gamepad1.left_stick_x);
+                    robot.frontRightDrive.setPower(-gamepad1.left_stick_x);
+                }
+                else{
+                    robot.backLeftDrive.setPower(0);
+                    robot.backRightDrive.setPower(0);
+                    robot.frontLeftDrive.setPower(0);
+                    robot.frontRightDrive.setPower(0);
+                }
             }
-
-            if (gamepad1.left_stick_x >= 0.4 || gamepad1.left_stick_x <= -0.4) {
-                    robot.backLeftDrive.setPower(gamepad1.left_stick_x*100);
-                    robot.backRightDrive.setPower(-gamepad1.left_stick_x*100);
-                    robot.frontLeftDrive.setPower(gamepad1.left_stick_x*100);
-                    robot.frontRightDrive.setPower(-gamepad1.left_stick_x*100);
-            }
-            else{
-                robot.backLeftDrive.setPower(0);
-                robot.backRightDrive.setPower(0);
-                robot.frontLeftDrive.setPower(0);
-                robot.frontRightDrive.setPower(0);
-            }
-
-            telemetry.addLine()
-                     .addData("y:",gamepad1.left_stick_y)
-                     .addData("x:",gamepad1.left_stick_x);
-            telemetry.update();
 
 
             /**     Front arm control   */
@@ -119,6 +108,7 @@ public class Controller extends LinearOpMode {
             }
 
             telemetry.addLine()
+                     .addData("Status", "Initialized")
                      .addData("armMotor power:", armMotor.getPower())
                      .addData("lift power", lift.getPower());
             telemetry.update();
