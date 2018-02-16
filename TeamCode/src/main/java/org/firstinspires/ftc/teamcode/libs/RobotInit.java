@@ -51,6 +51,38 @@ public class RobotInit{
     private double motorPower;
     HardwareMap hwMap = null;
 
+    public void setEncoderBlocks(int numOfBlocks, String direction){
+        final int tetrix = 2136;
+        final int newrest = 2750;
+
+        switch(direction){
+            case "Forward":
+                frontLeftDrive.setTargetPosition(tetrix*numOfBlocks);
+                frontRightDrive.setTargetPosition(tetrix*numOfBlocks);
+                backLeftDrive.setTargetPosition(-newrest*numOfBlocks);
+                backRightDrive.setTargetPosition(-newrest*numOfBlocks);
+                break;
+            case "Backward":
+                frontLeftDrive.setTargetPosition(-tetrix*numOfBlocks);
+                frontRightDrive.setTargetPosition(-tetrix*numOfBlocks);
+                backRightDrive.setTargetPosition(newrest*numOfBlocks);
+                backLeftDrive.setTargetPosition(newrest*numOfBlocks);
+                break;
+            case "Right":
+                frontRightDrive.setTargetPosition(tetrix*numOfBlocks);
+                frontLeftDrive.setTargetPosition(-tetrix*numOfBlocks);
+                backLeftDrive.setTargetPosition(-newrest*numOfBlocks);
+                backRightDrive.setTargetPosition(newrest*numOfBlocks);
+                break;
+            case"Left":
+                frontRightDrive.setTargetPosition(-tetrix*numOfBlocks);
+                frontLeftDrive.setTargetPosition(tetrix*numOfBlocks);
+                backLeftDrive.setTargetPosition(newrest*numOfBlocks);
+                backRightDrive.setTargetPosition(-newrest*numOfBlocks);
+                break;
+        }
+
+    }
 
     public void setMotorPower(double power){
         motorPower = power;
@@ -86,7 +118,7 @@ public class RobotInit{
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armServo.setPosition(0.4);
+        armServo.setPosition(0);
         if(isAuto)
             vufModul = new RoboVuforia();
     }
