@@ -37,6 +37,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
         * SOFTWARE.
         */
 
+
 public class RobotInit{
     public DcMotor frontLeftDrive = null;
     public DcMotor frontRightDrive = null;
@@ -84,6 +85,8 @@ public class RobotInit{
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        armServo.setPosition(0.4);
         if(isAuto)
             vufModul = new RoboVuforia();
     }

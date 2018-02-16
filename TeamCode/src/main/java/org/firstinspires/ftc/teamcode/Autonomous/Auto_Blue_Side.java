@@ -53,48 +53,12 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-
-abstract class FTCUtiliy{
-    public static  double average(int[] array){
-        double val = 0;
-        for(int i : array)
-            val += (double) i;
-        return val/array.length;
-    }
-}
-
-
 @Autonomous(name="Auto_Blue_Side", group="Linear Opmode")
 //@Disabled
 public class Auto_Blue_Side extends LinearOpMode {
 
     private RobotInit robot;
     String niceVuMark;
-
-    private void readJewelWithAverage(){
-        try{
-            Thread.sleep(1000);
-        }catch (InterruptedException ex){
-        }
-        float[] hsvValues = new float[3];
-        int[] red = new int[5];
-        int[] blue = new int[5];
-        for(int i = 0; i < 5; i++){
-            NormalizedRGBA colors = robot.armSensor.getNormalizedColors();
-            Color.colorToHSV(colors.toColor(), hsvValues);
-            float max = Math.max(Math.max(Math.max(colors.red, colors.green), colors.blue), colors.alpha);
-            colors.red /= max;
-            colors.green /= max;
-            colors.blue /= max;
-            int color = colors.toColor();
-            red[i] = Color.red(color);
-            blue[i] = Color.blue(color);
-        }
-        double redAv = FTCUtiliy.average(red);
-        double blueAv = FTCUtiliy.average(blue);
-            telemetry.addData("Blue color: ", blueAv);
-            telemetry.addData("Red color: ", redAv);
-    }
     private boolean readJewelColor(){
         try{
             Thread.sleep(1000);
@@ -121,6 +85,7 @@ public class Auto_Blue_Side extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotInit();
         robot.init(hardwareMap, true);
+        robot.armMotor.setPower(0.20);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         boolean vufWaiterBool = true;
@@ -137,6 +102,7 @@ public class Auto_Blue_Side extends LinearOpMode {
         boolean forward = readJewelColor();
         if(forward) {
             robot.setMotorPower(1);
+            robot.armServo.setPosition(0.4);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
@@ -146,13 +112,13 @@ public class Auto_Blue_Side extends LinearOpMode {
         }
         else{
             robot.setMotorPower(-1);
+            robot.armServo.setPosition(0.4);
             try {
                 Thread.sleep(1000);
             }catch (InterruptedException ex){
                 telemetry.addData("Error","Nono");
             }
             robot.setMotorPower(0);
-            robot.backLeftDrive.setTargetPosition(1440);
         }
 
 
