@@ -7,20 +7,20 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
+import static java.lang.Math.abs;
 
-/** Created by Rodnan 2/16/2018.
+
+/** Created by Rodnan 2/14/2018.
  *
+ * This code is made to control the robot with a controller. It has been edited several times,
+ * this is the final, most optimal code on the date of 2/16/2018.
  *
- * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
- * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
- * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
+ * This code moves the main arm, the lift, and the wheels of the robot.
  *
- * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
- * It includes all the skeletal structure that all linear OpModes contain.
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 @TeleOp(name="Controller", group="Linear Opmode")
@@ -52,18 +52,43 @@ public class Controller extends LinearOpMode {
             /**     Drive control    */
 
             if (gamepad1.left_stick_y >= 0.51 || gamepad1.left_stick_y <= -0.51) {
-                robot.backLeftDrive.setPower(gamepad1.left_stick_y/2);
-                robot.backRightDrive.setPower(gamepad1.left_stick_y/2);
-                robot.frontLeftDrive.setPower(-gamepad1.left_stick_y/2);
-                robot.frontRightDrive.setPower(-gamepad1.left_stick_y/2);
+
+                if (gamepad1.left_stick_y <= 0.8 && gamepad1.left_stick_y>= -0.8){
+                    robot.backLeftDrive.setPower(0.2 * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.backRightDrive.setPower(0.2 * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.frontLeftDrive.setPower(-0.2 * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.frontRightDrive.setPower(-0.2 * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                }
+
+                if(gamepad1.left_stick_y > 0.8 || gamepad1.left_stick_y < -0.8){
+                    robot.backLeftDrive.setPower(1* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.backRightDrive.setPower(1* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.frontLeftDrive.setPower(-1* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.frontRightDrive.setPower(-1* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                }
             }
 
             else {
+
                 if (gamepad1.left_stick_x >= 0.52 || gamepad1.left_stick_x <= -0.52) {
-                    robot.backLeftDrive.setPower(gamepad1.left_stick_x/2);
+
+                    /*/robot.backLeftDrive.setPower(gamepad1.left_stick_x/2);
                     robot.backRightDrive.setPower(-gamepad1.left_stick_x/2);
                     robot.frontLeftDrive.setPower(gamepad1.left_stick_x/2);
-                    robot.frontRightDrive.setPower(-gamepad1.left_stick_x/2);
+                    robot.frontRightDrive.setPower(-gamepad1.left_stick_x/2);/*/
+
+                    if (gamepad1.left_stick_x <= 0.8 && gamepad1.left_stick_x >= -0.8){
+                        robot.backLeftDrive.setPower(0.2 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.backRightDrive.setPower(-0.2 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.frontLeftDrive.setPower(0.2 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.frontRightDrive.setPower(-0.2 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                    }
+                    if (gamepad1.left_stick_x > 0.8 || gamepad1.left_stick_x < -0.8){
+                        robot.backLeftDrive.setPower(1 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.backRightDrive.setPower(-1 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.frontLeftDrive.setPower(1 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.frontRightDrive.setPower(-1 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                    }
                 }
                 else{
                     robot.backLeftDrive.setPower(0);
@@ -115,7 +140,8 @@ public class Controller extends LinearOpMode {
                              .getCurrentPosition())
                      .addData("backLeftDrive position: ", robot.backLeftDrive.getCurrentPosition())
                      .addData("backRightDrive position: ", robot.backRightDrive
-                             .getCurrentPosition());
+                             .getCurrentPosition())
+                     .addData("stick direction", abs(gamepad1.left_stick_x));
             telemetry.update();
         }
     }
