@@ -84,37 +84,38 @@ public class Auto_Blue_Side extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot = new RobotInit();
-        robot.init(hardwareMap, true);
-        robot.armMotor.setPower(0.20);
+
+      //  robot.armMotor.setPower(0.20);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        boolean vufWaiterBool = true;
-        while(vufWaiterBool == true){
-            niceVuMark = robot.vufModul.identifyVuMark();
-            sleep(2000);
-            vufWaiterBool = false;
-        }
-        robot.armServo.setPosition(0.9);
-        telemetry.addData("So"," it begins.");
-        telemetry.addData("niceVuMark: ",niceVuMark);
+        robot.init(hardwareMap, true);
+
+        robot.armServo.setPosition(1);
+     //   telemetry.addData("So"," it begins.");
+      //  telemetry.addData("niceVuMark: ",niceVuMark);
         telemetry.update();
         sleep(3000);
         boolean forward = readJewelColor();
         if(forward) {
-            robot.setMotorPower(1);
-            robot.armServo.setPosition(0.4);
+            robot.setMotorPower(0.7);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(50);
+            } catch (InterruptedException ex) {
+                telemetry.addData("Error", "Nono");
+            }
+            robot.armServo.setPosition(0.2);
+            try {
+                Thread.sleep(200);
             } catch (InterruptedException ex) {
                 telemetry.addData("Error", "Nono");
             }
             robot.setMotorPower(0);
         }
         else{
-            robot.setMotorPower(-1);
-            robot.armServo.setPosition(0.4);
+            robot.setMotorPower(-0.7);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(150);
+
             }catch (InterruptedException ex){
                 telemetry.addData("Error","Nono");
             }
