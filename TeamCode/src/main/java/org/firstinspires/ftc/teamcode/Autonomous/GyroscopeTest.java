@@ -51,6 +51,10 @@ public class GyroscopeTest extends LinearOpMode {
 
         while (opModeIsActive()){
             telemetry.update();
+            while(angles.thirdAngle < 90){
+                robot.setMotorPower(-0.5, "Rotation");
+                /** Ha minden igaz itt kellene addig forduljon amig a kezdeti allapotbol 90 fokot el nem fordult*/
+            }
         }
 
     }

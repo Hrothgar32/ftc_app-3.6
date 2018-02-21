@@ -97,7 +97,7 @@ public class Auto_Blue_Side extends LinearOpMode {
         sleep(3000);
         boolean forward = readJewelColor();
         if(forward) {
-            robot.setMotorPower(0.7);
+            robot.setMotorPower(0.7, "Straight");
             try {
                 Thread.sleep(50);
             } catch (InterruptedException ex) {
@@ -109,17 +109,17 @@ public class Auto_Blue_Side extends LinearOpMode {
             } catch (InterruptedException ex) {
                 telemetry.addData("Error", "Nono");
             }
-            robot.setMotorPower(0);
+            robot.setMotorPower(0, "Straight");
         }
         else{
-            robot.setMotorPower(-0.7);
+            robot.setMotorPower(-0.7, "Straight");
             try {
                 Thread.sleep(150);
 
             }catch (InterruptedException ex){
                 telemetry.addData("Error","Nono");
             }
-            robot.setMotorPower(0);
+            robot.setMotorPower(0, "Straight");
         }
 
 

@@ -84,12 +84,22 @@ public class RobotInit{
 
     }
 
-    public void setMotorPower(double power){
-        motorPower = power;
-        frontRightDrive.setPower(-power);
-        frontLeftDrive.setPower(-power);
-        backRightDrive.setPower(power);
-        backLeftDrive.setPower(power);
+    public void setMotorPower(double power, String direction){
+        switch (direction){
+            case "Straight":
+                motorPower = power;
+                frontRightDrive.setPower(-power);
+                frontLeftDrive.setPower(-power);
+                backRightDrive.setPower(power);
+                backLeftDrive.setPower(power);
+            case "Rotation":
+                motorPower = power;
+                frontRightDrive.setPower(-power);
+                frontLeftDrive.setPower(power);
+                backRightDrive.setPower(-power);
+                backLeftDrive.setPower(power);
+        }
+
     }
 
 
