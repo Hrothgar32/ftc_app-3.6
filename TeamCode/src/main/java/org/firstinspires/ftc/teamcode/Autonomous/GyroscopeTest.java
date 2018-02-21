@@ -33,7 +33,15 @@ public class GyroscopeTest extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
 
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
+
+        while (opModeIsActive()){
+            telemetry.update();
+        }
 
     }
 }
