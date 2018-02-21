@@ -8,13 +8,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 
 import java.util.Locale;
 
@@ -28,6 +24,8 @@ import java.util.Locale;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+/*TODO: Tesztelnunk kene!*/
 
 @Autonomous (name = "Gyroscope Test", group = "Test")
 public class GyroscopeTest extends LinearOpMode {
@@ -51,7 +49,7 @@ public class GyroscopeTest extends LinearOpMode {
 
         while (opModeIsActive()){
             telemetry.update();
-            while(angles.thirdAngle < 90){
+            while(angles.thirdAngle != 90){
                 robot.setMotorPower(-0.5, "Rotation");
                 /** Ha minden igaz itt kellene addig forduljon amig a kezdeti allapotbol 90 fokot el nem fordult*/
             }
