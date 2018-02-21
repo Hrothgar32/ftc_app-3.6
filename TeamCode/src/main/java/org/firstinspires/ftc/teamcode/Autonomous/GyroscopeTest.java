@@ -34,7 +34,6 @@ public class GyroscopeTest extends LinearOpMode {
     BNO055IMU imu;
 
     Orientation angles;
-    Acceleration gravity;
 
     @Override
     public void runOpMode() {
@@ -45,13 +44,16 @@ public class GyroscopeTest extends LinearOpMode {
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
+        writeTelemetry();
+
         waitForStart();
 
         while (opModeIsActive()){
-            telemetry.update();
+
             while(angles.thirdAngle != 90){
                 robot.setMotorPower(-0.5, "Rotation");
                 /** Ha minden igaz itt kellene addig forduljon amig a kezdeti allapotbol 90 fokot el nem fordult*/
+                telemetry.update();
             }
         }
 
@@ -69,7 +71,7 @@ public class GyroscopeTest extends LinearOpMode {
         telemetry.addLine()
                 .addData("Status", new Func<String>(){
                    @Override public String value(){
-                       return  imu.getCalibrationStatus().toString();
+                       return  imu.getSystemStatus().toString();
                    }
                 })
                 .addData("calib", new Func<String>() {
