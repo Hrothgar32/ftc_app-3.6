@@ -50,19 +50,13 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
         robot.frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
-        robot.backLeftDrive.setTargetPosition(1440);
-        robot.backRightDrive.setTargetPosition(1440);
-        robot.frontLeftDrive.setTargetPosition(-1440);
-        robot.frontRightDrive.setTargetPosition(-1440);
+        robot.backLeftDrive.setTargetPosition(-2136);
+        robot.backRightDrive.setTargetPosition(-2136);
+        robot.frontLeftDrive.setTargetPosition(2750);
+        robot.frontRightDrive.setTargetPosition(2750);
 
-        robot.setMotorPower(power);
-
-
-
-
-        telemetry.addLine("3");
-        waitForStart();
-        while (opModeIsActive()) {
+        robot.setMotorPower(power, "Straight");
+        while (robot.frontRightDrive.getCurrentPosition() < 2700) {
             telemetry.addLine()
                     .addData("backLeft position", robot.backLeftDrive.getCurrentPosition())
                     .addData("backRight position", robot.backRightDrive.getCurrentPosition())
@@ -70,6 +64,15 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
                     .addData("frontRight position", robot.frontRightDrive.getCurrentPosition());
             telemetry.update();
         }
+        robot.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeftDrive.setTargetPosition(-1120);
+        robot.backRightDrive.setTargetPosition(1120);
+        robot.frontLeftDrive.setTargetPosition(-1440);
+        robot.frontRightDrive.setTargetPosition(1440);
+
     }
 
 
