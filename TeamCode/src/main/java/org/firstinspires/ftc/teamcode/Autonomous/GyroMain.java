@@ -57,7 +57,7 @@ import java.util.Locale;
 
 @Autonomous(name = "Sensor: BNO055 IMU", group = "Sensor")
 @Disabled                            // Comment this out to add to the opmode list
-public class GyroscopeTest extends LinearOpMode
+public class GyroMain extends LinearOpMode
 {
 
     BNO055IMU imu;
@@ -146,6 +146,10 @@ public class GyroscopeTest extends LinearOpMode
                                         + gravity.zAccel*gravity.zAccel));
                     }
                 });
+    }
+
+    public String Angle(){
+        return formatAngle(angles.angleUnit, angles.firstAngle);
     }
 
     String formatAngle(AngleUnit angleUnit, double angle) {
