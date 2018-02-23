@@ -48,6 +48,7 @@ public class RobotInit{
     public RoboVuforia vufModul = null;
     public DcMotor armMotor = null;
     public DcMotor lift = null;
+    public Gyroscope gyroscope = null;
     private double motorPower;
     HardwareMap hwMap = null;
 
@@ -61,28 +62,28 @@ public class RobotInit{
                 frontRightDrive.setTargetPosition(tetrix*numOfBlocks);
                 backLeftDrive.setTargetPosition(-newrest*numOfBlocks);
                 backRightDrive.setTargetPosition(-newrest*numOfBlocks);
-                setMotorPower(0.5);
+                setMotorPower(0.5,"Straight");
                 break;
             case "Backward":
                 frontLeftDrive.setTargetPosition(-tetrix*numOfBlocks);
                 frontRightDrive.setTargetPosition(-tetrix*numOfBlocks);
                 backRightDrive.setTargetPosition(newrest*numOfBlocks);
                 backLeftDrive.setTargetPosition(newrest*numOfBlocks);
-                setMotorPower(0.5);
+                setMotorPower(0.5,"Straight");
                 break;
             case "Right":
                 frontRightDrive.setTargetPosition(tetrix*numOfBlocks);
                 frontLeftDrive.setTargetPosition(-tetrix*numOfBlocks);
                 backLeftDrive.setTargetPosition(-newrest*numOfBlocks);
                 backRightDrive.setTargetPosition(newrest*numOfBlocks);
-                setMotorPower(0.5);
+                setMotorPower(0.5,"Rotation");
                 break;
             case"Left":
                 frontRightDrive.setTargetPosition(-tetrix*numOfBlocks);
                 frontLeftDrive.setTargetPosition(tetrix*numOfBlocks);
                 backLeftDrive.setTargetPosition(newrest*numOfBlocks);
                 backRightDrive.setTargetPosition(-newrest*numOfBlocks);
-                setMotorPower(0.5);
+                setMotorPower(0.5,"Rotation");
                 break;
         }
 
@@ -141,6 +142,7 @@ public class RobotInit{
         armServo.setPosition(0);
         if(isAuto)
             vufModul = new RoboVuforia();
+        gyroscope = new Gyroscope(hwMap);
     }
 
     public class RoboVuforia {
