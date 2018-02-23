@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.teamcode.Autonomous.GyroMain;
+import org.firstinspires.ftc.teamcode.libs.Gyroscope;
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 /**
@@ -23,12 +23,11 @@ public class GyroTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        GyroMain GyroData = new GyroMain();
-        GyroData.composeTelemetry();
+        Gyroscope GyroData = new Gyroscope(hardwareMap);
 
         waitForStart();
 
-        double TurnAngle = Double.parseDouble(GyroData.Angle());
+        double TurnAngle = Double.parseDouble(GyroData.getAngle());
 
 
         while (opModeIsActive()){
