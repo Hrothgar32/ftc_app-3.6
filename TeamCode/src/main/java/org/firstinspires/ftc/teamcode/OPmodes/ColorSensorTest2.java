@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
   */
-@TeleOp(name = "ColorSensorTest2", group = "test")
+//@TeleOp(name = "ColorSensorTest2", group = "test")
 public class ColorSensorTest2 extends LinearOpMode{
     ColorSensor color_sensor;
     boolean ison = false;
