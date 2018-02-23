@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.libs;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -48,7 +50,6 @@ public class RobotInit{
     public RoboVuforia vufModul = null;
     public DcMotor armMotor = null;
     public DcMotor lift = null;
-    public Gyroscope gyroscope = null;
     private double motorPower;
     HardwareMap hwMap = null;
 
@@ -148,7 +149,6 @@ public class RobotInit{
         armServo.setPosition(0);
         if(isAuto)
             vufModul = new RoboVuforia();
-        gyroscope = new Gyroscope(hwMap);
     }
 
     public class RoboVuforia {

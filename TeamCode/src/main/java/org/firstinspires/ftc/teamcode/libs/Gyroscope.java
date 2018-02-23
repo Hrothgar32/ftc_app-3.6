@@ -35,10 +35,11 @@ public class Gyroscope {
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
     }
-    public String getAngle(){
+
+    public Float getAngle(){
         angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         gravity  = imu.getGravity();
-        return formatAngle(angles.angleUnit, angles.firstAngle);
+        return angles.firstAngle;
     }
 
     String formatAngle(AngleUnit angleUnit, double angle) {

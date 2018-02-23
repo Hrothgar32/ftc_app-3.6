@@ -24,17 +24,21 @@ public class GyroTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         Gyroscope GyroData = new Gyroscope(hardwareMap);
+        float TurnAngle = GyroData.getAngle();
+
+        telemetry.addData("Angle", GyroData.getAngle());
 
         waitForStart();
 
-        double TurnAngle = Double.parseDouble(GyroData.getAngle());
-
 
         while (opModeIsActive()){
-            while (TurnAngle != 90){
-                TurnAngle = Double.parseDouble(GyroData.getAngle());
+            telemetry.addData("Angle", GyroData.getAngle());
+            TurnAngle = GyroData.getAngle();
+            telemetry.update();
+           /* while (TurnAngle != 90){
+
                 robot.setMotorPower(1,"Rotation");
-            }
+            }*/
 
         }
     }
