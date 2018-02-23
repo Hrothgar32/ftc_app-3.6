@@ -32,7 +32,7 @@ public class GyroTest extends LinearOpMode {
 
         while (opModeIsActive()){
             while (TurnAngle != 90){
-                telemetry.update();
+                TurnAngle = Double.parseDouble(GyroData.getAngle());
                 robot.setMotorPower(1,"Rotation");
             }
 
