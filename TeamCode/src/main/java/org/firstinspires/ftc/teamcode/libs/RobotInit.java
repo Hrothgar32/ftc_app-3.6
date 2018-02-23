@@ -111,7 +111,13 @@ public class RobotInit{
 
     }
 
+    public void sleep(int milsec){
+        try {
+            Thread.sleep(milsec);
+        } catch (InterruptedException ex) {
 
+        }
+    }
 
     public void init(HardwareMap ahwMap, boolean isAuto){
         hwMap = ahwMap;

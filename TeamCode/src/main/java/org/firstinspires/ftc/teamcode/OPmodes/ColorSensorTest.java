@@ -23,7 +23,7 @@ import com.qualcomm.hardware.lynx.LynxI2cColorRangeSensor;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-@TeleOp(name = "ColorTest", group = "Sensor")
+//@TeleOp(name = "ColorTest", group = "Sensor")
 public class ColorSensorTest extends LinearOpMode {
     NormalizedColorSensor colorSensor = null;
     float[] hsvValues = new float[3];

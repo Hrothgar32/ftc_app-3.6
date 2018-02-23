@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by Vsbi on 2/13/2018.
  */
 
-@TeleOp(name = "IntakeTest", group = "Test")
+//@TeleOp(name = "IntakeTest", group = "Test")
 public class IntakeTest extends LinearOpMode {
     private DcMotor lift = null;
     private DcMotor armMotor = null;
