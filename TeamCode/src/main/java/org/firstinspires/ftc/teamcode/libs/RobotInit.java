@@ -3,18 +3,18 @@ package org.firstinspires.ftc.teamcode.libs;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+import org.firstinspires.ftc.teamcode.libs.Gyroscope;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import static java.lang.Math.abs;
 
 /**
  * Created by Vsbi on 2/12/2018. (RoboCorp RO084)
@@ -41,6 +41,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
 public class RobotInit{
+    private Gyroscope GyroData = null;
     public DcMotor frontLeftDrive = null;
     public DcMotor frontRightDrive = null;
     public DcMotor backLeftDrive = null;
@@ -51,6 +52,7 @@ public class RobotInit{
     public DcMotor armMotor = null;
     public DcMotor lift = null;
     private double motorPower;
+    private float TurnAngle = GyroData.getAngle();
     HardwareMap hwMap = null;
 
     public void setEncoderBlocks(int numOfBlocks, String direction){
@@ -92,8 +94,6 @@ public class RobotInit{
 
     public void setMotorPower(double power, String direction){
 
-        motorPower = power;
-
         switch (direction){
 
             case "Straight":
@@ -110,6 +110,12 @@ public class RobotInit{
 
 
 
+    }
+
+    public  void TurnX(float angle){
+        if (TurnAngle < angle-2 || TurnAngle > angle+2)
+            setMotorPower(0.2*-1*(TurnAngle / abs(TurnAngle)), "Rotation");
+        else setMotorPower(0, "Straight");
     }
 
     public void sleep(int milsec){

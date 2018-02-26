@@ -61,10 +61,10 @@ public class Controller extends LinearOpMode {
                 }
 
                 if(gamepad1.left_stick_y > 0.8 || gamepad1.left_stick_y < -0.8){
-                    robot.backLeftDrive.setPower(1* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
-                    robot.backRightDrive.setPower(1* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
-                    robot.frontLeftDrive.setPower(-1* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
-                    robot.frontRightDrive.setPower(-1* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.backLeftDrive.setPower(0.5* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.backRightDrive.setPower(0.5* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.frontLeftDrive.setPower(-0.5* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.frontRightDrive.setPower(-0.5* (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
                 }
             }
 
@@ -84,10 +84,10 @@ public class Controller extends LinearOpMode {
                         robot.frontRightDrive.setPower(-0.2 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
                     }
                     if (gamepad1.left_stick_x > 0.8 || gamepad1.left_stick_x < -0.8){
-                        robot.backLeftDrive.setPower(1 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
-                        robot.backRightDrive.setPower(-1 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
-                        robot.frontLeftDrive.setPower(1 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
-                        robot.frontRightDrive.setPower(-1 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.backLeftDrive.setPower(0.5 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.backRightDrive.setPower(-0.5 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.frontLeftDrive.setPower(0.5 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.frontRightDrive.setPower(-0.5 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
                     }
                 }
                 else{
@@ -116,7 +116,7 @@ public class Controller extends LinearOpMode {
             /**     Lift control        */
 
             if (gamepad1.right_trigger != 0) {
-                liftPower = 0.45;
+                liftPower = 0.5;
                 lift.setPower(liftPower);
             }
 

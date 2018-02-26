@@ -2,8 +2,11 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.teamcode.libs.Gyroscope;
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
+import static java.lang.Math.abs;
 
 /**
  * Created by Rodnan on 2/22/2018.
@@ -18,11 +21,12 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 @Autonomous(name = "Gyro Test", group = "Linera Opmode")
 public class GyroTest extends LinearOpMode {
 
-    private RobotInit robot;
+    private RobotInit robot = null;
 
     @Override
-    public void runOpMode() throws InterruptedException {
-
+    public void runOpMode() {
+        robot = new RobotInit();
+        robot.init(hardwareMap, false);
         Gyroscope GyroData = new Gyroscope(hardwareMap);
         float TurnAngle = GyroData.getAngle();
 
@@ -30,16 +34,14 @@ public class GyroTest extends LinearOpMode {
 
         waitForStart();
 
-
         while (opModeIsActive()){
             telemetry.addData("Angle", GyroData.getAngle());
-            TurnAngle = GyroData.getAngle();
-            telemetry.update();
-           /* while (TurnAngle != 90){
-
-                robot.setMotorPower(1,"Rotation");
-            }*/
-
+            if (TurnAngle < 88 || TurnAngle > 92) {
+                TurnAngle = GyroData.getAngle();
+                telemetry.update();
+                robot.setMotorPower(0.2*-1*(TurnAngle / abs(TurnAngle)), "Rotation");
+                if (TurnAngle>88 && TurnAngle<92) robot.setMotorPower(0, "Straight");
+            }
         }
     }
 }
