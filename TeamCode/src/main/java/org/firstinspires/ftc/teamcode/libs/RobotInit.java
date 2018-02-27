@@ -1,15 +1,29 @@
 package org.firstinspires.ftc.teamcode.libs;
 
+
+
+//imports for gyroscope
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
+
+//imports for other hardware
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.libs.Gyroscope;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+
+
+//imports for Vufoira
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
@@ -48,12 +62,58 @@ public class RobotInit{
     public DcMotor backRightDrive = null;
     public NormalizedColorSensor armSensor = null;
     public Servo armServo = null;
-    public RoboVuforia vufModul = null;
+
     public DcMotor armMotor = null;
     public DcMotor lift = null;
     private double motorPower;
-    private float TurnAngle = GyroData.getAngle();
     HardwareMap hwMap = null;
+
+
+    public RoboVuforia vufModul = null;
+    public Gyroscope gyro = null;
+
+
+
+    public void init(HardwareMap ahwMap, boolean isAuto) {
+        hwMap = ahwMap;
+        frontLeftDrive = hwMap.dcMotor.get("frontLeftDrive");
+        frontRightDrive = hwMap.dcMotor.get("frontRightDrive");
+        backLeftDrive = hwMap.dcMotor.get("backLeftDrive");
+        backRightDrive = hwMap.dcMotor.get("backRightDrive");
+        armMotor = hwMap.dcMotor.get("armMotor");
+        armSensor = hwMap.get(NormalizedColorSensor.class, "armSensor");
+        armServo = hwMap.servo.get("armServo");
+        lift = hwMap.dcMotor.get("lift");
+
+        frontRightDrive.setPower(0);
+        frontLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+
+
+        frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        armServo.setPosition(0);
+        if (isAuto) {
+            vufModul = new RoboVuforia();
+            gyro = new Gyroscope(hwMap);
+        }
+    }
+
+
+
+
+
+
+
+
 
     public void setEncoderBlocks(int numOfBlocks, String direction){
         final int tetrix = 2136;
@@ -112,11 +172,8 @@ public class RobotInit{
 
     }
 
-    public  void TurnX(float angle){
-        if (TurnAngle < angle-2 || TurnAngle > angle+2)
-            setMotorPower(0.2*-1*(TurnAngle / abs(TurnAngle)), "Rotation");
-        else setMotorPower(0, "Straight");
-    }
+
+
 
     public void sleep(int milsec){
         try {
@@ -126,36 +183,37 @@ public class RobotInit{
         }
     }
 
-    public void init(HardwareMap ahwMap, boolean isAuto){
-        hwMap = ahwMap;
-        frontLeftDrive = hwMap.dcMotor.get("frontLeftDrive");
-        frontRightDrive = hwMap.dcMotor.get("frontRightDrive");
-        backLeftDrive = hwMap.dcMotor.get("backLeftDrive");
-        backRightDrive = hwMap.dcMotor.get("backRightDrive");
-        armMotor = hwMap.dcMotor.get("armMotor");
-        armSensor = hwMap.get(NormalizedColorSensor.class, "armSensor");
-        armServo = hwMap.servo.get("armServo");
-        lift = hwMap.dcMotor.get("lift");
-
-        frontRightDrive.setPower(0);
-        frontLeftDrive.setPower(0);
-        backRightDrive.setPower(0);
-        backLeftDrive.setPower(0);
 
 
-        frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        backRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armServo.setPosition(0);
-        if(isAuto)
-            vufModul = new RoboVuforia();
+
+
+    public class Gyroscope{
+        public BNO055IMU imu;
+        public Gyroscope(HardwareMap ahwMap){
+            BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+            parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+            parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+            parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+            parameters.loggingEnabled      = true;
+            parameters.loggingTag          = "IMU";
+            parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+            imu = ahwMap.get(BNO055IMU.class, "imu");
+            imu.initialize(parameters);
+        }
+
+        public float getAngle(){
+            Orientation angles;
+            angles = imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYX,
+                    AngleUnit.DEGREES);
+            return angles.firstAngle;
+        }
+
+
     }
+
+
 
     public class RoboVuforia {
         public static final String TAG = "Vuforia VuMark Sample";
