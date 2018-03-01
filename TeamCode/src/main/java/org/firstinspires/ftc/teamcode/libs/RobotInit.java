@@ -107,14 +107,6 @@ public class RobotInit{
         }
     }
 
-
-
-
-
-
-
-
-
     public void setEncoderBlocks(int numOfBlocks, String direction){
         final int tetrix = 2136;
         final int newrest = 2750;
@@ -172,8 +164,10 @@ public class RobotInit{
 
     }
 
+    public void TurnX(float x){
+        float angle = gyro.getAngle();
 
-
+    }
 
     public void sleep(int milsec){
         try {
@@ -182,37 +176,6 @@ public class RobotInit{
 
         }
     }
-
-
-
-
-
-
-    public class Gyroscope{
-        public BNO055IMU imu;
-        public Gyroscope(HardwareMap ahwMap){
-            BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-            parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-            parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-            parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-            parameters.loggingEnabled      = true;
-            parameters.loggingTag          = "IMU";
-            parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
-            imu = ahwMap.get(BNO055IMU.class, "imu");
-            imu.initialize(parameters);
-        }
-
-        public float getAngle(){
-            Orientation angles;
-            angles = imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYX,
-                    AngleUnit.DEGREES);
-            return angles.firstAngle;
-        }
-
-
-    }
-
 
 
     public class RoboVuforia {

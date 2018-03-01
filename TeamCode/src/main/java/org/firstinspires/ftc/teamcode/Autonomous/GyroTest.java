@@ -31,17 +31,18 @@ public class GyroTest extends LinearOpMode {
         float TurnAngle = GyroData.getAngle();
 
         telemetry.addData("Angle", GyroData.getAngle());
-
+        telemetry.update();
         waitForStart();
 
         while (opModeIsActive()){
             telemetry.addData("Angle", GyroData.getAngle());
-            if (TurnAngle < 88 || TurnAngle > 92) {
+            TurnAngle = GyroData.getAngle();
+            if (TurnAngle < 90) {
                 TurnAngle = GyroData.getAngle();
                 telemetry.update();
-                robot.setMotorPower(0.2*-1*(TurnAngle / abs(TurnAngle)), "Rotation");
-                if (TurnAngle>88 && TurnAngle<92) robot.setMotorPower(0, "Straight");
+                robot.setMotorPower(-0.2, "Rotation");
             }
+            if (TurnAngle >= 90) robot.setMotorPower(0, "Straight");
         }
     }
 }
