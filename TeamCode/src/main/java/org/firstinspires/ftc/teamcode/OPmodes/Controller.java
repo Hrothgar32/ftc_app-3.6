@@ -84,10 +84,10 @@ public class Controller extends LinearOpMode {
                         robot.frontRightDrive.setPower(-0.2 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
                     }
                     if (gamepad1.left_stick_x > 0.8 || gamepad1.left_stick_x < -0.8){
-                        robot.backLeftDrive.setPower(0.5 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
-                        robot.backRightDrive.setPower(-0.5 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
-                        robot.frontLeftDrive.setPower(0.5 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
-                        robot.frontRightDrive.setPower(-0.5 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.backLeftDrive.setPower(0.65 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.backRightDrive.setPower(-0.65 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.frontLeftDrive.setPower(0.65 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.frontRightDrive.setPower(-0.65 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
                     }
                 }
                 else{
