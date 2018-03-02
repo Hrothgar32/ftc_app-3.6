@@ -51,50 +51,28 @@ public class Auto_RedSide extends LinearOpMode {
         return (Color.red(color) < Color.blue(color));
     }
 
+    private int direction(boolean way){
+        return  (way == true) ? 1 : -1;
+    }
+
 
     @Override
     public void runOpMode() {
-
         robot = new RobotInit();
         waitForStart();
         robot.init(hardwareMap, true);
 
         robot.armServo.setPosition(1);
-        //niceVuMark);
         telemetry.update();
-        sleep(300);
-        boolean forward = readJewelColor();
-        if(forward) {
-            robot.setMotorPower(0.7,"Straight");
-            try {
-                Thread.sleep(150);
-            } catch (InterruptedException ex) {
-                telemetry.addData("Error", "Nono");
-            }
-            robot.armServo.setPosition(0.2);
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException ex) {
-                telemetry.addData("Error", "Nono");
-            }
-            robot.setMotorPower(0,"Straight");
-        }
-        else{
-            robot.setMotorPower(-0.7,"Straight");
 
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException ex) {
-                telemetry.addData("Error", "Nono");
-            }
-            robot.armServo.setPosition(0.2);
-            try {
-                Thread.sleep(200);
-            }catch (InterruptedException ex){
-                telemetry.addData("Error","Nono");
-            }
-            robot.setMotorPower(0,"Straight");
-        }
+
+        int way = direction(readJewelColor());
+
+        robot.setMotorPower(0.7  * way, "Straight");
+        robot.sleep(200);
+        robot.armServo.setPosition(0.2);
+        robot.sleep(150);
+        robot.setMotorPower(0, "Straight");
 
 
     }

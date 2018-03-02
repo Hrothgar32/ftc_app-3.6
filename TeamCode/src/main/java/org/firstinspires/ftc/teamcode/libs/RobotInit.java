@@ -225,7 +225,7 @@ public class RobotInit{
      */
 
 
-    private void turn(double target, double range, double minSpeed, double addSpeed, int steps) {
+    public void turn(double target, double range, double minSpeed, double addSpeed, int steps) {
         int count = 0;
         double current = gyro.getAngle();
         double delta = (target - current + 360.0) % 360.0;
