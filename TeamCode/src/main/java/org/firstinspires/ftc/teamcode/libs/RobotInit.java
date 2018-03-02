@@ -11,6 +11,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 
+import org.firstinspires.ftc.teamcode.libs.Gyroscope;
+
+
 //imports for other hardware
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -19,6 +22,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Hardware;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 
@@ -159,15 +164,15 @@ public class RobotInit{
                 backRightDrive.setPower(-power);
                 backLeftDrive.setPower(power);
         }
-
-
-
     }
 
-    public void TurnX(float x){
-        float angle = gyro.getAngle();
-
+    private void stopMotors(){
+        frontRightDrive.setPower(0);
+        frontLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
     }
+
 
     public void sleep(int milsec){
         try {
@@ -211,4 +216,31 @@ public class RobotInit{
         }
     }
 
+    /*
+    * @param target the angle to reach
+    * @param range the acceptable  fail range of the angle it's around 1 or 2 degrees
+    * @param minSpeed the minimal speed to give to the motors
+    * @param addSpeed the speed to give to speed up the turning process
+    * @param steps the number of times you want to check if the angle is in range
+     */
+
+
+    private void turn(double target, double range, double minSpeed, double addSpeed, int steps) {
+        int count = 0;
+        double current = gyro.getAngle();
+        double delta = (target - current + 360.0) % 360.0;
+        if (delta > 180.0)
+            delta -= 360.0;
+        while(count != steps) {
+            if (Math.abs(delta) > range) {
+                double gyroMod = delta / 45.0;
+                if (Math.abs(gyroMod) > 1.0)
+                    gyroMod = Math.signum(gyroMod);
+                this.setMotorPower(minSpeed * Math.signum(gyroMod) + addSpeed * gyroMod, "Rotation");
+            } else {
+                count++;
+                this.stopMotors();
+            }
+        }
+    }
 }

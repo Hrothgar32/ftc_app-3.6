@@ -18,7 +18,7 @@ import static java.lang.Math.abs;
  * SOFTWARE.
  */
 
-@Autonomous(name = "Gyro Test", group = "Linera Opmode")
+@Autonomous(name = "Gyro Test", group = "Test")
 public class GyroTest extends LinearOpMode {
 
     private RobotInit robot = null;

@@ -19,6 +19,10 @@ import java.util.Locale;
 
 
 public class Gyroscope {
+    private int count = 0;
+
+
+
     private BNO055IMU imu;
     private Orientation angles;
     private Acceleration gravity;
@@ -35,10 +39,13 @@ public class Gyroscope {
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
     }
-
     public Float getAngle(){
-        angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        gravity  = imu.getGravity();
-        return angles.firstAngle;
+
+        this.angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit
+                .DEGREES);
+
+        return this.angles.firstAngle;
     }
+
+
 }
