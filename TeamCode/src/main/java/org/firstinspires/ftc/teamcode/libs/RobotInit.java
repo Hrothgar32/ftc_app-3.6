@@ -113,8 +113,18 @@ public class RobotInit{
     }
 
     public void setEncoderBlocks(int numOfBlocks, String direction){
-        final int tetrix = 2136;
-        final int newrest = 2750;
+        final int tetrix = 2750;
+        final int newrest = 2136;
+
+        backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         switch(direction){
             case "Forward":
@@ -154,14 +164,14 @@ public class RobotInit{
         switch (direction){
 
             case "Straight":
-                frontRightDrive.setPower(-power);
-                frontLeftDrive.setPower(-power);
+                frontRightDrive.setPower(power);
+                frontLeftDrive.setPower(power);
                 backRightDrive.setPower(power);
                 backLeftDrive.setPower(power);
             case "Rotation":
-                frontRightDrive.setPower(-power);
+                frontRightDrive.setPower(power);
                 frontLeftDrive.setPower(power);
-                backRightDrive.setPower(-power);
+                backRightDrive.setPower(power);
                 backLeftDrive.setPower(power);
         }
     }

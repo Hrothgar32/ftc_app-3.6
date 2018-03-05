@@ -34,11 +34,12 @@ public class Auto_Blue_Side extends LinearOpMode {
         telemetry.addData("Blue color: ", Color.blue(color));
         telemetry.addData("Red color: ", Color.red(color));
         telemetry.update();
+        robot.sleep(5000);
         return (Color.red(color) > Color.blue(color));
     }
 
     private int direction(boolean way) {
-        return (way == true) ? 1 : -1;
+        return (way == true) ? -1 : 1;
     }
 
     @Override
