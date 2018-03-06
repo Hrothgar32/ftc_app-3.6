@@ -18,7 +18,7 @@ import static java.lang.Math.abs;
  * SOFTWARE.
  */
 
-@Autonomous(name = "Gyro Test", group = "Test")
+@Autonomous(name = "Gyro Test", group = "Linera Opmode")
 public class GyroTest extends LinearOpMode {
 
     private RobotInit robot = null;
@@ -26,9 +26,26 @@ public class GyroTest extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot = new RobotInit();
-        robot.init(hardwareMap, true);
-        robot.turn(90, 1, 0.10, 0.20, 3);
+        robot.init(hardwareMap, false);
+        Gyroscope GyroData = new Gyroscope(hardwareMap);
+        float TurnAngle = GyroData.getAngle();
 
+        telemetry.addData("Angle", GyroData.getAngle());
+        telemetry.update();
+        waitForStart();
 
+        while (opModeIsActive()){
+            telemetry.addData("Angle", GyroData.getAngle());
+
+            robot.setEncoderBlocks(1, "Forvard");
+
+            while (TurnAngle < 178 && TurnAngle > -178) {
+                TurnAngle = GyroData.getAngle();
+                telemetry.update();
+                robot.setMotorPower(-0.2, "Rotation");
+                if (TurnAngle >= 178 || TurnAngle <= -178) robot.setMotorPower(0, "Straight");
+            }
+
+        }
     }
 }
