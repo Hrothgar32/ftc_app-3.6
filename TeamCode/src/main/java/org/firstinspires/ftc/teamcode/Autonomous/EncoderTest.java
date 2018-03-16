@@ -56,7 +56,6 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
         robot.frontRightDrive.setTargetPosition(2750);
 
         robot.setMotorPower(power, "Straight");
-        /*
         while (robot.frontRightDrive.getCurrentPosition() < 2700) {
             telemetry.addLine()
                     .addData("backLeft position", robot.backLeftDrive.getCurrentPosition())
@@ -73,7 +72,6 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
         robot.backRightDrive.setTargetPosition(1120);
         robot.frontLeftDrive.setTargetPosition(-1440);
         robot.frontRightDrive.setTargetPosition(1440);
-        */
     }
 
 

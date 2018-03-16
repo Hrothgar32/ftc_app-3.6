@@ -133,6 +133,12 @@ public class RobotInit{
                 backLeftDrive.setTargetPosition(newrest*numOfBlocks);
                 backRightDrive.setTargetPosition(newrest*numOfBlocks);
                 setMotorPower(0.5,"Straight");
+                while (frontRightDrive.getCurrentPosition() < 2700*numOfBlocks) {
+                }
+                backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
             case "Backward":
                 frontLeftDrive.setTargetPosition(-tetrix*numOfBlocks);
@@ -140,6 +146,12 @@ public class RobotInit{
                 backRightDrive.setTargetPosition(-newrest*numOfBlocks);
                 backLeftDrive.setTargetPosition(-newrest*numOfBlocks);
                 setMotorPower(0.5,"Straight");
+                while (frontRightDrive.getCurrentPosition() < 2700*numOfBlocks) {
+                }
+                backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
         }
 
