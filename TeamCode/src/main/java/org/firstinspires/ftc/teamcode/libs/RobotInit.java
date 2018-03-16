@@ -176,7 +176,8 @@ public class RobotInit{
         }
     }
 
-    private void stopMotors(){
+
+    public void stopMotors(){
         frontRightDrive.setPower(0);
         frontLeftDrive.setPower(0);
         backRightDrive.setPower(0);
