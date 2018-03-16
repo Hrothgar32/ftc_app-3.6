@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
     @Autonomous(name = "Encoder test", group = "test")
     public class EncoderTest extends LinearOpMode {
 
-        private double power = 0.4;
+        private double power = 0.5;
         private RobotInit robot = null;
 
     @Override
@@ -56,6 +56,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
         robot.frontRightDrive.setTargetPosition(2750);
 
         robot.setMotorPower(power, "Straight");
+        /*
         while (robot.frontRightDrive.getCurrentPosition() < 2700) {
             telemetry.addLine()
                     .addData("backLeft position", robot.backLeftDrive.getCurrentPosition())
@@ -72,7 +73,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
         robot.backRightDrive.setTargetPosition(1120);
         robot.frontLeftDrive.setTargetPosition(-1440);
         robot.frontRightDrive.setTargetPosition(1440);
-
+        */
     }
 
 

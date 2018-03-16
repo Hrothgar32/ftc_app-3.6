@@ -114,7 +114,7 @@ public class RobotInit{
 
     public void setEncoderBlocks(int numOfBlocks, String direction){
         final int tetrix = 2750;
-        final int newrest = 2136;
+        final int newrest = -2136;
 
         backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -130,30 +130,16 @@ public class RobotInit{
             case "Forward":
                 frontLeftDrive.setTargetPosition(tetrix*numOfBlocks);
                 frontRightDrive.setTargetPosition(tetrix*numOfBlocks);
-                backLeftDrive.setTargetPosition(-newrest*numOfBlocks);
-                backRightDrive.setTargetPosition(-newrest*numOfBlocks);
+                backLeftDrive.setTargetPosition(newrest*numOfBlocks);
+                backRightDrive.setTargetPosition(newrest*numOfBlocks);
                 setMotorPower(0.5,"Straight");
                 break;
             case "Backward":
                 frontLeftDrive.setTargetPosition(-tetrix*numOfBlocks);
                 frontRightDrive.setTargetPosition(-tetrix*numOfBlocks);
-                backRightDrive.setTargetPosition(newrest*numOfBlocks);
-                backLeftDrive.setTargetPosition(newrest*numOfBlocks);
-                setMotorPower(-0.5,"Straight");
-                break;
-            case "Right":
-                frontRightDrive.setTargetPosition(tetrix*numOfBlocks);
-                frontLeftDrive.setTargetPosition(-tetrix*numOfBlocks);
-                backLeftDrive.setTargetPosition(-newrest*numOfBlocks);
-                backRightDrive.setTargetPosition(newrest*numOfBlocks);
-                setMotorPower(0.5,"Rotation");
-                break;
-            case"Left":
-                frontRightDrive.setTargetPosition(-tetrix*numOfBlocks);
-                frontLeftDrive.setTargetPosition(tetrix*numOfBlocks);
-                backLeftDrive.setTargetPosition(newrest*numOfBlocks);
                 backRightDrive.setTargetPosition(-newrest*numOfBlocks);
-                setMotorPower(-0.5,"Rotation");
+                backLeftDrive.setTargetPosition(-newrest*numOfBlocks);
+                setMotorPower(0.5,"Straight");
                 break;
         }
 

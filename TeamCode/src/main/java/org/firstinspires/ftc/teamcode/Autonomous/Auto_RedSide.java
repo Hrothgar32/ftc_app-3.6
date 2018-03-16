@@ -61,7 +61,7 @@ public class Auto_RedSide extends LinearOpMode {
         robot = new RobotInit();
         waitForStart();
         robot.init(hardwareMap, true);
-
+/*
         robot.armServo.setPosition(1);
         telemetry.update();
 
@@ -74,6 +74,7 @@ public class Auto_RedSide extends LinearOpMode {
         robot.sleep(150);
         robot.setMotorPower(0, "Straight");
 
-
+*/
+        robot.setEncoderBlocks(1,"Backward");
     }
 }

@@ -47,7 +47,7 @@ public class Auto_Blue_Side extends LinearOpMode {
         robot = new RobotInit();
         waitForStart();
         robot.init(hardwareMap, true);
-
+/*
         robot.armServo.setPosition(1);
         int way = direction(readJewelColor());
         robot.setMotorPower(0.7  * way, "Rotation");
@@ -56,5 +56,7 @@ public class Auto_Blue_Side extends LinearOpMode {
         robot.setMotorPower(0.7  * -way, "Rotation");
         robot.sleep(100);
         robot.stopMotors();
+        */
+        robot.setEncoderBlocks(1,"Forward");
     }
 }
