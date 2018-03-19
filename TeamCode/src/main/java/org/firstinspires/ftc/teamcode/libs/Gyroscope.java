@@ -25,7 +25,7 @@ public class Gyroscope {
     private Orientation angles;
     private Acceleration gravity;
 
-    public Gyroscope(HardwareMap hardwareMap){
+    public void init(HardwareMap hardwareMap){
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;

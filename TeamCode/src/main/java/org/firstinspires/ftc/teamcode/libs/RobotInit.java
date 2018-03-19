@@ -76,7 +76,7 @@ public class RobotInit{
 
     public RoboVuforia vufModul = null;
     public Gyroscope gyro = null;
-
+    public AutoLib auto = null;
 
 
     public void init(HardwareMap ahwMap, boolean isAuto) {
@@ -94,27 +94,30 @@ public class RobotInit{
         frontLeftDrive.setPower(0);
         backRightDrive.setPower(0);
         backLeftDrive.setPower(0);
-
-
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         armServo.setPosition(0);
         if (isAuto) {
             vufModul = new RoboVuforia();
-            gyro = new Gyroscope(hwMap);
+            gyro = new Gyroscope();
+            auto = new AutoLib();
+            gyro.init(hwMap);
+            auto.init(hwMap);
+            backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
-    public void setEncoderBlocks(int numOfBlocks, String direction){
+    public void setEncoderBlocks(float a, String direction){
         final int tetrix = 2750;
-        final int newrest = -2136;
+        final int newrest = 2136;
+        int numBlocksTetrix = Math.round(tetrix * a);
+        int numBlocksNewrest = Math.round(newrest * a);
 
         backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -128,30 +131,32 @@ public class RobotInit{
 
         switch(direction){
             case "Forward":
-                frontLeftDrive.setTargetPosition(tetrix*numOfBlocks);
-                frontRightDrive.setTargetPosition(tetrix*numOfBlocks);
-                backLeftDrive.setTargetPosition(newrest*numOfBlocks);
-                backRightDrive.setTargetPosition(newrest*numOfBlocks);
+                frontLeftDrive.setTargetPosition(numBlocksTetrix);
+                frontRightDrive.setTargetPosition(numBlocksTetrix);
+                backLeftDrive.setTargetPosition(-numBlocksNewrest);
+                backRightDrive.setTargetPosition(-numBlocksNewrest);
                 setMotorPower(0.5,"Straight");
-                while (frontRightDrive.getCurrentPosition() < 2700*numOfBlocks) {
-                }
-                backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
             case "Backward":
-                frontLeftDrive.setTargetPosition(-tetrix*numOfBlocks);
-                frontRightDrive.setTargetPosition(-tetrix*numOfBlocks);
-                backRightDrive.setTargetPosition(-newrest*numOfBlocks);
-                backLeftDrive.setTargetPosition(-newrest*numOfBlocks);
-                setMotorPower(0.5,"Straight");
-                while (frontRightDrive.getCurrentPosition() < 2700*numOfBlocks) {
-                }
-                backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontLeftDrive.setTargetPosition(-numBlocksTetrix);
+                frontRightDrive.setTargetPosition(-numBlocksTetrix);
+                backRightDrive.setTargetPosition(numBlocksNewrest);
+                backLeftDrive.setTargetPosition(numBlocksNewrest);
+                setMotorPower(-0.5,"Straight");
+                break;
+            case "Right":
+                frontRightDrive.setTargetPosition(numBlocksTetrix);
+                frontLeftDrive.setTargetPosition(-numBlocksTetrix);
+                backLeftDrive.setTargetPosition(-numBlocksNewrest);
+                backRightDrive.setTargetPosition(numBlocksNewrest);
+                setMotorPower(0.5,"Rotation");
+                break;
+            case"Left":
+                frontRightDrive.setTargetPosition(-numBlocksTetrix);
+                frontLeftDrive.setTargetPosition(numBlocksTetrix);
+                backLeftDrive.setTargetPosition(numBlocksNewrest);
+                backRightDrive.setTargetPosition(-numBlocksNewrest);
+                setMotorPower(-0.5,"Rotation");
                 break;
         }
 
