@@ -9,8 +9,6 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 
-/*
-
 /**
  * Created by Vsbi on 19/3/2018 (RoboCorp RO084)
  * This is the autonomous code used by RoboCorp RO084 during the 2017-2018 season of FTC
@@ -34,7 +32,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
          * SOFTWARE.
          */
 
-/*
+
 @Autonomous(name = "RedSide autonomous", group = "Final")
 public class RedSide extends LinearOpMode{
 
@@ -47,7 +45,7 @@ public class RedSide extends LinearOpMode{
     public void runOpMode(){
         robot = new RobotInit();
         waitForStart();
-        robot.init(hardwareMap, true);
+        robot.init(hardwareMap, true, telemetry);
         int way = robot.auto.driver();
         robot.setMotorPower(0.4, "Straight");
         robot.setEncoderBlocks((float)0.5 * way, "Forward");
@@ -55,6 +53,5 @@ public class RedSide extends LinearOpMode{
     }
 
 
-*/
 }
 
