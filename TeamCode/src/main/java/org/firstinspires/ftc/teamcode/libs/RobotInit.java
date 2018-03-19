@@ -4,6 +4,8 @@ package org.firstinspires.ftc.teamcode.libs;
 
 //imports for gyroscope
 import com.qualcomm.hardware.bosch.BNO055IMU;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -74,6 +76,8 @@ public class RobotInit{
     HardwareMap hwMap = null;
 
 
+    Telemetry telemetry = null;
+
     public RoboVuforia vufModul = null;
     public Gyroscope gyro = null;
     public AutoLib auto = null;
@@ -136,27 +140,31 @@ public class RobotInit{
                 backLeftDrive.setTargetPosition(-numBlocksNewrest);
                 backRightDrive.setTargetPosition(-numBlocksNewrest);
                 setMotorPower(0.5,"Straight");
+                while (frontRightDrive.getCurrentPosition() < 2750*a) {
+                }
+                backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
             case "Backward":
                 frontLeftDrive.setTargetPosition(-numBlocksTetrix);
                 frontRightDrive.setTargetPosition(-numBlocksTetrix);
                 backRightDrive.setTargetPosition(numBlocksNewrest);
                 backLeftDrive.setTargetPosition(numBlocksNewrest);
-                setMotorPower(-0.5,"Straight");
-                break;
-            case "Right":
-                frontRightDrive.setTargetPosition(numBlocksTetrix);
-                frontLeftDrive.setTargetPosition(-numBlocksTetrix);
-                backLeftDrive.setTargetPosition(-numBlocksNewrest);
-                backRightDrive.setTargetPosition(numBlocksNewrest);
-                setMotorPower(0.5,"Rotation");
-                break;
-            case"Left":
-                frontRightDrive.setTargetPosition(-numBlocksTetrix);
-                frontLeftDrive.setTargetPosition(numBlocksTetrix);
-                backLeftDrive.setTargetPosition(numBlocksNewrest);
-                backRightDrive.setTargetPosition(-numBlocksNewrest);
-                setMotorPower(-0.5,"Rotation");
+                setMotorPower(0.5,"Straight");
+                while (frontRightDrive.getCurrentPosition() < 2750*a) {
+                    telemetry.addLine()
+                            .addData("backLeft position", robot.backLeftDrive.getCurrentPosition())
+                            .addData("backRight position", robot.backRightDrive.getCurrentPosition())
+                            .addData("frontLeft position", robot.frontLeftDrive.getCurrentPosition())
+                            .addData("frontRight position", robot.frontRightDrive.getCurrentPosition());
+                    telemetry.update();
+                }
+                backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
         }
 

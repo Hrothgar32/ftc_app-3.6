@@ -76,5 +76,6 @@ public class Auto_RedSide extends LinearOpMode {
 
 */
         robot.setEncoderBlocks(2,"Backward");
+        robot.turn(2000,2000,0.2,0.2,3);
     }
 }

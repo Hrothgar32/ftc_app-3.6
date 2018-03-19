@@ -57,6 +57,8 @@ public class Auto_Blue_Side extends LinearOpMode {
         robot.sleep(100);
         robot.stopMotors();
         */
-        robot.setEncoderBlocks(1,"Forward");
+        //robot.setEncoderBlocks(2,"Forward");
+        robot.setEncoderBlocks(2,"Backward");
+        robot.setEncoderBlocks(2,"Forward");
     }
 }
