@@ -19,7 +19,7 @@ public class vuTest extends LinearOpMode{
     public void runOpMode(){
         robot = new RobotInit();
         waitForStart();
-        robot.init(hardwareMap, true);
+        robot.init(hardwareMap, true,telemetry);
         vuMark = robot.vufModul.identifyVuMark();
         telemetry.addLine(vuMark);
         telemetry.update();

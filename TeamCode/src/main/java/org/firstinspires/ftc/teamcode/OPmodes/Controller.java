@@ -39,7 +39,7 @@ public class Controller extends LinearOpMode {
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
 
         robot = new RobotInit();
-        robot.init(hardwareMap, false);
+        robot.init(hardwareMap, false,telemetry);
 
         waitForStart();
 
