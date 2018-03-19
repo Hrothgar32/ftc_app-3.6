@@ -133,6 +133,18 @@ public class Controller extends LinearOpMode {
                 lift.setPower(0);
             }
 
+            /** JewelArm Control */
+
+            if(gamepad2.right_trigger != 0){
+                double k = robot.jewClawServo.getPosition();
+                robot.jewClawServo.setPosition(k + 0.2);
+            }
+            if(gamepad2.left_trigger != 0){
+                double k = robot.jewClawServo.getPosition();
+                robot.jewClawServo.setPosition(k - 0.2);
+            }
+
+
             telemetry.addLine()
                      .addData("Status", "Initialized")
                      .addData("armMotor power:", armMotor.getPower())
@@ -143,7 +155,8 @@ public class Controller extends LinearOpMode {
                      .addData("backLeftDrive position: ", robot.backLeftDrive.getCurrentPosition())
                      .addData("backRightDrive position: ", robot.backRightDrive
                              .getCurrentPosition())
-                     .addData("stick direction", abs(gamepad1.left_stick_x));
+                     .addData("stick direction", abs(gamepad1.left_stick_x))
+                     .addData("JewClawServo", robot.jewClawServo.getPosition());
             telemetry.update();
         }
     }

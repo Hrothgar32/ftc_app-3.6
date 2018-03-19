@@ -72,8 +72,12 @@ public class RobotInit{
     public NormalizedColorSensor armSensor = null;
     public Servo armServo = null;
 
+    public Servo jewServo = null;
+    public Servo jewClawServo = null;
+
     public DcMotor armMotor = null;
     public DcMotor lift = null;
+    public DcMotor jewelMotor = null;
     private double motorPower;
     HardwareMap hwMap = null;
 
@@ -92,6 +96,9 @@ public class RobotInit{
         backLeftDrive = hwMap.dcMotor.get("backLeftDrive");
         backRightDrive = hwMap.dcMotor.get("backRightDrive");
         armMotor = hwMap.dcMotor.get("armMotor");
+        //jewelMotor = hwMap.dcMotor.get("jewelMotor");
+        jewServo = hwMap.servo.get("jewServo");
+        jewClawServo = hwMap.servo.get("jewClawServo");
         armSensor = hwMap.get(NormalizedColorSensor.class, "armSensor");
         armServo = hwMap.servo.get("armServo");
         lift = hwMap.dcMotor.get("lift");
@@ -155,13 +162,7 @@ public class RobotInit{
                 backRightDrive.setTargetPosition(numBlocksNewrest);
                 backLeftDrive.setTargetPosition(numBlocksNewrest);
                 setMotorPower(0.5,"Straight");
-                while (frontRightDrive.getCurrentPosition() < 2750*a) {
-                    telemetry.addLine()
-                            .addData("backLeft position", backLeftDrive.getCurrentPosition())
-                            .addData("backRight position", backRightDrive.getCurrentPosition())
-                            .addData("frontLeft position", frontLeftDrive.getCurrentPosition())
-                            .addData("frontRight position", frontRightDrive.getCurrentPosition());
-                    telemetry.update();
+                while (frontRightDrive.getCurrentPosition() > -2750*a) {
                 }
                 backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
