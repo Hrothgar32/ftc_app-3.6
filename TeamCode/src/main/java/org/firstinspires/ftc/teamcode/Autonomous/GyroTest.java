@@ -26,7 +26,7 @@ public class GyroTest extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot = new RobotInit();
-        robot.init(hardwareMap, true);
+        robot.init(hardwareMap, true,telemetry);
       //  Gyroscope GyroData = new Gyroscope(hardwareMap);
 
         telemetry.addData("Angle", robot.gyro.getAngle());

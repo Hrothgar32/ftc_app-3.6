@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 
-
+/*
 
 /**
  * Created by Vsbi on 19/3/2018 (RoboCorp RO084)
@@ -34,7 +34,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
          * SOFTWARE.
          */
 
-
+/*
 @Autonomous(name = "RedSide autonomous", group = "Final")
 public class RedSide extends LinearOpMode{
 
@@ -55,6 +55,6 @@ public class RedSide extends LinearOpMode{
     }
 
 
-
+*/
 }
 

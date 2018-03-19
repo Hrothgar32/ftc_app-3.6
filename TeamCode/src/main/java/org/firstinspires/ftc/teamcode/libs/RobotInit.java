@@ -83,7 +83,7 @@ public class RobotInit{
     public AutoLib auto = null;
 
 
-    public void init(HardwareMap ahwMap, boolean isAuto) {
+    public void init(HardwareMap ahwMap, boolean isAuto, Telemetry telemetry) {
         hwMap = ahwMap;
         frontLeftDrive = hwMap.dcMotor.get("frontLeftDrive");
         frontRightDrive = hwMap.dcMotor.get("frontRightDrive");
@@ -93,7 +93,7 @@ public class RobotInit{
         armSensor = hwMap.get(NormalizedColorSensor.class, "armSensor");
         armServo = hwMap.servo.get("armServo");
         lift = hwMap.dcMotor.get("lift");
-
+        this.telemetry = telemetry;
         frontRightDrive.setPower(0);
         frontLeftDrive.setPower(0);
         backRightDrive.setPower(0);
@@ -141,6 +141,12 @@ public class RobotInit{
                 backRightDrive.setTargetPosition(-numBlocksNewrest);
                 setMotorPower(0.5,"Straight");
                 while (frontRightDrive.getCurrentPosition() < 2750*a) {
+                    telemetry.addLine()
+                            .addData("backLeft position",backLeftDrive.getCurrentPosition())
+                            .addData("backRight position",backRightDrive.getCurrentPosition())
+                            .addData("frontLeft position",frontLeftDrive.getCurrentPosition())
+                            .addData("frontRight position",frontRightDrive.getCurrentPosition());
+                    telemetry.update();
                 }
                 backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -155,10 +161,10 @@ public class RobotInit{
                 setMotorPower(0.5,"Straight");
                 while (frontRightDrive.getCurrentPosition() < 2750*a) {
                     telemetry.addLine()
-                            .addData("backLeft position", robot.backLeftDrive.getCurrentPosition())
-                            .addData("backRight position", robot.backRightDrive.getCurrentPosition())
-                            .addData("frontLeft position", robot.frontLeftDrive.getCurrentPosition())
-                            .addData("frontRight position", robot.frontRightDrive.getCurrentPosition());
+                            .addData("backLeft position",backLeftDrive.getCurrentPosition())
+                            .addData("backRight position",backRightDrive.getCurrentPosition())
+                            .addData("frontLeft position",frontLeftDrive.getCurrentPosition())
+                            .addData("frontRight position",frontRightDrive.getCurrentPosition());
                     telemetry.update();
                 }
                 backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

@@ -29,7 +29,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
     public void runOpMode() {
         telemetry.addLine(  "1");
         robot = new RobotInit();
-        robot.init(hardwareMap, true);
+        robot.init(hardwareMap, true,telemetry);
 
         telemetry.addLine()
                 .addData("backLeft position", robot.backLeftDrive.getCurrentPosition())
