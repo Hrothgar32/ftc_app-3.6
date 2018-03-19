@@ -113,7 +113,7 @@ public class RobotInit{
         }
     }
 
-    public void setEncoderBlocks(float a, String direction){
+    public void setEncoderBlocks(float a, String direction, float power){
         final int tetrix = 2750;
         final int newrest = 2136;
         int numBlocksTetrix = Math.round(tetrix * a);
@@ -135,28 +135,28 @@ public class RobotInit{
                 frontRightDrive.setTargetPosition(numBlocksTetrix);
                 backLeftDrive.setTargetPosition(-numBlocksNewrest);
                 backRightDrive.setTargetPosition(-numBlocksNewrest);
-                setMotorPower(0.5,"Straight");
+                setMotorPower(power,"Straight");
                 break;
             case "Backward":
                 frontLeftDrive.setTargetPosition(-numBlocksTetrix);
                 frontRightDrive.setTargetPosition(-numBlocksTetrix);
                 backRightDrive.setTargetPosition(numBlocksNewrest);
                 backLeftDrive.setTargetPosition(numBlocksNewrest);
-                setMotorPower(-0.5,"Straight");
+                setMotorPower(power,"Straight");
                 break;
             case "Right":
                 frontRightDrive.setTargetPosition(numBlocksTetrix);
                 frontLeftDrive.setTargetPosition(-numBlocksTetrix);
                 backLeftDrive.setTargetPosition(-numBlocksNewrest);
                 backRightDrive.setTargetPosition(numBlocksNewrest);
-                setMotorPower(0.5,"Rotation");
+                setMotorPower(power,"Rotation");
                 break;
             case"Left":
                 frontRightDrive.setTargetPosition(-numBlocksTetrix);
                 frontLeftDrive.setTargetPosition(numBlocksTetrix);
                 backLeftDrive.setTargetPosition(numBlocksNewrest);
                 backRightDrive.setTargetPosition(-numBlocksNewrest);
-                setMotorPower(-0.5,"Rotation");
+                setMotorPower(power,"Rotation");
                 break;
         }
 
@@ -172,9 +172,9 @@ public class RobotInit{
                 backRightDrive.setPower(power);
                 backLeftDrive.setPower(power);
             case "Rotation":
-                frontRightDrive.setPower(power);
+                frontRightDrive.setPower(-power);
                 frontLeftDrive.setPower(power);
-                backRightDrive.setPower(power);
+                backRightDrive.setPower(-power);
                 backLeftDrive.setPower(power);
         }
     }
