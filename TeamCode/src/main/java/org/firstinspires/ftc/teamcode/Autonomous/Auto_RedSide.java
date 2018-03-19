@@ -60,7 +60,7 @@ public class Auto_RedSide extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotInit();
         waitForStart();
-        robot.init(hardwareMap, true,telemetry);
+        robot.init(hardwareMap, true);
 /*
         robot.armServo.setPosition(1);
         telemetry.update();

@@ -46,7 +46,7 @@ public class Auto_Blue_Side extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotInit();
         waitForStart();
-        robot.init(hardwareMap,true, telemetry);
+        robot.init(hardwareMap,true);
 /*
         robot.armServo.setPosition(1);
         int way = direction(readJewelColor());

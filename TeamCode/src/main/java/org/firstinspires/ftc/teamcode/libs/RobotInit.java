@@ -28,6 +28,8 @@ import com.qualcomm.robotcore.util.Hardware;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.teamcode.libs.AutoLib;
+import org.firstinspires.ftc.teamcode.libs.Gyroscope;
 
 
 //imports for Vufoira
@@ -83,7 +85,7 @@ public class RobotInit{
     public AutoLib auto = null;
 
 
-    public void init(HardwareMap ahwMap, boolean isAuto, Telemetry telemetry) {
+    public void init(HardwareMap ahwMap, boolean isAuto) {
         hwMap = ahwMap;
         frontLeftDrive = hwMap.dcMotor.get("frontLeftDrive");
         frontRightDrive = hwMap.dcMotor.get("frontRightDrive");
@@ -93,7 +95,7 @@ public class RobotInit{
         armSensor = hwMap.get(NormalizedColorSensor.class, "armSensor");
         armServo = hwMap.servo.get("armServo");
         lift = hwMap.dcMotor.get("lift");
-        this.telemetry = telemetry;
+
         frontRightDrive.setPower(0);
         frontLeftDrive.setPower(0);
         backRightDrive.setPower(0);
@@ -141,12 +143,6 @@ public class RobotInit{
                 backRightDrive.setTargetPosition(-numBlocksNewrest);
                 setMotorPower(0.5,"Straight");
                 while (frontRightDrive.getCurrentPosition() < 2750*a) {
-                    telemetry.addLine()
-                            .addData("backLeft position",backLeftDrive.getCurrentPosition())
-                            .addData("backRight position",backRightDrive.getCurrentPosition())
-                            .addData("frontLeft position",frontLeftDrive.getCurrentPosition())
-                            .addData("frontRight position",frontRightDrive.getCurrentPosition());
-                    telemetry.update();
                 }
                 backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -159,12 +155,12 @@ public class RobotInit{
                 backRightDrive.setTargetPosition(numBlocksNewrest);
                 backLeftDrive.setTargetPosition(numBlocksNewrest);
                 setMotorPower(0.5,"Straight");
-                while (frontRightDrive.getCurrentPosition() > -2750*a) {
+                while (frontRightDrive.getCurrentPosition() < 2750*a) {
                     telemetry.addLine()
-                            .addData("backLeft position",backLeftDrive.getCurrentPosition())
-                            .addData("backRight position",backRightDrive.getCurrentPosition())
-                            .addData("frontLeft position",frontLeftDrive.getCurrentPosition())
-                            .addData("frontRight position",frontRightDrive.getCurrentPosition());
+                            .addData("backLeft position", backLeftDrive.getCurrentPosition())
+                            .addData("backRight position", backRightDrive.getCurrentPosition())
+                            .addData("frontLeft position", frontLeftDrive.getCurrentPosition())
+                            .addData("frontRight position", frontRightDrive.getCurrentPosition());
                     telemetry.update();
                 }
                 backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -186,9 +182,9 @@ public class RobotInit{
                 backRightDrive.setPower(power);
                 backLeftDrive.setPower(power);
             case "Rotation":
-                frontRightDrive.setPower(power);
+                frontRightDrive.setPower(-power);
                 frontLeftDrive.setPower(power);
-                backRightDrive.setPower(power);
+                backRightDrive.setPower(-power);
                 backLeftDrive.setPower(power);
         }
     }
@@ -255,20 +251,24 @@ public class RobotInit{
 
     public void turn(double target, double range, double minSpeed, double addSpeed, int steps) {
         int count = 0;
-        double current = gyro.getAngle();
-        double delta = (target - current + 360.0) % 360.0;
-        if (delta > 180.0)
-            delta -= 360.0;
-        while(count != steps) {
-            if (Math.abs(delta) > range) {
+        while(count < steps) {
+            double current = gyro.getAngle();
+            double delta = (target - current + 360.0) % 360.0;
+            if (delta > 180.0)
+                delta -= 360.0;
+            if (Math.abs(delta) > range){
                 double gyroMod = delta / 45.0;
-                if (Math.abs(gyroMod) > 1.0)
+                if(Math.abs(gyroMod) > 1.0) {
                     gyroMod = Math.signum(gyroMod);
-                this.setMotorPower(minSpeed * Math.signum(gyroMod) + addSpeed * gyroMod, "Rotation");
-            } else {
+                    this.setMotorPower(minSpeed * Math.signum(gyroMod) + addSpeed * gyroMod,
+                            "Rotation");
+                }
+            }
+            else{
                 count++;
                 this.stopMotors();
             }
         }
+        this.stopMotors();
     }
 }

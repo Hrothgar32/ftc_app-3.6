@@ -26,7 +26,7 @@ public class Auto_cubeInsertTest extends LinearOpMode {
     @Override
     public void runOpMode(){
         robot = new RobotInit();
-        robot.init(hardwareMap, true,telemetry);
+        robot.init(hardwareMap, true);
         waitForStart();
         robot.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
