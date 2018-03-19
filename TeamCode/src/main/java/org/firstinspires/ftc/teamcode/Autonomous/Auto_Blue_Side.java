@@ -59,5 +59,6 @@ public class Auto_Blue_Side extends LinearOpMode {
         */
         //robot.setEncoderBlocks(2,"Forward");
         robot.setEncoderBlocks(2,"Forward");
+        robot.setEncoderBlocks((float)1.5,"Backward");
     }
 }

@@ -159,7 +159,7 @@ public class RobotInit{
                 backRightDrive.setTargetPosition(numBlocksNewrest);
                 backLeftDrive.setTargetPosition(numBlocksNewrest);
                 setMotorPower(0.5,"Straight");
-                while (frontRightDrive.getCurrentPosition() < 2750*a) {
+                while (frontRightDrive.getCurrentPosition() > -2750*a) {
                     telemetry.addLine()
                             .addData("backLeft position",backLeftDrive.getCurrentPosition())
                             .addData("backRight position",backRightDrive.getCurrentPosition())
