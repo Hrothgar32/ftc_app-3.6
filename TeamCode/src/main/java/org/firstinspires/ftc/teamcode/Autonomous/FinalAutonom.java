@@ -10,6 +10,37 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  * Created by RoboCorp on 3/6/2018.
  */
 
+
+/**             1. negyed               */
+
+/** turn(90, 1, 0.10, 0.50, 3);
+    setEncoderBlocks(0.5, "Forward");
+    turn(90, 1, 0.10, 0.50, 3);
+    setEncoderBlocks(12, "Forward");
+ */
+
+
+/**             2. negyed               */
+
+/** turn(90, 1, 0.10, 0.50, 3);
+    setEncoderBlocks(0.5, "Forward");
+    turn(90, 1, 0.10, 0.50, 3);
+ */
+
+
+/**             3. negyed               */
+
+/** setEncoderBlocks(0.5, "Forward");
+    turn(-90, 1, 0.10, 0.50, 3);
+ */
+
+
+/**             4. negyed               */
+
+/** setEncoderBlocks(1.5, "Backward");
+    turn(-90, 1, 0.10, 0.50, 3);
+ */
+
 /*
 @Autonomous (name = "FinalAutonom", group = "Final")
 public class FinalAutonom extends LinearOpMode{
@@ -37,6 +68,7 @@ public class FinalAutonom extends LinearOpMode{
 
         if(readJewelColor());
     }
+
 
     @Override
     public void runOpMode(){
