@@ -150,7 +150,7 @@ public class RobotInit{
                 frontRightDrive.setTargetPosition(numBlocksTetrix);
                 backLeftDrive.setTargetPosition(-numBlocksNewrest);
                 backRightDrive.setTargetPosition(-numBlocksNewrest);
-                setMotorPower(0.5,"Straight");
+                setMotorPower(0.3,"Straight");
                 while (frontRightDrive.getCurrentPosition() < 2750*a) {
                 }
                 backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -163,7 +163,7 @@ public class RobotInit{
                 frontRightDrive.setTargetPosition(-numBlocksTetrix);
                 backRightDrive.setTargetPosition(numBlocksNewrest);
                 backLeftDrive.setTargetPosition(numBlocksNewrest);
-                setMotorPower(0.5,"Straight");
+                setMotorPower(0.3,"Straight");
                 while (frontRightDrive.getCurrentPosition() > -2750*a) {
                 }
                 backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
