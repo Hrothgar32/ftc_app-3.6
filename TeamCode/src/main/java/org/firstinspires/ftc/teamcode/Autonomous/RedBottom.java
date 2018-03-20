@@ -33,7 +33,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 
 
-@Autonomous(name = "Blue bottom corner Auto", group = "final")
+@Autonomous(name = "Red bottom corner", group = "final")
 public class RedBottom extends LinearOpMode{
 
     private RobotInit robot;
@@ -58,7 +58,7 @@ public class RedBottom extends LinearOpMode{
         robot.armServo.setPosition(0.3);
         robot.sleep(500);
         robot.setEncoderBlocks((float)0.3, s);
-        robot.setEncoderBlocks((float)1, "Forward");
+        robot.setEncoderBlocks((float)0.8, "Forward");
 
         robot.turn(90, 1, 0.10, 0.50, 3);
         robot.setEncoderBlocks((float)0.5, "Forward" );
