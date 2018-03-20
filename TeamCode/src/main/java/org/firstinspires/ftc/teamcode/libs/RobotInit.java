@@ -72,8 +72,8 @@ public class RobotInit{
     public NormalizedColorSensor armSensor = null;
     public Servo armServo = null;
 
-    public Servo jewServo = null;
-    public Servo jewClawServo = null;
+    public Servo relServo = null;
+    public Servo relClawServo = null;
 
     public DcMotor armMotor = null;
     public DcMotor lift = null;
@@ -96,9 +96,9 @@ public class RobotInit{
         backLeftDrive = hwMap.dcMotor.get("backLeftDrive");
         backRightDrive = hwMap.dcMotor.get("backRightDrive");
         armMotor = hwMap.dcMotor.get("armMotor");
-        //jewelMotor = hwMap.dcMotor.get("jewelMotor");
-        jewServo = hwMap.servo.get("jewServo");
-        jewClawServo = hwMap.servo.get("jewClawServo");
+        //relicMotor = hwMap.dcMotor.get("relicMotor");
+        relServo = hwMap.servo.get("relServo");
+        relClawServo = hwMap.servo.get("relClawServo");
         armSensor = hwMap.get(NormalizedColorSensor.class, "armSensor");
         armServo = hwMap.servo.get("armServo");
         lift = hwMap.dcMotor.get("lift");

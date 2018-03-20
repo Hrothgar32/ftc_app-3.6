@@ -15,7 +15,7 @@ import static java.lang.Math.abs;
  * This code is made to control the robot with a controller. It has been edited several times,
  * this is the final, most optimal code on the date of 2/16/2018.
  *
- * This code moves the main arm, the lift, and the wheels of the robot.
+ * This code moves the main arm, the lift, the relic arm and the wheels of the robot.
  *
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -48,8 +48,9 @@ public class Controller extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+            double rCS = robot.jewelMotor.getCurrentPosition();
 
-            /**     Drive control    */
+            /**---------------------------------Drive control-------------------------------------*/
 
             if (gamepad1.left_stick_y >= 0.51 || gamepad1.left_stick_y <= -0.51) {
 
@@ -99,7 +100,7 @@ public class Controller extends LinearOpMode {
             }
 
 
-            /**     Front arm control   */
+            /**------------------------Front arm control-----------------------------*/
 
 
             if (gamepad1.left_bumper) {
@@ -113,7 +114,7 @@ public class Controller extends LinearOpMode {
             } else
                 armMotor.setPower(0);
 
-            /**     Lift control        */
+            /**-----------------------------Lift control----------------------------*/
 
             if (gamepad1.right_trigger != 0) {
                 liftPower = 0.5;
@@ -125,6 +126,7 @@ public class Controller extends LinearOpMode {
                 lift.setPower(liftPower);
             }
 
+
             if (gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0)
                 lift.setPower(0.1);
 
@@ -133,18 +135,29 @@ public class Controller extends LinearOpMode {
                 lift.setPower(0);
             }
 
-            /** JewelArm Control */
+
+
+            /**----------------------------JewelArm Control--------------------------*/
+
 
             if(gamepad2.right_trigger != 0){
-                double k = robot.jewClawServo.getPosition();
-                robot.jewClawServo.setPosition(k + 0.2);
-            }
-            if(gamepad2.left_trigger != 0){
-                double k = robot.jewClawServo.getPosition();
-                robot.jewClawServo.setPosition(k - 0.2);
+                rCS += 0.2;
+                robot.relClawServo.setPosition(rCS);
             }
 
 
+            if(gamepad2.left_trigger != 0) {
+                rCS -= 0.2;
+                robot.relClawServo.setPosition(rCS);
+            }
+
+            if(gamepad2.right_stick_y > 0)
+                robot.jewelMotor.setPower(0.3);
+
+            if(gamepad2.right_stick_y < 0)
+                robot.jewelMotor.setPower(-0.3);
+
+            /**-------------------------------Telemetry----------------------------*/
             telemetry.addLine()
                      .addData("Status", "Initialized")
                      .addData("armMotor power:", armMotor.getPower())
@@ -156,7 +169,7 @@ public class Controller extends LinearOpMode {
                      .addData("backRightDrive position: ", robot.backRightDrive
                              .getCurrentPosition())
                      .addData("stick direction", abs(gamepad1.left_stick_x))
-                     .addData("JewClawServo", robot.jewClawServo.getPosition());
+                     .addData("JewClawServo", robot.relClawServo.getPosition());
             telemetry.update();
         }
     }
