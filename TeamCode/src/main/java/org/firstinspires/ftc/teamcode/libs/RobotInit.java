@@ -74,8 +74,8 @@ public class RobotInit{
     public NormalizedColorSensor armSensor = null;
     public Servo armServo = null;
 
-    public Servo relServo = null;
-    public Servo relClawServo = null;
+   // public Servo relServo = null;
+   //public Servo relClawServo = null;
 
     public DcMotor armMotor = null;
     public DcMotor lift = null;
@@ -99,8 +99,8 @@ public class RobotInit{
         backRightDrive = hwMap.dcMotor.get("backRightDrive");
         armMotor = hwMap.dcMotor.get("armMotor");
         //relicMotor = hwMap.dcMotor.get("relicMotor");
-        relServo = hwMap.servo.get("relServo");
-        relClawServo = hwMap.servo.get("relClawServo");
+      //  relServo = hwMap.servo.get("relServo");
+     //   relClawServo = hwMap.servo.get("relClawServo");
         armSensor = hwMap.get(NormalizedColorSensor.class, "armSensor");
         armServo = hwMap.servo.get("armServo");
         lift = hwMap.dcMotor.get("lift");
@@ -212,10 +212,10 @@ public class RobotInit{
                 backRightDrive.setPower(power);
                 backLeftDrive.setPower(power);
             case "Rotation":
-                frontRightDrive.setPower(-power);
-                frontLeftDrive.setPower(power);
-                backRightDrive.setPower(-power);
-                backLeftDrive.setPower(power);
+                frontRightDrive.setPower(power);
+                frontLeftDrive.setPower(-power);
+                backRightDrive.setPower(power);
+                backLeftDrive.setPower(-power);
         }
     }
 
@@ -302,23 +302,30 @@ public class RobotInit{
         this.stopMotors();
     }
 
-    public void turn2(int target, int range, double minSpeed, double addSpeed){
+    public void turn2(int target, int range, double minSpeed, double addSpeed, Telemetry
+            telemetry, int steps) {
         int current = gyro.getAngle();
-        while(!isok(current, target, range)){
-            int delta = (target  - current + 360) % 360;
-            if(delta > 180)
-                delta -= 360;
-            if(Math.abs(delta) > range){
-                int mod = delta / 30;
-                if(mod == 0)
-                    mod = 1;
-                this.setMotorPower(minSpeed * Math.signum(mod) + addSpeed * mod, "Rotation");
-            }
+        telemetry.addData("fasz", current);
+        telemetry.update();
+        int count = 0;
+        while (count != steps) {
+            if (!isok(current, target, range)) {
+                current = gyro.getAngle();
+                telemetry.addData("szog", current);
+
+                int mod = target - current;
+                mod /= 30;
+                telemetry.addData("mod", mod);
+                telemetry.update();
+                this.setMotorPower(minSpeed + addSpeed * Math.abs(mod), "Rotation");
+            } else
+                count++;
+
         }
         this.stopMotors();
     }
 
     private boolean isok(int a, int b, int c){
-        return ((a >= b + c && a <= b - c));
+        return ((a >= b - c && a <= b + c));
     }
 }

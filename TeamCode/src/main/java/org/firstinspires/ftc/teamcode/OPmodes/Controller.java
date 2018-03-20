@@ -138,7 +138,7 @@ public class Controller extends LinearOpMode {
 
 
             /**----------------------------JewelArm Control--------------------------*/
-
+/*
 
             if(gamepad2.left_stick_y > 0){
                 rCS += 0.2;
@@ -177,8 +177,8 @@ public class Controller extends LinearOpMode {
                      .addData("backRightDrive position: ", robot.backRightDrive
                              .getCurrentPosition())
                      .addData("stick direction", abs(gamepad1.left_stick_x))
-                     .addData("gamepad2.left_stick_y", gamepad2.right_stick_y)
-                     .addData("JewClawServo", robot.relClawServo.getPosition());
+                     .addData("gamepad2.left_stick_y", gamepad2.right_stick_y);
+             //        .addData("JewClawServo", robot.relClawServo.getPosition());
             telemetry.update();
         }
     }

@@ -32,12 +32,12 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  */
 
 
-
-@Autonomous(name = "Red bottom corner", group = "final")
-public class RedBottom extends LinearOpMode{
+@Autonomous(name = "Blue top corner Auto", group = "final")
+public class BlueTop extends LinearOpMode{
 
     private RobotInit robot;
     private String vuMark;
+
     public void runOpMode(){
         robot = new RobotInit();
         waitForStart();
@@ -45,28 +45,16 @@ public class RedBottom extends LinearOpMode{
         robot.armServo.setPosition(0.8);
         robot.sleep(200);
         String f, s;
-        if(robot.auto.driver() == 1) {
+        if(robot.auto.driver() == 1){
             f = "Forward";
             s = "Backward";
         }
         else{
-            f = "Backward";
-            s = "Forward";
+            f = "Forward";
+            s = "Backward";
         }
-        robot.setEncoderBlocks((float)0.3, f);
-        vuMark = robot.vufModul.identifyVuMark();
-        robot.armServo.setPosition(0.3);
-        robot.sleep(500);
-        robot.setEncoderBlocks((float)0.3, s);
-        robot.setEncoderBlocks((float)0.8, "Forward");
 
-        robot.turn(90, 1, 0.10, 0.50, 3);
-        robot.setEncoderBlocks((float)0.5, "Forward" );
-
-        robot.turn(90, 1, 0.10, 0.50, 3);
-        robot.auto.vuMovement(robot, vuMark);
 
 
     }
-
 }

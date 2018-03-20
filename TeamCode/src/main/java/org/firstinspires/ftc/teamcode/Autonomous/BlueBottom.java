@@ -38,12 +38,11 @@ public class BlueBottom extends LinearOpMode {
 
         robot.turn(90, 1, 0.10, 0.50, 3);
         robot.setEncoderBlocks((float)0.5, "Forward" );
-        robot.gyro.Reset();
+
         robot.turn(90, 1, 0.10, 0.50, 3);
-        robot.gyro.Reset();
         robot.turn(90, 1, 0.10, 0.50, 3);
         robot.setEncoderBlocks((float)0.5, "Forward" );
-        robot.gyro.Reset();
+
         robot.turn(90, 1, 0.10, 0.50, 3);
         robot.auto.vuMovement(robot, vuMark);
     }
