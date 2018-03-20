@@ -32,6 +32,8 @@ public class GyroTest extends LinearOpMode {
         telemetry.addData("Angle", robot.gyro.getAngle());
         robot.sleep(5000);
         telemetry.update();
+        robot.turn2(90,5, 0.01, 0.20);
+        robot.sleep(5000);
         robot.turn(90, 10, 0.10, 1, 3);
         robot.sleep(5000);
         robot.turn(-90, 2, 0.10, 0.10, 3);

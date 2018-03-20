@@ -38,6 +38,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 /**
  * Created by Vsbi on 2/12/2018. (RoboCorp RO084)
@@ -148,7 +150,7 @@ public class RobotInit{
                 frontRightDrive.setTargetPosition(numBlocksTetrix);
                 backLeftDrive.setTargetPosition(-numBlocksNewrest);
                 backRightDrive.setTargetPosition(-numBlocksNewrest);
-                setMotorPower(0.5,"Straight");
+                setMotorPower(0.3,"Straight");
                 while (frontRightDrive.getCurrentPosition() < 2750*a) {
                 }
                 backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -161,7 +163,7 @@ public class RobotInit{
                 frontRightDrive.setTargetPosition(-numBlocksTetrix);
                 backRightDrive.setTargetPosition(numBlocksNewrest);
                 backLeftDrive.setTargetPosition(numBlocksNewrest);
-                setMotorPower(0.5,"Straight");
+                setMotorPower(0.3,"Straight");
                 while (frontRightDrive.getCurrentPosition() > -2750*a) {
                 }
                 backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -169,6 +171,33 @@ public class RobotInit{
                 frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
+            case "Right":
+                frontLeftDrive.setTargetPosition(numBlocksTetrix);
+                frontRightDrive.setTargetPosition(-numBlocksTetrix);
+                backLeftDrive.setTargetPosition(-numBlocksNewrest);
+                backRightDrive.setTargetPosition(numBlocksNewrest);
+                setMotorPower(0.3,"Straight");
+                while (frontRightDrive.getCurrentPosition() < 2750*a) {
+                }
+                backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                break;
+            case "Left":
+                frontLeftDrive.setTargetPosition(numBlocksTetrix);
+                frontRightDrive.setTargetPosition(-numBlocksTetrix);
+                backRightDrive.setTargetPosition(numBlocksNewrest);
+                backLeftDrive.setTargetPosition(-numBlocksNewrest);
+                setMotorPower(0.3,"Straight");
+                while (frontRightDrive.getCurrentPosition() > -2750*a) {
+                }
+                backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                break;
+
         }
 
     }
@@ -271,5 +300,25 @@ public class RobotInit{
             }
         }
         this.stopMotors();
+    }
+
+    public void turn2(int target, int range, double minSpeed, double addSpeed){
+        int current = gyro.getAngle();
+        while(!isok(current, target, range)){
+            int delta = (target  - current + 360) % 360;
+            if(delta > 180)
+                delta -= 360;
+            if(Math.abs(delta) > range){
+                int mod = delta / 30;
+                if(mod == 0)
+                    mod = 1;
+                this.setMotorPower(minSpeed * Math.signum(mod) + addSpeed * mod, "Rotation");
+            }
+        }
+        this.stopMotors();
+    }
+
+    private boolean isok(int a, int b, int c){
+        return ((a >= b + c && a <= b - c));
     }
 }

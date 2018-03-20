@@ -44,6 +44,33 @@ public class AutoLib {
         return  direction(readJewelColor());
     }
 
+    public void vuMovement(RobotInit robot, String vuMark){
+        if(vuMark == "left") {
+            robot.turn(90, 1, 0.10, 0.30, 3);
+            robot.sleep(3000);
+            robot.setEncoderBlocks((float) 0.5, "Forward");
+            robot.sleep(3000);
+            robot.turn(-90, 1, 0.10, 0.30, 3);
+            robot.sleep(3000);
+            robot.setEncoderBlocks((float) 0.8, "Forward");
+            robot.sleep(3000);
+        }
+        if(vuMark == "center"){
+            robot.setEncoderBlocks((float) 0.8, "Forward");
+            robot.sleep(3000);
+        }
+        if(vuMark == "right"){
+            robot.turn(-90, 1, 0.10, 0.30, 3);
+            robot.sleep(3000);
+            robot.setEncoderBlocks((float) 0.5, "Forward");
+            robot.sleep(3000);
+            robot.turn(90, 1, 0.10, 0.30, 3);
+            robot.sleep(3000);
+            robot.setEncoderBlocks((float) 0.8, "Forward");
+            robot.sleep(3000);
+        }
+
+    }
 
 
 }
