@@ -34,7 +34,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 
 @Autonomous(name = "Blue bottom corner Auto", group = "final")
-public class BlueBottom extends LinearOpMode{
+public class RedBottom extends LinearOpMode{
 
     private RobotInit robot;
     private String vuMark;
