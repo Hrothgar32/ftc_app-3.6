@@ -118,17 +118,17 @@ public class Controller extends LinearOpMode {
 
             if (gamepad1.right_trigger != 0) {
                 liftPower = 0.5;
-                lift.setPower(liftPower);
+                lift.setPower(-liftPower);
             }
 
             if (gamepad1.left_trigger != 0) {
                 liftPower = -0.1;
-                lift.setPower(liftPower);
+                lift.setPower(-liftPower);
             }
 
 
             if (gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0)
-                lift.setPower(0.1);
+                lift.setPower(0);
 
             if (gamepad1.x) {
                 liftPower = 0;
@@ -140,22 +140,30 @@ public class Controller extends LinearOpMode {
             /**----------------------------JewelArm Control--------------------------*/
 
 
-            if(gamepad2.right_trigger != 0){
+            if(gamepad2.left_stick_y > 0){
                 rCS += 0.2;
                 robot.relClawServo.setPosition(rCS);
             }
 
 
-            if(gamepad2.left_trigger != 0) {
+            if(gamepad2.left_stick_y < 0) {
                 rCS -= 0.2;
                 robot.relClawServo.setPosition(rCS);
             }
 
+            if(gamepad2.right_trigger != 0)
+                robot.relServo.setPosition(0.7);
+
+            if(gamepad2.left_trigger != 0)
+                robot.relServo.setPosition(0.3);
+
+            /*
             if(gamepad2.right_stick_y > 0)
-                robot.jewelMotor.setPower(0.3);
+                robot.relicMotor.setPower(0.3);
 
             if(gamepad2.right_stick_y < 0)
-                robot.jewelMotor.setPower(-0.3);
+                robot.relicMotor.setPower(-0.3);
+            */
 
             /**-------------------------------Telemetry----------------------------*/
             telemetry.addLine()
@@ -169,6 +177,7 @@ public class Controller extends LinearOpMode {
                      .addData("backRightDrive position: ", robot.backRightDrive
                              .getCurrentPosition())
                      .addData("stick direction", abs(gamepad1.left_stick_x))
+                     .addData("gamepad2.left_stick_y", gamepad2.right_stick_y)
                      .addData("JewClawServo", robot.relClawServo.getPosition());
             telemetry.update();
         }
