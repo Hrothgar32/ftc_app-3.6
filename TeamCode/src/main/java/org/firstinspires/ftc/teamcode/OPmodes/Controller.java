@@ -117,7 +117,7 @@ public class Controller extends LinearOpMode {
             /**-----------------------------Lift control----------------------------*/
 
             if (gamepad1.right_trigger != 0) {
-                liftPower = 0.5;
+                liftPower = 0.4;
                 lift.setPower(-liftPower);
             }
 
