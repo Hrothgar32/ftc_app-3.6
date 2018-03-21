@@ -260,6 +260,7 @@ public class RobotInit{
         private VuforiaLocalizer vuforia = null;
         private VuforiaTrackables relicTrackables = null;
         private VuforiaTrackable relicTemplate = null;
+        private int steps = 0;
         public RoboVuforia() {
             int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
             VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -273,7 +274,7 @@ public class RobotInit{
             relicTrackables.activate();
         }
         public String identifyVuMark(){
-            while(true) {
+            while(this.steps < 25) {
                 RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
                 if (vuMark == RelicRecoveryVuMark.CENTER) {
                     return "center";
@@ -284,7 +285,9 @@ public class RobotInit{
                 else if(vuMark == RelicRecoveryVuMark.RIGHT){
                     return "right";
                 }
+                this.steps++;
             }
+            return "center";
         }
     }
 
@@ -296,31 +299,7 @@ public class RobotInit{
     * @param steps the number of times you want to check if the angle is in range
      */
 
-
-    public void turn(double target, double range, double minSpeed, double addSpeed, int steps) {
-        int count = 0;
-        while(count < steps) {
-            double current = gyro.getAngle();
-            double delta = (target - current + 360.0) % 360.0;
-            if (delta > 180.0)
-                delta -= 360.0;
-            if (Math.abs(delta) > range){
-                double gyroMod = delta / 45.0;
-                if(Math.abs(gyroMod) > 1.0) {
-                    gyroMod = Math.signum(gyroMod);
-                    this.setMotorPower(minSpeed * Math.signum(gyroMod) + addSpeed * gyroMod,
-                            "Rotation");
-                }
-            }
-            else{
-                count++;
-                this.stopMotors();
-            }
-        }
-        this.stopMotors();
-    }
-
-    public void turn2(int target, int range, double minSpeed, double addSpeed, Telemetry
+    public void turn(int target, int range, double minSpeed, double addSpeed, Telemetry
             telemetry, int steps) {
         if (target < 0) {
                 this.turnClcw(Math.abs(target), range, minSpeed, addSpeed, telemetry, 3);
@@ -344,19 +323,17 @@ public class RobotInit{
 
             }
             this.stopMotors();
+            gyro.reset();
         }
     }
     public void turnClcw(int target, int range, double minSpeed, double addSpeed, Telemetry
             telemetry, int steps) {
         int current = gyro.getAngle();
-        telemetry.addData("fasz", current);
-        telemetry.update();
         int count = 0;
         while (count != steps) {
             if (!isok(current, target, range)) {
                 current = gyro.getAngle();
                 telemetry.addData("szog", current);
-
                 int mod = target - current;
                 mod /= 30;
                 telemetry.addData("mod", mod);
@@ -364,11 +341,10 @@ public class RobotInit{
                 this.setMotorPowerCtrClcw(minSpeed + addSpeed * Math.abs(mod), "Rotation");
             } else
                 count++;
-
         }
         this.stopMotors();
+        gyro.reset();
     }
-
     private boolean isok(int a, int b, int c){
         return ((a >= b - c && a <= b + c));
     }

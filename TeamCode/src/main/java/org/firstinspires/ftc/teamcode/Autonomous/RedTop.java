@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the followin   g conditions:
+ * furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
@@ -36,19 +36,26 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 public class RedTop extends LinearOpMode{
 
     private RobotInit robot;
-    private String vuMark;
+    private String vuMark = "nothing";
 
 
     public void runOpMode(){
         robot = new RobotInit();
         waitForStart();
         robot.init(hardwareMap, true);
-        robot.armMotor.setPower(0.20);
-        robot.armServo.setPosition(0.8);
-        robot.lift.setPower(0.40);
-        robot.sleep(200);
+        robot.armMotor.setPower(0.2);
+
+        //lifting up the cube
+        robot.lift.setPower(0.4);
+        robot.sleep(500);
+        robot.lift.setPower(0);
+
+        robot.armServo.setPosition(1);
+        robot.sleep(3000);
         robot.lift.setPower(0);
         String first, second;
+        telemetry.addData("szin: ", robot.auto.driver());
+        telemetry.update();
         if(robot.auto.driver() == 1){
             first = "Forward";
             second = "Backward";
@@ -57,26 +64,23 @@ public class RedTop extends LinearOpMode{
             first = "Backward";
             second = "Forward";
         }
-
-
         //knocking the jewel off
         robot.setEncoderBlocks((float)0.2, first);
-        robot.armServo.setPosition(0.5);
-        robot.sleep(200);
-        robot.setEncoderBlocks((float)0.2, second);
-
-
+        robot.armServo.setPosition(0.3);
+        robot.sleep(1000);
+        robot.setEncoderBlocks((float)0.25, second);
         //reading the VuMark
-        robot.setEncoderBlocks((float)0.2, "Forward");
+        robot.setEncoderBlocks((float)0.35, "Forward");
+
         vuMark = robot.vufModul.identifyVuMark();
-        robot.setEncoderBlocks((float)0.2, "Backward");
+        telemetry.addData("vumark", vuMark);
+        telemetry.update();
 
+        robot.setEncoderBlocks((float)0.45, "Backward");
         robot.setEncoderBlocks((float)1, "Backward");
-        robot.turn2(90, 2, 0.10, 0.20, telemetry, 3);
-        robot.auto.vuMovement(robot, vuMark);
+        robot.turn(90, 2, 0.10, 0.20, telemetry, 3);
+        robot.auto.vuMovement(robot, vuMark, telemetry);
         robot.armMotor.setPower(0);
-
-
 
     }
 }

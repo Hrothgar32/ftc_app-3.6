@@ -37,36 +37,51 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 public class RedBottom extends LinearOpMode{
 
     private RobotInit robot;
-    private String vuMark;
+    private String vuMark = "nothing";
+
+
     public void runOpMode(){
         robot = new RobotInit();
-        waitForStart();
+         waitForStart();
         robot.init(hardwareMap, true);
-        robot.armServo.setPosition(0.8);
-        robot.sleep(200);
-        String f, s;
-        if(robot.auto.driver() == 1) {
-            f = "Forward";
-            s = "Backward";
-        }
-        else{
-            f = "Backward";
-            s = "Forward";
-        }
-        robot.setEncoderBlocks((float)0.3, f);
-        vuMark = robot.vufModul.identifyVuMark();
-        robot.armServo.setPosition(0.3);
+        robot.armMotor.setPower(0.2);
+
+    //lifting up the cube
+        robot.lift.setPower(0.4);
         robot.sleep(500);
-        robot.setEncoderBlocks((float)0.3, s);
-        robot.setEncoderBlocks((float)0.8, "Forward");
+        robot.lift.setPower(0);
 
-        robot.turn(90, 1, 0.10, 0.50, 3);
-        robot.setEncoderBlocks((float)0.5, "Forward" );
+        robot.armServo.setPosition(1);
+        robot.sleep(3000);
+        robot.lift.setPower(0);
+    String first, second;
+        telemetry.addData("szin: ", robot.auto.driver());
+        telemetry.update();
+        if(robot.auto.driver() == 1){
+        first = "Forward";
+        second = "Backward";
+    }
+        else{
+        first = "Backward";
+        second = "Forward";
+    }
+    //knocking the jewel off
+        robot.setEncoderBlocks((float)0.2, first);
+        robot.armServo.setPosition(0.3);
+        robot.sleep(1000);
+        robot.setEncoderBlocks((float)0.25, second);
+    //reading the VuMark
+        robot.setEncoderBlocks((float)0.35, "Forward");
 
-        robot.turn(90, 1, 0.10, 0.50, 3);
-        robot.auto.vuMovement(robot, vuMark);
+         vuMark = robot.vufModul.identifyVuMark();
+        telemetry.addData("vumark", vuMark);
+        telemetry.update();
 
-
+        robot.setEncoderBlocks((float)1, "Backward");
+        robot.turnClcw(90, 2, 0.10, 0.20, telemetry, 3);
+        robot.setEncoderBlocks((float)0.5, "Forward");
+        robot.turn(90, 2, 0.10, 0.20, telemetry, 3);
+        robot.auto.vuMovement(robot, vuMark, telemetry);
     }
 
 }

@@ -46,6 +46,7 @@ public class Gyroscope {
 
         return (int)this.angles.firstAngle;
     }
-
-
+    public void reset(){
+        init(hwMap);
+    }
 }
