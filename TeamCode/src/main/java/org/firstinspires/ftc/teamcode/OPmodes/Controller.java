@@ -48,7 +48,7 @@ public class Controller extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            double rCS = robot.jewelMotor.getCurrentPosition();
+            double rCS = robot.relClawServo.getPosition();
 
             /**---------------------------------Drive control-------------------------------------*/
 
@@ -137,32 +137,41 @@ public class Controller extends LinearOpMode {
 
 
 
-            /**----------------------------JewelArm Control--------------------------*/
+            /**----------------------------RelicArm Control--------------------------*/
 
 
-            if(gamepad2.left_stick_y > 0){
-                rCS += 0.2;
+            if(gamepad2.left_stick_y > 0.5 && rCS >= 0.17){
+                rCS += 0.01;
                 robot.relClawServo.setPosition(rCS);
             }
 
 
-            if(gamepad2.left_stick_y < 0) {
-                rCS -= 0.2;
+            if(gamepad2.left_stick_y < -0.5) {
+                rCS -= 0.01;
                 robot.relClawServo.setPosition(rCS);
             }
 
             if(gamepad2.right_trigger != 0)
-                robot.relServo.setPosition(0.7);
+                robot.relServo.setPosition(1);
 
             if(gamepad2.left_trigger != 0)
-                robot.relServo.setPosition(0.3);
+                robot.relServo.setPosition(0.58);
+
+            if(gamepad2.x){
+                robot.relServo.setPosition(0.66);
+            }
 
 
-            if(gamepad2.right_stick_y > 0)
+            if(gamepad2.right_stick_y > 0.5)
                 robot.relicMotor.setPower(0.3);
 
-            if(gamepad2.right_stick_y < 0)
+            if(gamepad2.right_stick_y < -0.5)
                 robot.relicMotor.setPower(-0.3);
+
+            else if (gamepad2.right_stick_y < 0.5 && gamepad2.right_stick_y > - 0.5)
+                robot.relicMotor.setPower(0);
+
+
 
 
             /**-------------------------------Telemetry----------------------------*/
