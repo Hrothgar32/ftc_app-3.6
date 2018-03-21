@@ -115,7 +115,7 @@ public class RobotInit{
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        armServo.setPosition(0);
+
         if (isAuto) {
             vufModul = new RoboVuforia();
             gyro = new Gyroscope();

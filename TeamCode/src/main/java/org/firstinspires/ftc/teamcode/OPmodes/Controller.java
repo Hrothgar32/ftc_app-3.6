@@ -42,7 +42,7 @@ public class Controller extends LinearOpMode {
         robot.init(hardwareMap, false);
 
         waitForStart();
-
+        robot.armServo.setPosition(0.3);
         armMotor.setPower(0);
         lift.setPower(0);
 
