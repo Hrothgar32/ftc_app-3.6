@@ -219,6 +219,23 @@ public class RobotInit{
         }
     }
 
+    public void setMotorPowerCtrClcw(double power, String direction){
+
+        switch (direction){
+
+            case "Straight":
+                frontRightDrive.setPower(power);
+                frontLeftDrive.setPower(power);
+                backRightDrive.setPower(power);
+                backLeftDrive.setPower(power);
+            case "Rotation":
+                frontRightDrive.setPower(-power);
+                frontLeftDrive.setPower(power);
+                backRightDrive.setPower(-power);
+                backLeftDrive.setPower(power);
+        }
+    }
+
 
     public void stopMotors(){
         frontRightDrive.setPower(0);
@@ -304,6 +321,32 @@ public class RobotInit{
 
     public void turn2(int target, int range, double minSpeed, double addSpeed, Telemetry
             telemetry, int steps) {
+        if (target < 0) {
+                this.turnClcw(Math.abs(target), range, minSpeed, addSpeed, telemetry, 3);
+        } else {
+            int current = gyro.getAngle();
+            telemetry.addData("fasz", current);
+            telemetry.update();
+            int count = 0;
+            while (count != steps) {
+                if (!isok(current, target, range)) {
+                    current = gyro.getAngle();
+                    telemetry.addData("szog", current);
+
+                    int mod = target - current;
+                    mod /= 30;
+                    telemetry.addData("mod", mod);
+                    telemetry.update();
+                    this.setMotorPower(minSpeed + addSpeed * Math.abs(mod), "Rotation");
+                } else
+                    count++;
+
+            }
+            this.stopMotors();
+        }
+    }
+    public void turnClcw(int target, int range, double minSpeed, double addSpeed, Telemetry
+            telemetry, int steps) {
         int current = gyro.getAngle();
         telemetry.addData("fasz", current);
         telemetry.update();
@@ -317,7 +360,7 @@ public class RobotInit{
                 mod /= 30;
                 telemetry.addData("mod", mod);
                 telemetry.update();
-                this.setMotorPower(minSpeed + addSpeed * Math.abs(mod), "Rotation");
+                this.setMotorPowerCtrClcw(minSpeed + addSpeed * Math.abs(mod), "Rotation");
             } else
                 count++;
 
