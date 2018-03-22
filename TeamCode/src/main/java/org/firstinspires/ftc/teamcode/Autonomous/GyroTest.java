@@ -32,12 +32,11 @@ public class GyroTest extends LinearOpMode {
         telemetry.addData("Angle", robot.gyro.getAngle());
         robot.sleep(5000);
         telemetry.update();
-        robot.turn2(90,5, 0.15, 0.1, telemetry, 3 );
+        robot.turn(90,5, 0.15, 0.1, telemetry, 3 );
         robot.sleep(5000);
-        telemetry.addLine("fasz");
+        telemetry.addLine("finished");
         telemetry.update();
-        robot.gyro.init(hardwareMap);
-        robot.turn2(-90, 5, 0.15, 0.1,telemetry, 3);
+        robot.turn(-90, 5, 0.15, 0.1,telemetry, 3);
         }
     }
 

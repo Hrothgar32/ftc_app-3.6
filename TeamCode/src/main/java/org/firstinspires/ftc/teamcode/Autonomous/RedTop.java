@@ -72,8 +72,8 @@ public class RedTop extends LinearOpMode{
         robot.setEncoderBlocks((float)0.2, "Backward");
 
         robot.setEncoderBlocks((float)1, "Backward");
-        robot.turn2(90, 2, 0.10, 0.20, telemetry, 3);
-        robot.auto.vuMovement(robot, vuMark);
+        robot.turn(90, 2, 0.10, 0.20, telemetry, 3);
+        robot.auto.vuMovement(robot, vuMark,telemetry);
         robot.armMotor.setPower(0);
 
 

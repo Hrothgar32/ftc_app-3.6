@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.robot.Robot;
+
 
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
@@ -17,14 +17,14 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the followin   g conditions:
+ * furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -42,19 +42,40 @@ public class BlueTop extends LinearOpMode{
         robot = new RobotInit();
         waitForStart();
         robot.init(hardwareMap, true);
-        robot.armServo.setPosition(0.8);
-        robot.sleep(200);
-        String f, s;
-        if(robot.auto.driver() == 1){
-            f = "Forward";
-            s = "Backward";
+        robot.armMotor.setPower(0.2);
+
+        //lifting up the cube
+        robot.lift.setPower(0.4);
+        robot.sleep(500);
+        robot.lift.setPower(0);
+
+        robot.armServo.setPosition(1);
+        robot.sleep(3000);
+        robot.lift.setPower(0);
+        String first, second;
+        telemetry.addData("szin: ", robot.auto.driver());
+        telemetry.update();
+        if(robot.auto.driver() == -1){
+            first = "Forward";
+            second = "Backward";
         }
         else{
-            f = "Forward";
-            s = "Backward";
+            first = "Backward";
+            second = "Forward";
         }
+        //knocking the jewel off
+        robot.setEncoderBlocks((float)0.2, first);
+        robot.armServo.setPosition(0.3);
+        robot.sleep(1000);
+        robot.setEncoderBlocks((float)0.25, second);
+        //reading the VuMark
+        robot.setEncoderBlocks((float)0.35, "Backward");
 
-
-
+        vuMark = robot.vufModul.identifyVuMark();
+        telemetry.addData("vumark", vuMark);
+        telemetry.update();
+        robot.setEncoderBlocks((float) 1, "Backward");
+        robot.turn(90, 2, 0.10, 0.20, telemetry, 3);
+        robot.auto.vuMovement(robot, vuMark, telemetry);
     }
 }

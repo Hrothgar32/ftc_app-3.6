@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 
 /**
  * Created by Vsbi on 3/19/2018.
@@ -44,13 +46,13 @@ public class AutoLib {
         return  direction(readJewelColor());
     }
 
-    public void vuMovement(RobotInit robot, String vuMark){
+    public void vuMovement(RobotInit robot, String vuMark, Telemetry telemetry){
         if(vuMark == "left") {
-            robot.turn(90, 1, 0.10, 0.30, 3);
+            robot.turn(90, 1, 0.10, 0.30, telemetry, 3);
             robot.sleep(3000);
             robot.setEncoderBlocks((float) 0.5, "Forward");
             robot.sleep(3000);
-            robot.turn(-90, 1, 0.10, 0.30, 3);
+            robot.turn(-90, 1, 0.10, 0.30, telemetry, 3);
             robot.sleep(3000);
             robot.setEncoderBlocks((float) 0.8, "Forward");
             robot.sleep(3000);
@@ -60,17 +62,16 @@ public class AutoLib {
             robot.sleep(3000);
         }
         if(vuMark == "right"){
-            robot.turn(-90, 1, 0.10, 0.30, 3);
+            robot.turn(-90, 1, 0.10, 0.30, telemetry, 3);
             robot.sleep(3000);
             robot.setEncoderBlocks((float) 0.5, "Forward");
             robot.sleep(3000);
-            robot.turn(90, 1, 0.10, 0.30, 3);
+            robot.turn(90, 1, 0.10, 0.30, telemetry, 3);
             robot.sleep(3000);
             robot.setEncoderBlocks((float) 0.8, "Forward");
             robot.sleep(3000);
         }
 
     }
-
 
 }

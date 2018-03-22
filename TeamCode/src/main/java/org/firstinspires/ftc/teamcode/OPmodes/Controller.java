@@ -45,12 +45,10 @@ public class Controller extends LinearOpMode {
         robot.armServo.setPosition(0.3);
         armMotor.setPower(0);
         lift.setPower(0);
-        double rCS = 0.17;
-        robot.relClawServo.setPosition(rCS);
 
         while (opModeIsActive()) {
 
-
+            double rCS = robot.relClawServo.getPosition();
 
             /**---------------------------------Drive control-------------------------------------*/
 
@@ -119,7 +117,7 @@ public class Controller extends LinearOpMode {
             /**-----------------------------Lift control----------------------------*/
 
             if (gamepad1.right_trigger != 0) {
-                liftPower = 0.5;
+                liftPower = 0.4;
                 lift.setPower(-liftPower);
             }
 
@@ -142,14 +140,14 @@ public class Controller extends LinearOpMode {
             /**----------------------------RelicArm Control--------------------------*/
 
 
-            if(gamepad2.dpad_up ){
-                rCS = rCS + 0.025;
+            if(gamepad2.left_stick_y > 0.5 && rCS >= 0.17){
+                rCS += 0.01;
                 robot.relClawServo.setPosition(rCS);
             }
 
 
-            if(gamepad2.dpad_down && ((rCS - 0.025) > 0.18)) {
-                rCS = rCS - 0.025;
+            if(gamepad2.left_stick_y < -0.5) {
+                rCS -= 0.01;
                 robot.relClawServo.setPosition(rCS);
             }
 
@@ -165,10 +163,10 @@ public class Controller extends LinearOpMode {
 
 
             if(gamepad2.right_stick_y > 0.5)
-                robot.relicMotor.setPower(-0.5);
+                robot.relicMotor.setPower(0.3);
 
             if(gamepad2.right_stick_y < -0.5)
-                robot.relicMotor.setPower(0.3);
+                robot.relicMotor.setPower(-0.3);
 
             else if (gamepad2.right_stick_y < 0.5 && gamepad2.right_stick_y > - 0.5)
                 robot.relicMotor.setPower(0);
@@ -187,7 +185,9 @@ public class Controller extends LinearOpMode {
                      .addData("backLeftDrive position: ", robot.backLeftDrive.getCurrentPosition())
                      .addData("backRightDrive position: ", robot.backRightDrive
                              .getCurrentPosition())
-                     .addData("stick direction", abs(gamepad1.left_stick_x));
+                     .addData("stick direction", abs(gamepad1.left_stick_x))
+                     .addData("gamepad2.left_stick_y", gamepad2.right_stick_y)
+                     .addData("JewClawServo", robot.relClawServo.getPosition());
             telemetry.update();
         }
     }

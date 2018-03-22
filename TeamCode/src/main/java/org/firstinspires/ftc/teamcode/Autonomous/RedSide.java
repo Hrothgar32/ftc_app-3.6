@@ -38,10 +38,6 @@ public class RedSide extends LinearOpMode{
 
     private RobotInit robot;
 
-
-
-
-
     public void runOpMode(){
         robot = new RobotInit();
         waitForStart();
@@ -49,7 +45,6 @@ public class RedSide extends LinearOpMode{
         int way = robot.auto.driver();
         robot.setMotorPower(0.4, "Straight");
         robot.setEncoderBlocks((float)0.5 * way, "Forward");
-        robot.turn(90, 1, 0.2, 0.5, 2);
 
     }
 

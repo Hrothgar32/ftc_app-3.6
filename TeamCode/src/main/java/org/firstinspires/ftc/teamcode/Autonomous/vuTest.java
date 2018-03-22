@@ -22,11 +22,11 @@ public class vuTest extends LinearOpMode{
         robot.init(hardwareMap, true);
         vuMark = "left";
         if(vuMark == "left") {
-            robot.turn(90, 1, 0.10, 0.30, 3);
+            robot.turn(90, 1, 0.10, 0.30, telemetry, 3);
             robot.sleep(3000);
             robot.setEncoderBlocks((float) 0.5, "Forward");
             robot.sleep(3000);
-            robot.turn(-90, 1, 0.10, 0.30, 3);
+            robot.turn(-90, 1, 0.10, 0.30, telemetry, 3);
             robot.sleep(3000);
             robot.setEncoderBlocks((float) 0.8, "Forward");
             robot.sleep(3000);
@@ -36,11 +36,11 @@ public class vuTest extends LinearOpMode{
             robot.sleep(3000);
         }
         if(vuMark == "right"){
-            robot.turn(-90, 1, 0.10, 0.30, 3);
+            robot.turn(-90, 1, 0.10, 0.30,telemetry,  3);
             robot.sleep(3000);
             robot.setEncoderBlocks((float) 0.5, "Forward");
             robot.sleep(3000);
-            robot.turn(90, 1, 0.10, 0.30, 3);
+            robot.turn(90, 1, 0.10, 0.30, telemetry, 3);
             robot.sleep(3000);
             robot.setEncoderBlocks((float) 0.8, "Forward");
             robot.sleep(3000);
