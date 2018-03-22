@@ -116,12 +116,12 @@ public class Controller extends LinearOpMode {
 
             /**-----------------------------Lift control----------------------------*/
 
-            if (gamepad1.right_trigger != 0) {
+            if (gamepad1.left_trigger != 0) {
                 liftPower = 0.4;
                 lift.setPower(-liftPower);
             }
 
-            if (gamepad1.left_trigger != 0) {
+            if (gamepad1.right_trigger != 0) {
                 liftPower = -0.1;
                 lift.setPower(-liftPower);
             }
@@ -140,13 +140,13 @@ public class Controller extends LinearOpMode {
             /**----------------------------RelicArm Control--------------------------*/
 
 
-            if(gamepad2.left_stick_y > 0.5 && rCS >= 0.17){
+            if(gamepad2.right_bumper != false){
                 rCS += 0.01;
                 robot.relClawServo.setPosition(rCS);
             }
 
 
-            if(gamepad2.left_stick_y < -0.5) {
+            if(gamepad2.left_bumper != false) {
                 rCS -= 0.01;
                 robot.relClawServo.setPosition(rCS);
             }
@@ -187,7 +187,7 @@ public class Controller extends LinearOpMode {
                              .getCurrentPosition())
                      .addData("stick direction", abs(gamepad1.left_stick_x))
                      .addData("gamepad2.left_stick_y", gamepad2.right_stick_y)
-                     .addData("JewClawServo", robot.relClawServo.getPosition());
+                     .addData("relClawServo: ", robot.relClawServo.getPosition());
             telemetry.update();
         }
     }

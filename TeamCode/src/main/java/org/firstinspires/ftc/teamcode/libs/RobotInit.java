@@ -172,35 +172,7 @@ public class RobotInit{
                 frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
-            case "Right":
-                frontLeftDrive.setTargetPosition(numBlocksTetrix);
-                frontRightDrive.setTargetPosition(-numBlocksTetrix);
-                backLeftDrive.setTargetPosition(-numBlocksNewrest);
-                backRightDrive.setTargetPosition(numBlocksNewrest);
-                setMotorPower(0.3,"Straight");
-                while (frontRightDrive.getCurrentPosition() < 2750*a) {
-                }
-                backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                break;
-            case "Left":
-                frontLeftDrive.setTargetPosition(numBlocksTetrix);
-                frontRightDrive.setTargetPosition(-numBlocksTetrix);
-                backRightDrive.setTargetPosition(numBlocksNewrest);
-                backLeftDrive.setTargetPosition(-numBlocksNewrest);
-                setMotorPower(0.3,"Straight");
-                while (frontRightDrive.getCurrentPosition() > -2750*a) {
-                }
-                backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                break;
-
         }
-
     }
 
     public void setMotorPower(double power, String direction){

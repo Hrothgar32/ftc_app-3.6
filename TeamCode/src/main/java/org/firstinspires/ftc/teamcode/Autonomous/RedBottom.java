@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the followin   g conditions:
+ * furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
@@ -38,7 +38,6 @@ public class RedBottom extends LinearOpMode{
 
     private RobotInit robot;
     private String vuMark = "nothing";
-
 
     public void runOpMode(){
         robot = new RobotInit();
@@ -83,5 +82,4 @@ public class RedBottom extends LinearOpMode{
         robot.turn(90, 2, 0.10, 0.20, telemetry, 3);
         robot.auto.vuMovement(robot, vuMark, telemetry);
     }
-
 }

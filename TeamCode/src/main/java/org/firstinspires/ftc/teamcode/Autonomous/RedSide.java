@@ -38,10 +38,6 @@ public class RedSide extends LinearOpMode{
 
     private RobotInit robot;
 
-
-
-
-
     public void runOpMode(){
         robot = new RobotInit();
         waitForStart();
