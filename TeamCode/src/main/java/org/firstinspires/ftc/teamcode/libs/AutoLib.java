@@ -26,7 +26,7 @@ public class AutoLib {
         armSensor = ahwMap.get(NormalizedColorSensor.class, "armSensor");
 
     }
-    private boolean readJewelColor(){
+    public boolean readJewelColor(){
         float[] hsvValues = new float[3];
         NormalizedRGBA colors = armSensor.getNormalizedColors();
         Color.colorToHSV(colors.toColor(), hsvValues);
