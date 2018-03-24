@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.libs;
 
-
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;

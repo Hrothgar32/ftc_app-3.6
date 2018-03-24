@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
@@ -33,6 +34,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 
 @Autonomous(name = "Blue top corner Auto", group = "final")
+@Disabled
 public class BlueTop extends LinearOpMode{
 
     private RobotInit robot;

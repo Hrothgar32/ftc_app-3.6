@@ -1,9 +1,14 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.ActualAuto;
 
 
+
+import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.robot.Robot;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -32,50 +37,45 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  * SOFTWARE.
  */
 
-@Autonomous(name = "Red top corner", group = "final")
-public class RedTop extends LinearOpMode{
+@Autonomous(name = "blue bottom", group = "final")
+public class blueBottom extends LinearOpMode{
 
+    public ColorSensor armSensor = null;
     private RobotInit robot;
     private String vuMark;
 
 
     public void runOpMode(){
         robot = new RobotInit();
+        armSensor = hardwareMap.get(ColorSensor.class, "armSensor");
         waitForStart();
+
         robot.init(hardwareMap, true);
-        robot.armMotor.setPower(0.20);
-        robot.armServo.setPosition(0.8);
-        robot.lift.setPower(0.40);
-        robot.sleep(200);
-        robot.lift.setPower(0);
+        robot.armMotor.setPower(0.25);
+        robot.armServo.setPosition(1);
+
+
+
         String first, second;
-        if(robot.auto.driver() == 1){
-            first = "Forward";
-            second = "Backward";
-        }
-        else{
+
+        if(armSensor.red() >= armSensor.blue()){
             first = "Backward";
             second = "Forward";
         }
-
-
+        else{
+            first = "Forward";
+            second = "Backward";
+        }
+        robot.sleep(1800);
+        telemetry.addLine()
+                .addData("first", first)
+                .addData("second", second);
+        telemetry.update();
         //knocking the jewel off
         robot.setEncoderBlocks((float)0.2, first);
-        robot.armServo.setPosition(0.5);
-        robot.sleep(200);
+        robot.armServo.setPosition(0.3);
+        robot.sleep(1500);
         robot.setEncoderBlocks((float)0.2, second);
-
-
-        //reading the VuMark
-        robot.setEncoderBlocks((float)0.2, "Forward");
-        vuMark = robot.vufModul.identifyVuMark();
-        robot.setEncoderBlocks((float)0.2, "Backward");
-
-        robot.setEncoderBlocks((float)1, "Backward");
-        robot.turn(90, 2, 0.10, 0.20, telemetry, 3);
-        robot.auto.vuMovement(robot, vuMark,telemetry);
-        robot.armMotor.setPower(0);
-
 
 
     }

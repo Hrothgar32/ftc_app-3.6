@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -29,7 +30,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 
 @Autonomous(name="Auto_Red_Side", group="Linear Opmode")
-//@Disabled
+@Disabled
 public class Auto_RedSide extends LinearOpMode {
 
     private RobotInit robot;

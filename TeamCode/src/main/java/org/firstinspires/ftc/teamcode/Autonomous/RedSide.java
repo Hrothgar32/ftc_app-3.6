@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
@@ -34,6 +35,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 
 @Autonomous(name = "RedSide autonomous", group = "Final")
+@Disabled
 public class RedSide extends LinearOpMode{
 
     private RobotInit robot;

@@ -1,12 +1,17 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.ActualAuto;
 
 
+
+import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.robot.Robot;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 /**
@@ -18,7 +23,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * furnished to do so, subject to the followin   g conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
@@ -32,56 +37,46 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  * SOFTWARE.
  */
 
+@Autonomous(name = "red top", group = "final")
+public class RedTop extends LinearOpMode{
 
-
-@Autonomous(name = "Red bottom corner", group = "final")
-@Disabled
-public class RedBottom extends LinearOpMode{
-
+    public ColorSensor armSensor = null;
     private RobotInit robot;
-    private String vuMark = "nothing";
+    private String vuMark;
+
 
     public void runOpMode(){
         robot = new RobotInit();
-         waitForStart();
+        armSensor = hardwareMap.get(ColorSensor.class, "armSensor");
+        waitForStart();
+
         robot.init(hardwareMap, true);
-        robot.armMotor.setPower(0.2);
-
-    //lifting up the cube
-        robot.lift.setPower(0.4);
-        robot.sleep(500);
-        robot.lift.setPower(0);
-
+        robot.armMotor.setPower(0.25);
         robot.armServo.setPosition(1);
-        robot.sleep(3000);
-        robot.lift.setPower(0);
-    String first, second;
-        telemetry.addData("szin: ", robot.auto.driver());
-        telemetry.update();
-        if(robot.auto.driver() == 1){
-        first = "Forward";
-        second = "Backward";
-    }
+
+
+
+        String first, second;
+
+        if(armSensor.red() <= armSensor.blue()){
+            first = "Backward";
+            second = "Forward";
+        }
         else{
-        first = "Backward";
-        second = "Forward";
-    }
-    //knocking the jewel off
+            first = "Forward";
+            second = "Backward";
+        }
+        robot.sleep(1800);
+        telemetry.addLine()
+                .addData("first", first)
+                .addData("second", second);
+        telemetry.update();
+        //knocking the jewel off
         robot.setEncoderBlocks((float)0.2, first);
         robot.armServo.setPosition(0.3);
-        robot.sleep(1000);
-        robot.setEncoderBlocks((float)0.25, second);
-    //reading the VuMark
-        robot.setEncoderBlocks((float)0.35, "Forward");
+        robot.sleep(1500);
+        robot.setEncoderBlocks((float)0.2, second);
 
-         vuMark = robot.vufModul.identifyVuMark();
-        telemetry.addData("vumark", vuMark);
-        telemetry.update();
 
-        robot.setEncoderBlocks((float)1, "Backward");
-        robot.turnClcw(90, 2, 0.10, 0.20, telemetry, 3);
-        robot.setEncoderBlocks((float)0.5, "Forward");
-        robot.turn(90, 2, 0.10, 0.20, telemetry, 3);
-        robot.auto.vuMovement(robot, vuMark, telemetry);
     }
 }

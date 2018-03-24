@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -19,6 +20,7 @@ import static java.lang.Math.abs;
  */
 
 @Autonomous(name = "Gyro Test", group = "Linear Opmode")
+@Disabled
 public class GyroTest extends LinearOpMode {
 
     private RobotInit robot = null;

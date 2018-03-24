@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -20,6 +21,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
  */
 
     @Autonomous(name = "Encoder test", group = "test")
+    @Disabled
     public class EncoderTest extends LinearOpMode {
 
         private double power = 0.5;

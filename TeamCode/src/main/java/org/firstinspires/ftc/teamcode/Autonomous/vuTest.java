@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.libs.RobotInit;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.libs.RobotInit;
 
 
 @Autonomous(name = "Vu Test", group = "test")
+@Disabled
 public class vuTest extends LinearOpMode{
     private RobotInit robot;
     String vuMark;

@@ -32,7 +32,7 @@ public class Controller extends LinearOpMode {
     private double liftPower = 0;
 
     @Override
-    public void runOpMode() {
+    public void  runOpMode() {
 
 
         lift = hardwareMap.get(DcMotor.class, "lift");
@@ -112,7 +112,7 @@ public class Controller extends LinearOpMode {
                 armMotor.setPower(0);
 
             if (gamepad1.right_bumper) {
-                armMotor.setPower(0.3);
+                armMotor.setPower(0.4);
 
             } else
                 armMotor.setPower(0);
@@ -120,7 +120,7 @@ public class Controller extends LinearOpMode {
             /**-----------------------------Lift control----------------------------*/
 
             if (gamepad1.right_trigger != 0) {
-                liftPower = 0.4;
+                liftPower = 0.6;
                 lift.setPower(-liftPower);
             }
 
@@ -166,7 +166,7 @@ public class Controller extends LinearOpMode {
 
 
             if(gamepad2.right_stick_y > 0.5)
-                robot.relicMotor.setPower(0.4);
+                robot.relicMotor.setPower(0.8);
 
             if(gamepad2.right_stick_y < -0.5)
                 robot.relicMotor.setPower(-0.3);

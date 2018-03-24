@@ -1,17 +1,20 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.robot.Robot;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.libs.RobotInit;
+ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+        import com.qualcomm.robotcore.hardware.DcMotor;
+        import com.qualcomm.robotcore.robot.Robot;
+
+        import org.firstinspires.ftc.robotcore.external.Telemetry;
+        import org.firstinspires.ftc.teamcode.libs.RobotInit;
 /**
  * Created by Vsbi on 3/23/2018.
  */
 
-@Autonomous(name = "Red top final", group = "test")
-public class AutoTop_new extends LinearOpMode{
+@Autonomous(name = "Red bottom", group = "final")
+@Disabled
+public class autoRedBottom extends LinearOpMode {
     private RobotInit robot;
     private String vuMark;
 
@@ -23,30 +26,31 @@ public class AutoTop_new extends LinearOpMode{
 
     public void runOpMode(){
         robot = new RobotInit();
-        while(!isStarted()){
-            telemetry.addData("angle", robot.gyro.getAngle());
-            telemetry.update();
-        }
         waitForStart();
         robot.init(hardwareMap, true);
-        robot.armMotor.setPower(0.20);
-        robot.armServo.setPosition(0.80);
-        robot.lift.setPower(0.40);
-        robot.sleep(1500);
+        robot.armMotor.setPower(0.3);
+        robot.armServo.setPosition(1);
+        //robot.lift.setPower(0.40);
+        robot.sleep(500);
 
-        int sig = -1;
-        if(robot.auto.readJewelColor() == true){
-            sig = 1;
-        }
+        int sig = 0;
+            if(robot.auto.readJewelColor() == true){
+                sig = 1;
+            }
+            else {
+                sig = -1;
+            }
         drive(0.2 * sig , driveSpeed);
-        robot.armServo.setPosition(0.3);
         robot.sleep(1000);
+        robot.armServo.setPosition(0.3);
         drive(-sig * 0.2, driveSpeed);
         drive(0.2, driveSpeed);
         vuMark = robot.vufModul.identifyVuMark();
         drive(-0.3, driveSpeed);
-        drive(-1, driveSpeed);
+        drive(-0.7, driveSpeed);
         turn(90, 2, 0.10, 0.20, 3);
+        drive(0.5, driveSpeed);
+        turn(-90, 2, 0.10, 0.20, 3);
         vuMovement(vuMark);
         robot.armMotor.setPower(0);
         drive(-0.2, driveSpeed);
@@ -73,19 +77,21 @@ public class AutoTop_new extends LinearOpMode{
 
             robot.frontLeftDrive.setTargetPosition(tetrixtarget);
             robot.frontRightDrive.setTargetPosition(tetrixtarget);
-            robot.backLeftDrive.setTargetPosition(newresttarget);
-            robot.backRightDrive.setTargetPosition(newresttarget);
+            robot.backLeftDrive.setTargetPosition(-newresttarget);
+            robot.backRightDrive.setTargetPosition(-newresttarget);
 
-            robot.frontLeftDrive.setPower(driveSpeed);
-            robot.frontRightDrive.setPower(driveSpeed);
-            robot.backLeftDrive.setPower(driveSpeed);
-            robot.backRightDrive.setPower(driveSpeed);
+            robot.setMotorPower(0.4, "Forward");
 
-            while(opModeIsActive() && robot.backRightDrive.isBusy() && robot.frontLeftDrive.isBusy()){
+            while(opModeIsActive() && Math.abs(robot.backRightDrive.getCurrentPosition()) <
+                    Math.abs(newresttarget) -
+                    20){
                 telemetry.addLine("Moving");
                 telemetry.update();
-
+                if(!isStopRequested())
+                    break;
             }
+            telemetry.addLine("done");
+            telemetry.update();
             robot.frontLeftDrive.setPower(0);
             robot.frontRightDrive.setPower(0);
             robot.backLeftDrive.setPower(0);
@@ -111,8 +117,8 @@ public class AutoTop_new extends LinearOpMode{
                 }
                 else
                     count++;
-              robot.stopMotors();
-              robot.gyro.reset();
+                robot.stopMotors();
+                robot.gyro.reset();
             }
         }
 
@@ -138,35 +144,31 @@ public class AutoTop_new extends LinearOpMode{
                 robot.gyro.reset();
             }
         }
-
     }
 
 
     public boolean isok(int a, int b, int c){
         return ((a >= b - c && a <= b + c));
-}
+    }
 
     public void vuMovement(String vuMark){
         if(opModeIsActive()) {
-            if (vuMark == "left") {
+            if (vuMark.equals("left")) {
                 turn(90, 1, 0.10, 0.30, 3);
-                robot.sleep(1000);
+
                 drive(0.5, driveSpeed);
                 turn(-90, 1, 0.10, 0.30, 3);
                 drive(0.8, driveSpeed);
-                robot.sleep(1000);
+
             }
-            if (vuMark == "center") {
+            if (vuMark.equals("center")) {
                 drive(0.8, driveSpeed);
-                robot.sleep(1000);
             }
-            if (vuMark == "right") {
+            if (vuMark.equals("right")) {
                 turn(-90, 1, 0.10, 0.30, 3);
-                robot.sleep(1000);
                 drive(0.5, driveSpeed);
                 turn(90, 1, 0.10, 0.30, 3);
                 drive(0.8, driveSpeed);
-                robot.sleep(1000);
             }
         }
     }
