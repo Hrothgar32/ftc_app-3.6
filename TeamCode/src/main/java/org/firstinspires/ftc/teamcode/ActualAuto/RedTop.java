@@ -51,13 +51,17 @@ public class RedTop extends LinearOpMode{
         waitForStart();
 
         robot.init(hardwareMap, true);
-        robot.armMotor.setPower(0.25);
         robot.armServo.setPosition(1);
 
 
 
         String first, second;
+        robot.sleep(2000);
 
+        telemetry.addLine()
+                .addData("red:", armSensor.red())
+                .addData("blue", armSensor.blue());
+        telemetry.update();
         if(armSensor.red() <= armSensor.blue()){
             first = "Backward";
             second = "Forward";

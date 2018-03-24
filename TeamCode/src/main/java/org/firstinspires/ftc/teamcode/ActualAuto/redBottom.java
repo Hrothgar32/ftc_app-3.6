@@ -51,11 +51,13 @@ public class redBottom extends LinearOpMode{
         waitForStart();
 
         robot.init(hardwareMap, true);
-        robot.armMotor.setPower(0.25);
         robot.armServo.setPosition(1);
+        robot.sleep(2000);
 
-
-
+        telemetry.addLine()
+                .addData("red:", armSensor.red())
+                .addData("blue", armSensor.blue());
+        telemetry.update();
         String first, second;
 
         if(armSensor.red() <= armSensor.blue()){
